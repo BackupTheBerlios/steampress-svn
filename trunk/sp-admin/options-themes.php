@@ -15,7 +15,7 @@ if ( isset($_GET['action']) ) {
 
 		do_action('switch_theme', get_current_theme());
 
-	  header('Location: themes.php?activated=true');
+	  header('Location: options-themes.php?activated=true');
 	}
  }
 
@@ -81,7 +81,7 @@ $current_stylesheet = $themes[$current_theme]['Stylesheet'];
 		if ($template == $current_template && $stylesheet == $current_stylesheet) {
 			$action = __('Active Theme');
 		} else {
-			$action = "<a href='themes.php?action=activate&amp;template=$template&amp;stylesheet=$stylesheet' title='" . __('Select this theme') . "' class='edit'>" . __('Select') . '</a>';
+			$action = "<a href='options-themes.php?action=activate&amp;template=$template&amp;stylesheet=$stylesheet' title='" . __('Select this theme') . "' class='edit'>" . __('Select') . '</a>';
 		}
 
 		$theme = ('class="alternate"' == $theme) ? '' : 'class="alternate"';
