@@ -158,11 +158,6 @@ p {
 #poststuff {
   }
 
-#poststuff fieldset {
-    padding: 2px;
-    border: 1px solid #000;
-  }
-
 #publish {
     font-weight: bold;
   }
@@ -207,4 +202,17 @@ a:visited {
 {
 	padding: 3px 3px 3px 10px;
 	margin: 3px;
+}
+
+fieldset
+{
+	padding: 5px;
+	border: 1px solid #000;
+	margin: 10px;
+}
+
+legend
+{
+	padding: 1px;
+	border: 1px solid #000;
 }
