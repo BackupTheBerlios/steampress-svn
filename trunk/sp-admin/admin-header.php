@@ -85,7 +85,7 @@ window.onload = blurry;
 <body>
 
 <div id="sphead">
-<h1><?php echo sptexturize(get_settings(('blogname'))); ?></h1>
+<h1><?php echo sptexturize(get_settings(('blogname'))); ?> <span>(<a href="<?php echo get_settings('home') . '/'; ?>"><?php _e('View site') ?> &raquo;</a>)</span></h1>
 </div>
 
 <?php

@@ -64,10 +64,12 @@ function the_author_ID() {
 }
 
 function get_the_author_email() {
-    global $id,$authordata;    return antispambot($authordata->user_email);
+	global $authordata;
+	return $authordata->user_email;
 }
+
 function the_author_email() {
-    echo get_the_author_email();
+	echo apply_filters('the_author_email', get_the_author_email() );
 }
 
 function get_the_author_url() {
@@ -126,7 +128,7 @@ function get_author_link($echo = false, $author_id, $author_nicename) {
     $link = $sp_rewrite->get_author_permastruct();
     
     if (empty($link)) {
-        $file = get_settings('home') . '/' . get_settings('blogfilename');
+        $file = get_settings('home') . '/';
         $link = $file.$querystring_start.'author'.$querystring_equal.$auth_ID;
     } else {
         if ('' == $author_nicename) $author_nicename = $cache_userdata[$author_id]->author_nicename;
@@ -168,7 +170,7 @@ function sp_list_authors($args = '') {
 }
 
 function list_authors($optioncount = false, $exclude_admin = true, $show_fullname = false, $hide_empty = true, $feed = '', $feed_image = '') {
-    global $spdb, $blogfilename;
+    global $spdb;
 
     $query = "SELECT ID, user_nickname, user_firstname, user_lastname, user_nicename from $spdb->users " . ($exclude_admin ? "WHERE user_nickname <> 'admin' " : '') . "ORDER BY user_nickname";
     $authors = $spdb->get_results($query);
