@@ -67,7 +67,7 @@ function logged_in()
 			if(!$passfromdb)
 			{
 				$error = "Incorrect Username. Remember, usernames are CaSe SeNsEtIvE";
-				include(ABSPATH . SPINC . '/sp-login.php';
+				include(ABSPATH . SPINC . '/sp-login.php');
 				die();
 			}
 			else
