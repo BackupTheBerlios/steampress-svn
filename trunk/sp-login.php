@@ -29,7 +29,7 @@ function logged_in()
 		if(!$passfromdb)
 		{
 			$error = "Incorrect Username. Remember, usernames are CaSe SeNsEtIvE";
-			include(ABSPATH . SPINC . '/sp-login.php';
+			include(ABSPATH . SPINC . '/sp-login.php');
 			die();
 		}
 		if($sppass == $passfromdb['user_pass'])
@@ -50,7 +50,7 @@ function logged_in()
 		else
 		{
 			$error = "Incorrect Password.";
-			include(ABSPATH . SPINC . '/sp-login.php';
+			include(ABSPATH . SPINC . '/sp-login.php');
 			die();
 		}
 	}
@@ -58,7 +58,7 @@ function logged_in()
 	{
 		if(empty($usercookie) || empty($passcookie))
 		{
-			include(ABSPATH . SPINC . '/sp-login.php';
+			include(ABSPATH . SPINC . '/sp-login.php');
 			die();
 		}
 		else
@@ -82,7 +82,7 @@ function logged_in()
 					session_destroy();
 				   setcookie('steampressuser_' . COOKIEHASH, ' ', time() - 31536000, COOKIEPATH);
 				   setcookie('steampresspass_' . COOKIEHASH, ' ', time() - 31536000, COOKIEPATH);
-					include(ABSPATH . SPINC . '/sp-login.php';
+					include(ABSPATH . SPINC . '/sp-login.php');
 					die();
 				}
 			}
