@@ -14,9 +14,11 @@ rpl -R 'WP' 'SP' *
 rpl -R 'wptexturize' 'sptexturize' *
 rpl -R 'wphead' 'sphead' *
 
-//fixes the problem with activating themes, as the link was still to
-//themes.php
-rpl -R '/themes.php' '/options-themes.php' *
+#fixes the problem with activating themes, as the link was still to 
+#themes.php for actions in options-themes.php, uses the questionmarks so 
+#it doesn't double the menu up when doing the conversions on a already 
+sp install
+rpl -R 'themes.php?' 'options-themes.php?' *
 
 echo 'replacing done'
 
