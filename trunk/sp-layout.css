@@ -277,7 +277,7 @@ padding: 2px;
 
 #sp-calendar td {
 	color: #ccc;
-	font: normal sans-serif;
+	font-family: sans-serif;
 	letter-spacing: normal;
 	padding: 2px 0;
 	text-align: center;
