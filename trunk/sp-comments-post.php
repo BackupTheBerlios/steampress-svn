@@ -22,7 +22,7 @@ $comment_type = '';
 
 $user_ip    = apply_filters('pre_comment_user_ip', $_SERVER['REMOTE_ADDR']);
 
-if ( get_settings('require_name_email') && ('' == $email || '' == $author) )
+if ( get_settings('require_name_email') && ('' == $comment_author_email || '' == $comment_author) )
 	die( __('Error: please fill the required fields (name, email).') );
 
 if ( '' == $comment_content )
@@ -38,15 +38,11 @@ setcookie('comment_author_url_' . COOKIEHASH, stripslashes($url), time() + 30000
 
 header('Expires: Mon, 11 Jan 1984 05:00:00 GMT');
 header('Last-Modified: ' . gmdate('D, d M Y H:i:s') . ' GMT');
-header('Cache-Control: no-cache, must-revalidate');
+header('Cache-Control: no-cache, must-revalidate, max-age=0');
 header('Pragma: no-cache');
 
 $location = get_permalink($comment_post_ID);
 
-if ($is_IIS) {
-	header("Refresh: 0;url=$location");
-} else {
-	header("Location: $location");
-}
+header("Location: $location");
 
 ?>
