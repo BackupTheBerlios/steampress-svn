@@ -1,5 +1,5 @@
 <?php
-// Someone please remind me to shoot the SteamPress developers and their defunct naming schemes.
+// Someone please remind me to shoot the w0rdpress developers and their defunct naming schemes.
 // Is it get_settings('siteurl') or bloginfo('wpurl')
 // They really need to make up their minds. I had originally converted this file so that we could get rid of bloginfo()
 // But come to find out get_settings() doesn't work here. Why? Who knows?
@@ -44,4 +44,4 @@ if ( $error )
 	</div>
 
 </body>
-</html
+</html>
