@@ -1,0 +1,61 @@
+#!/bin/bash
+#	wp-sp-transformer 1.0
+# requires rpl and rename
+# This script will transform a WordPress directory from CVS or a release into
+# a basic steampress directory
+
+rpl -R 'wp-' 'sp-' *
+rpl -R 'wp_' 'sp_' *
+rpl -R '$wp' '$sp' *
+rpl -R 'wordpress.org' 'steampress.berlios.de' *
+rpl -R 'wordpress' 'steampress' *
+rpl -R 'WordPress' 'SteamPress' *
+rpl -R 'WP' 'SP' *
+rpl -R 'wptexturize' 'sptexturize' *
+rpl -R 'wphead' 'sphead' *
+
+echo 'replacing done'
+
+rename wp- sp- *
+cd sp-admin
+rename wp- sp- *
+cd ..
+cd sp-content
+rename wp- sp- *
+cd ..
+cd sp-includes
+rename wp- sp- *
+cd ..
+cd sp-images
+rename wp- sp- *
+cd ..
+
+mv sp-admin/themes.php sp-admin/options-themes.php
+mv sp-admin/plugins.php sp-admin/options-plugins.php
+
+echo 'renaming done'
+
+rm -rf CVS
+rm -rf readme.html
+rm -rf b2-include
+rm -rf sp-mail.php
+rm -rf sp-admin/CVS
+rm -rf sp-admin/help
+rm -rf sp-admin/bookmarklet.php
+rm -rf sp-admin/sidebar.php
+rm -rf sp-admin/quicktags.js
+rm -rf sp-admin/plugin-editor.php
+rm -rf sp-admin/theme-editor.php
+rm -rf sp-admin/options-misc.php
+rm -rf sp-content/CVS
+rm -rf sp-content/plugins/CVS
+rm -rf sp-content/links-update-cache.xml
+rm -rf sp-includes/CVS
+rm -rf sp-includes/languages
+rm -rf sp-includes/class-pop3.php
+rm -rf sp-images/CVS
+rm -rf sp-images/smilies/CVS
+rm -rf sp-images/links
+rm wp.php
+
+echo 'pruning done'

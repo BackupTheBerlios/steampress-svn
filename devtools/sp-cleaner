@@ -1,0 +1,29 @@
+#!/bin/bash
+chmod 755 sp-admin
+chmod 644 sp-admin/*
+chmod 755 sp-includes
+chmod 644 sp-includes/*
+chmod 755 sp-images
+chmod 644 sp-images/*
+chmod 755 sp-images/smilies
+chmod 644 sp-images/smilies/*
+chmod 755 sp-content
+chmod 644 sp-content/*
+chmod 755 sp-content/plugins
+chmod 644 sp-content/plugins/*
+
+rm -rf .svn
+rm -rf sp-admin/.svn
+rm -rf sp-content/.svn
+rm -rf sp-content/plugins/.svn
+rm -rf sp-includes/.svn
+rm -rf sp-images/.svn
+rm -rf sp-images/smilies/.svn
+rm *~
+rm sp-admin/*~
+rm sp-content/*~
+rm sp-content/plugins/*~
+rm sp-images/*~
+rm sp-includes/*~
+
+echo 'cleanup done'
