@@ -47,14 +47,14 @@ if ($action == 'retrospam') {
         <legend><?php _e('E-mail me whenever:') ?></legend> 
 		<ul> 
 			<li> 
-				<label for="comments_notify"> 
-				<input name="comments_notify" type="checkbox" id="comments_notify" value="1" <?php checked('1', get_settings('comments_notify')); ?> /> 
-                <?php _e('Anyone posts a comment') ?> </label> 
+				<label for="comments_notify">
+					<input name="comments_notify" type="checkbox" id="comments_notify" value="1" <?php checked('1', get_settings('comments_notify')); ?> /> <?php _e('Anyone posts a comment') ?>
+				</label> 
 			</li> 
 			<li> 
-				<label for="moderation_notify"> 
-				<input name="moderation_notify" type="checkbox" id="moderation_notify" value="1" <?php checked('1', get_settings('moderation_notify')); ?> /> 
-				<?php _e('A comment is held for moderation') ?> </label> 
+				<label for="moderation_notify">
+					<input name="moderation_notify" type="checkbox" id="moderation_notify" value="1" <?php checked('1', get_settings('moderation_notify')); ?> /> <?php _e('A comment is held for moderation') ?>
+				</label> 
 			</li> 
 		</ul> 
 </fieldset>
@@ -62,12 +62,20 @@ if ($action == 'retrospam') {
         <legend><?php _e('Before a comment appears:') ?></legend> 
 		<ul> 
 			<li> 
-				<label for="comment_moderation"> 
-				<input name="comment_moderation" type="checkbox" id="comment_moderation" value="1" <?php checked('1', get_settings('comment_moderation')); ?> /> 
-				<?php _e('An administrator must approve the comment (regardless of any matches below)') ?> </label> 
+				<label for="comment_moderation">
+					<input name="comment_moderation" type="checkbox" id="comment_moderation" value="1" <?php checked('1', get_settings('comment_moderation')); ?> /> <?php _e('An administrator must approve the comment (regardless of any matches below)') ?>
+				</label> 
 			</li> 
-			<li><label for="require_name_email"><input type="checkbox" name="require_name_email" id="require_name_email" value="1" <?php checked('1', get_settings('require_name_email')); ?> /> <?php _e('Comment author must fill out name and e-mail') ?></label></li> 
-			<li><label for="comment_whitelist"><input type="checkbox" name="comment_whitelist" id="comment_whitelist" value="1" <?php checked('1', get_settings('comment_whitelist')); ?> /> <?php _e('Comment author must have a previously approved comment') ?></label></li> 
+			<li>
+				<label for="require_name_email">
+					<input type="checkbox" name="require_name_email" id="require_name_email" value="1" <?php checked('1', get_settings('require_name_email')); ?> /> <?php _e('Comment author must fill out name and e-mail') ?>
+				</label>
+			</li> 
+			<li>
+				<label for="comment_whitelist">
+					<input type="checkbox" name="comment_whitelist" id="comment_whitelist" value="1" <?php checked('1', get_settings('comment_whitelist')); ?> /> <?php _e('Comment author must have a previously approved comment') ?>
+				</label>
+			</li> 
 		</ul> 
 </fieldset>
 <fieldset class="options">
