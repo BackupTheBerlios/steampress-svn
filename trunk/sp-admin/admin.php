@@ -2,7 +2,7 @@
 require_once('../sp-config.php');
 require_once(ABSPATH . 'sp-includes/sp-l10n.php');
 require_once(ABSPATH . 'sp-admin/admin-functions.php');
-auth_redirect();
+logged_in();
 
 $dogs = $spdb->get_results("SELECT * FROM $spdb->categories");
 foreach ($dogs as $catt) {
