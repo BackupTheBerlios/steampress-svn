@@ -194,6 +194,12 @@ function get_feed_link($feed='rss2') {
                 $output = $comment_feed_url . '/rss2/';
             }
             break;
+        case 'comments_atom':
+            $output = $feed_url .'/sp-commentsatom.php';
+            if ($do_perma) {
+                $output = $comment_feed_url . '/atom/';
+            }
+            break;
         case 'rss2':
         default:
             $output = $feed_url .'/sp-rss2.php';
