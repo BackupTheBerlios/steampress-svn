@@ -5,16 +5,9 @@
 function sp_loginout() {
 	global $user_level;
 	get_currentuserinfo();
-	$login_method = get_settings('login_method');
 	
 	if(0 == $user_level) {
-		if($login_method == 'new') {
 			$link = '<a href="' . get_settings('siteurl') . '/sp-admin/">' . __('Login') . '</a>';
-		}
-		else
-		{
-			$link = '<a href="' . get_settings('siteurl') . '/sp-login.php">' . __('Login') . '</a>';
-		}
 	}
 	else
 	{
