@@ -2,7 +2,7 @@
 require_once('admin.php');
 
 $title = __('Users');
-$parent_file = 'users.php';
+$parent_file = 'profile.php';
 	
 $spvarstoreset = array('action');
 for ($i=0; $i<count($spvarstoreset); $i += 1) {
