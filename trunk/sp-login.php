@@ -1,23 +1,7 @@
 <?php
 require( dirname(__FILE__) . '/sp-config.php' );
 
-$spvarstoreset = array('action');
-
-for ($i = 0; $i < count($spvarstoreset); $i = $i + 1) {
-	$spvar = $spvarstoreset[$i];
-	if (!isset($$spvar)) {
-		if (empty($_POST["$spvar"])) {
-			if (empty($_GET["$spvar"])) {
-				$$spvar = '';
-			} else {
-				$$spvar = $_GET["$spvar"];
-			}
-		} else {
-			$$spvar = $_POST["$spvar"];
-		}
-	}
-}
-
+$action = $_REQUEST['action'];
 $error = '';
 
 header('Expires: Wed, 11 Jan 1984 05:00:00 GMT');
@@ -26,8 +10,8 @@ header('Cache-Control: no-cache, must-revalidate');
 header('Pragma: no-cache');
 
 // If someone has moved SteamPress let's try to detect it
-if ( dirname('http://' . $_SERVER['HTTP_HOST'] . $_SERVER['SCRIPT_NAME']) != get_settings('siteurl') )
-	update_option('siteurl', dirname('http://' . $_SERVER['HTTP_HOST'] . $_SERVER['SCRIPT_NAME']) );
+if ( dirname('http://' . $_SERVER['HTTP_HOST'] . $_SERVER['PHP_SELF']) != get_settings('siteurl') )
+	update_option('siteurl', dirname('http://' . $_SERVER['HTTP_HOST'] . $_SERVER['PHP_SELF']) );
 
 switch($action) {
 
@@ -35,11 +19,12 @@ case 'logout':
 
     setcookie('steampressuser_' . COOKIEHASH, ' ', time() - 31536000, COOKIEPATH);
     setcookie('steampresspass_' . COOKIEHASH, ' ', time() - 31536000, COOKIEPATH);
+	header('Expires: Mon, 11 Jan 1984 05:00:00 GMT');
+	header('Last-Modified: ' . gmdate('D, d M Y H:i:s') . ' GMT');
+	header('Cache-Control: no-cache, must-revalidate, max-age=0');
+	header('Pragma: no-cache');
 
-	if ($is_IIS)
-		header('Refresh: 0;url=sp-login.php');
-	else
-		header('Location: sp-login.php');
+	header('Location: sp-login.php');
 	exit();
 
 break;
@@ -95,7 +80,7 @@ case 'retrievepassword':
 		die(sprintf(__('Sorry, that user does not seem to exist in our database. Perhaps you have the wrong username or e-mail address? <a href="%s">Try again</a>.'), 'sp-login.php?action=lostpassword'));
 
 	// Generate something random for a password... md5'ing current time with a rand salt
-	$user_pass = substr( MD5('time' . rand(1, 16000) ), 0, 6);
+	$user_pass = substr(md5(uniqid(microtime())), 0, 6);
 	// now insert the new pass md5'd into the db
  	$spdb->query("UPDATE $spdb->users SET user_pass = MD5('$user_pass') WHERE user_login = '$user_login'");
 	$message  = __('Login') . ": $user_login\r\n";
@@ -128,12 +113,12 @@ default:
 
 	if( !empty($_POST) ) {
 		$user_login = $_POST['log'];
-		$user_pass = $_POST['pwd'];
+		$user_pass  = $_POST['pwd'];
 		$redirect_to = preg_replace('|[^a-z0-9-~+_.?#=&;,/:]|i', '', $_POST['redirect_to']);
 	} elseif ( !empty($_COOKIE) ) {
-		if (! empty($_COOKIE['steampressuser_' . COOKIEHASH]))
+		if (! empty($_COOKIE['steampressuser_' . COOKIEHASH]) )
 			$user_login = $_COOKIE['steampressuser_' . COOKIEHASH];
-		if (! empty($_COOKIE['steampresspass_' . COOKIEHASH])) {
+		if (! empty($_COOKIE['steampresspass_' . COOKIEHASH]) ) {
 			$user_pass = $_COOKIE['steampresspass_' . COOKIEHASH];
 			$using_cookie = true;
 		}
@@ -141,9 +126,8 @@ default:
 	}
 	
 	$user = get_userdatabylogin($user_login);
-	if (0 == $user->user_level) {
+	if ( 0 == $user->user_level )
 		$redirect_to = get_settings('siteurl') . '/sp-admin/profile.php';
-	}
 
 	if ($user_login && $user_pass) {
 		if ( sp_login($user_login, $user_pass, $using_cookie) ) {
@@ -153,18 +137,16 @@ default:
 				setcookie('steampresspass_'. COOKIEHASH, $user_pass, time() + 31536000, COOKIEPATH);
 			}
 
-			if ($is_IIS)
-				header("Refresh: 0;url=$redirect_to");
-			else
-				header("Location: $redirect_to");
+			header("Location: $redirect_to");
 			exit();
 		} else {
 			if ($using_cookie)			
 				$error = __('Your session has expired.');
 		}
 	}
-
-	?>
+	if ( isset($_REQUEST['redirect_to']) )
+		$redirect_to = preg_replace('|[^a-z0-9-~+_.?#=&;,/:]|i', '', $_REQUEST['redirect_to']);
+?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -173,7 +155,6 @@ default:
 	<link rel="stylesheet" href="<?php bloginfo('wpurl'); ?>/sp-admin/sp-admin.css" type="text/css" />
 	<script type="text/javascript">
 	function focusit() {
-		// focus on first input field
 		document.getElementById('log').focus();
 	}
 	window.onload = focusit;
@@ -184,19 +165,16 @@ default:
 <div id="login">
 <h1><a href="http://steampress.berlios.de/">SteamPress</a></h1>
 <?php
-if ($error)
+if ( $error )
 	echo "<div id='login_error'>$error</div>";
 ?>
 
 <form name="loginform" id="loginform" action="sp-login.php" method="post">
 <p><label><?php _e('Login') ?>: <input type="text" name="log" id="log" value="" size="20" tabindex="1" /></label></p>
 <p><label><?php _e('Password') ?>: <input type="password" name="pwd" value="" size="20" tabindex="2" /></label></p>
-<p class="submit"><input type="submit" name="submit" value="<?php _e('Login'); ?> &raquo;" tabindex="3" />
-<?php if (isset($_GET["redirect_to"])) { ?>
-	<input type="hidden" name="redirect_to" value="<?php echo $_GET["redirect_to"] ?>" />
-<?php } else { ?>
-	<input type="hidden" name="redirect_to" value="sp-admin/" />
-<?php } ?>
+<p class="submit">
+	<input type="submit" name="submit" value="<?php _e('Login'); ?> &raquo;" tabindex="3" />
+	<input type="hidden" name="redirect_to" value="<?php echo $redirect_to; ?>" />
 </p>
 </form>
 <ul>
