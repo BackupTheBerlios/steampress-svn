@@ -172,7 +172,7 @@ function get_currentuserinfo() { // a bit like get_userdata(), on steroids
 function get_userdata($userid) {
 	global $spdb, $cache_userdata;
 	$userid = (int) $userid;
-	if ( empty($cache_userdata[$userid]) ) {
+	if ( empty($cache_userdata[$userid]) && $userid != 0) {
         $cache_userdata[$userid] = 
             $spdb->get_row("SELECT * FROM $spdb->users WHERE ID = '$userid'");
 	} 
@@ -372,9 +372,13 @@ function update_option($option_name, $newvalue) {
 	$newvalue = trim($newvalue); // I can't think of any situation we wouldn't want to trim
 
     // If the new and old values are the same, no need to update.
-    if ($newvalue == get_settings($option_name)) {
+    if ($newvalue == get_option($option_name)) {
         return true;
     }
+
+	// If it's not there add it
+	if ( !$spdb->get_var("SELECT option_name FROM $spdb->options WHERE option_name = '$option_name'") )
+		add_option($option_name);
 
 	$newvalue = $spdb->escape($newvalue);
 	$spdb->query("UPDATE $spdb->options SET option_value = '$newvalue' WHERE option_name = '$option_name'");
@@ -384,7 +388,7 @@ function update_option($option_name, $newvalue) {
 
 
 // thx Alex Stapleton, http://alex.vort-x.net/blog/
-function add_option($name, $value = '', $description = '') {
+function add_option($name, $value = '', $description = '', $autoload = 'yes') {
 	global $spdb;
 	if ( is_array($value) || is_object($value) )
 		$value = serialize($value);
@@ -393,7 +397,7 @@ function add_option($name, $value = '', $description = '') {
 		$name = $spdb->escape($name);
 		$value = $spdb->escape($value);
 		$description = $spdb->escape($description);
-		$spdb->query("INSERT INTO $spdb->options (option_name, option_value, option_description) VALUES ('$name', '$value', '$description')");
+		$spdb->query("INSERT INTO $spdb->options (option_name, option_value, option_description, autoload) VALUES ('$name', '$value', '$description', '$autoload')");
 
 		if($spdb->insert_id) {
 			global $cache_settings;
@@ -1556,10 +1560,10 @@ function auth_redirect() {
 	// Checks if a user is logged in, if not redirects them to the login page
 	if ( (!empty($_COOKIE['steampressuser_' . COOKIEHASH]) && 
 	!sp_login($_COOKIE['steampressuser_' . COOKIEHASH], $_COOKIE['steampresspass_' . COOKIEHASH], true)) ||
-	 (empty($_COOKIE['steampressuser_' . COOKIEHASH])) ) {
-		header('Expires: Wed, 5 Jun 1979 23:41:00 GMT'); // Michel's birthday
+	(empty($_COOKIE['steampressuser_' . COOKIEHASH])) ) {
+		header('Expires: Mon, 11 Jan 1984 05:00:00 GMT');
 		header('Last-Modified: ' . gmdate('D, d M Y H:i:s') . ' GMT');
-		header('Cache-Control: no-cache, must-revalidate');
+		header('Cache-Control: no-cache, must-revalidate, max-age=0');
 		header('Pragma: no-cache');
 	
 		header('Location: ' . get_settings('siteurl') . '/sp-login.php?redirect_to=' . urlencode($_SERVER['REQUEST_URI']));

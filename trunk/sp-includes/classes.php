@@ -680,7 +680,7 @@ class retrospam_mgr {
 
 		if ( count($counters[found]) > 0 ) {
 			$id_list = implode( ',', $counters[found] );
-			$body .= '<p><a href="options-discussion.php?action=retrospam&move=true&ids='.$id_list.'">'. __('Move suspect comments to moderation queue &raquo;') . '</a></p>';
+			$body .= '<p><a href="options-discussion.php?action=retrospam&amp;move=true&amp;ids='.$id_list.'">'. __('Move suspect comments to moderation queue &raquo;') . '</a></p>';
 
 		}
 		$head = '<div class="wrap"><h2>' . __('Check Comments Results:') . '</h2>';
@@ -922,7 +922,11 @@ class SP_Rewrite {
 			$structure = str_replace($front, '', $structure);
 		}
 		$structure = trim($structure, '/');
-		$dirs = explode('/', $structure);
+		if ($walk_dirs) {
+			$dirs = explode('/', $structure);
+		} else {
+			$dirs[] = $structure;
+		}
 		$num_dirs = count($dirs);
 
 		$front = preg_replace('|^/+|', '', $front);
@@ -981,6 +985,10 @@ class SP_Rewrite {
 		}
 
 		return $post_rewrite;
+	}
+
+	function generate_rewrite_rule($permalink_structure, $walk_dirs = false) {
+		return $this->generate_rewrite_rules($permalink_structure, false, false, false, $walk_dirs);
 	}
 
 	/* rewrite_rules
