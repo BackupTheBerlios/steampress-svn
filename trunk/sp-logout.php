@@ -13,9 +13,5 @@ if($login_method == 'new')
 {
 	header('Location: ' . get_settings('siteurl') . '/sp-admin/');
 }
-else
-{
-	header('Location: ' . get_settings('siteurl') . '/sp-login.php');
-}
 exit();
 ?>
