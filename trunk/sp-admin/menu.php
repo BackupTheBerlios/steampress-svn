@@ -8,8 +8,8 @@ $menu[0] = array(__('Dashboard'), 0, 'index.php');
 $menu[5] = array(__('Write'), 1, 'post.php');
 $menu[10] = array(__('Manage'), 1, 'edit.php');
 $menu[20] = array(__('Links'), 5, 'link-manager.php');
-$menu[25] = array(__('Options'), 6, 'options-general.php');
-$menu[30] = array(__('Users'), 0, 'profile.php');
+$menu[25] = array(__('Users'), 0, 'profile.php');
+$menu[30] = array(__('Options'), 6, 'options-general.php');
 
 $submenu['post.php'][5] = array(__('Write Post'), 1, 'post.php');
 $submenu['post.php'][10] = array(__('Write Page'), 5, 'page-new.php');
@@ -25,6 +25,9 @@ $submenu['link-manager.php'][5] = array(__('Manage Links'), 5, 'link-manager.php
 $submenu['link-manager.php'][10] = array(__('Add Link'), 5, 'link-add.php');
 $submenu['link-manager.php'][15] = array(__('Link Categories'), 5, 'link-categories.php');
 $submenu['link-manager.php'][20] = array(__('Import Links'), 5, 'link-import.php');
+
+$submenu['profile.php'][5] = array(__('Your Profile'), 0, 'profile.php');
+$submenu['profile.php'][10] = array(__('Authors &amp; Users'), 5, 'users.php');
 
 $submenu['options-general.php'][5] = array(__('General'), 6, 'options-general.php');
 $submenu['options-general.php'][10] = array(__('Writing'), 6, 'options-writing.php');
