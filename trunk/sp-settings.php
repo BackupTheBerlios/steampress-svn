@@ -58,6 +58,10 @@ $tableoptions = $spdb->options;
 $tablepostmeta = $spdb->postmeta;
 
 require (ABSPATH . SPINC . '/functions.php');
+$spdb->hide_errors();
+if ( !update_user_cache() && !strstr($_SERVER['PHP_SELF'], 'install.php') )
+	die("It doesn't look like you've installed SP yet. Try running <a href='sp-admin/install.php'>install.php</a>.");
+$spdb->show_errors();
 require (ABSPATH . SPINC . '/functions-formatting.php');
 require (ABSPATH . SPINC . '/functions-post.php');
 require (ABSPATH . SPINC . '/classes.php');
@@ -67,10 +71,6 @@ require (ABSPATH . SPINC . '/kses.php');
 
 require_once (ABSPATH . SPINC . '/sp-l10n.php');
 
-$spdb->hide_errors();
-if ( !update_user_cache() && !strstr($_SERVER['PHP_SELF'], 'install.php') )
-	die("It doesn't look like you've installed SP yet. Try running <a href='sp-admin/install.php'>install.php</a>.");
-$spdb->show_errors();
 
 if (!strstr($_SERVER['PHP_SELF'], 'install.php') && !strstr($_SERVER['PHP_SELF'], 'sp-admin/import')) :
     $querystring_start = '?';
