@@ -14,6 +14,10 @@ rpl -R 'WP' 'SP' *
 rpl -R 'wptexturize' 'sptexturize' *
 rpl -R 'wphead' 'sphead' *
 
+//fixes the problem with activating themes, as the link was still to
+//themes.php
+rpl -R '/themes.php' '/options-themes.php' *
+
 echo 'replacing done'
 
 rename wp- sp- *
