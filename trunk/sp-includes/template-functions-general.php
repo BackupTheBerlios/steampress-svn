@@ -5,12 +5,21 @@
 function sp_loginout() {
 	global $user_level;
 	get_currentuserinfo();
-
-	if (0 == $user_level) :
-		$link = '<a href="' . get_settings('siteurl') . '/sp-login.php">' . __('Login') . '</a>';
-	else :
-		$link = '<a href="' . get_settings('siteurl') . '/sp-login.php?action=logout">' . __('Logout') . '</a>';
-	endif;
+	$login_method = get_settings('login_method');
+	
+	if(0 == $user_level) {
+		if($login_method == 'new') {
+			$link = '<a href="' . get_settings('siteurl') . '/sp-admin/">' . __('Login') . '</a>';
+		}
+		else
+		{
+			$link = '<a href="' . get_settings('siteurl') . '/sp-login.php">' . __('Login') . '</a>';
+		}
+	}
+	else
+	{
+		$link = '<a href="' . get_settings('siteurl') . '/sp-logout.php">' . __('Logout') . '</a>';
+	}
 
 	echo apply_filters('loginout', $link);
 }
@@ -22,6 +31,8 @@ function sp_register() {
 
 	if (0 == $user_level && get_settings('users_can_register') ) :
 		$link = '<a href="' . get_settings('siteurl') . '/sp-register.php">' . __('Register') . '</a>';
+	elseif (0 == $user_level && !get_settings('users_can_register') ) :
+		$link ='';
 	else :
 		$link = '<a href="' . get_settings('siteurl') . '/sp-admin/">' . __('Site Admin') . '</a>';
 	endif;

@@ -1524,6 +1524,9 @@ function sp_mail($to, $subject, $message, $headers = '', $more = '') {
 		return mail($to, $subject, $message, $headers, $more);
 }
 
+//Leaving this in until I take the time to find out where the main page
+//looks to see if you're logged in and shows the links accordingly
+//since its problably used
 if ( !function_exists('sp_login') ) :
 function sp_login($username, $password, $already_md5 = false) {
 	global $spdb, $error;
@@ -1555,22 +1558,89 @@ function sp_login($username, $password, $already_md5 = false) {
 }
 endif;
 
+//using this as a simple wrapper until I can take the time to replace it in every admin file
+//It should have been placed in admin-header.php, the fools.
 if ( !function_exists('auth_redirect') ) :
 function auth_redirect() {
-	// Checks if a user is logged in, if not redirects them to the login page
-	if ( (!empty($_COOKIE['steampressuser_' . COOKIEHASH]) && 
-	!sp_login($_COOKIE['steampressuser_' . COOKIEHASH], $_COOKIE['steampresspass_' . COOKIEHASH], true)) ||
-	(empty($_COOKIE['steampressuser_' . COOKIEHASH])) ) {
-		header('Expires: Mon, 11 Jan 1984 05:00:00 GMT');
-		header('Last-Modified: ' . gmdate('D, d M Y H:i:s') . ' GMT');
-		header('Cache-Control: no-cache, must-revalidate, max-age=0');
-		header('Pragma: no-cache');
-	
-		header('Location: ' . get_settings('siteurl') . '/sp-login.php?redirect_to=' . urlencode($_SERVER['REQUEST_URI']));
-		exit();
-	}
+	logged_in();
 }
 endif;
+
+function logged_in()
+{
+	//all session code is commented out until its finished
+	global $error, $spdb;
+	$usercookie =  $_COOKIE['steampressuser_' . COOKIEHASH];
+	$passcookie = $_COOKIE['steampresspass_' . COOKIEHASH];
+	//@session_start();
+	//$usersession = $_SESSION['steampressuser_' . COOKIEHASH];
+	//$passsession = $_SESSION['steampresspass_' . COOKIEHASH];
+	if(isset($_POST['loginformsubmit']) && empty($usercookie) && empty($passcookie))
+	{
+		$spuser = $_POST['log'];
+		$sppass = md5($_POST['pwd']);
+		$passfromdb = $spdb->get_row("SELECT user_pass FROM $spdb->users WHERE user_login = '$spuser'", 'ARRAY_A');
+		if(!$passfromdb)
+		{
+			$error = "Incorrect Username. Remember, usernames are CaSe SeNsEtIvE";
+			include(ABSPATH . SPINC . '/login.php');
+			die();
+		}
+		if($sppass == $passfromdb['user_pass'])
+		{
+			//if($_POST['usesessions'])
+			//{
+			//	$_SESSION['steampressuser_' . COOKIEHASH] = $spuser;
+			//	$_SESSION['steampresspass_' . COOKIEHASH] = md5($sppass);
+			//}
+			//else
+			//{
+				setcookie('steampressuser_' . COOKIEHASH, $spuser, time() + 31536000, COOKIEPATH);
+				setcookie('steampresspass_' . COOKIEHASH, md5($sppass), time() + 31536000, COOKIEPATH);
+			//}
+		}
+		else
+		{
+			$error = "Incorrect Password.";
+			require(ABSPATH . SPINC . '/login.php');
+			die();
+		}
+	}
+	else
+	{
+		if(empty($usercookie) || empty($passcookie))
+		{
+			include(ABSPATH . SPINC . '/login.php');
+			die();
+		}
+		else
+		{
+			$passfromdb = $spdb->get_row("SELECT user_pass FROM $spdb->users WHERE user_login = '$usercookie'", 'ARRAY_A');
+			if(!$passfromdb)
+			{
+				$error = "Incorrect Username. Remember, usernames are CaSe SeNsEtIvE";
+				include(ABSPATH . SPINC . '/login.php');
+				die();
+			}
+			else
+			{
+				if($passcookie == md5($passfromdb['user_pass']))
+				{
+				return true;
+				}
+				else
+				{
+					//expire the cookies and kill the sessions
+					//session_destroy();
+				   setcookie('steampressuser_' . COOKIEHASH, ' ', time() - 31536000, COOKIEPATH);
+				   setcookie('steampresspass_' . COOKIEHASH, ' ', time() - 31536000, COOKIEPATH);
+					include(ABSPATH . SPINC . '/login.php');
+					die();
+				}
+			}
+		}
+	}
+}
 
 function is_plugin_page() {
 	global $plugin_page;
