@@ -85,14 +85,8 @@ $spdb->query("UPDATE $spdb->options SET option_value = '$admin_email' WHERE opti
 
 // Now drop in some default links
 $spdb->query("INSERT INTO $spdb->linkcategories (cat_id, cat_name) VALUES (1, 'Blogroll')");
-$spdb->query("INSERT INTO $spdb->links (link_url, link_name, link_category) VALUES ('http://blog.carthik.net/index.php', 'Carthik', 1);");
-$spdb->query("INSERT INTO $spdb->links (link_url, link_name, link_category) VALUES ('http://blogs.linux.ie/xeer/', 'Donncha', 1);");
-$spdb->query("INSERT INTO $spdb->links (link_url, link_name, link_category) VALUES ('http://zengun.org/weblog/', 'Michel', 1);");
-$spdb->query("INSERT INTO $spdb->links (link_url, link_name, link_category) VALUES ('http://boren.nu/', 'Ryan', 1);");
-$spdb->query("INSERT INTO $spdb->links (link_url, link_name, link_category) VALUES ('http://photomatt.net/', 'Matt', 1);");
-$spdb->query("INSERT INTO $spdb->links (link_url, link_name, link_category) VALUES ('http://zed1.com/journalized/', 'Mike', 1);");
-$spdb->query("INSERT INTO $spdb->links (link_url, link_name, link_category) VALUES ('http://www.alexking.org/', 'Alex', 1);");
-$spdb->query("INSERT INTO $spdb->links (link_url, link_name, link_category) VALUES ('http://dougal.gunters.org/', 'Dougal', 1);");
+$spdb->query("INSERT INTO $spdb->links (link_url, link_name, link_category) VALUES ('http://anothersadsong.com/', 'Robert Deaton', 1);");
+$spdb->query("INSERT INTO $spdb->links (link_url, link_name, link_category) VALUES ('http://steamedpenguin.com/', 'Samir M. Nassar', 1);");
 
 // Default category
 $spdb->query("INSERT INTO $spdb->categories (cat_ID, cat_name) VALUES ('0', 'Uncategorized')");
@@ -105,7 +99,7 @@ $spdb->query("INSERT INTO $spdb->posts (post_author, post_date, post_date_gmt, p
 $spdb->query( "INSERT INTO $spdb->post2cat (`rel_id`, `post_id`, `category_id`) VALUES (1, 1, 1)" );
 
 // Default comment
-$spdb->query("INSERT INTO $spdb->comments (comment_post_ID, comment_author, comment_author_email, comment_author_url, comment_author_IP, comment_date, comment_date_gmt, comment_content) VALUES ('1', 'Mr SteamPress', 'mr@steampress.berlios.de', 'http://steampress.berlios.de', '127.0.0.1', '$now', '$now_gmt', 'Hi, this is a comment.<br />To delete a comment, just log in, and view the posts\' comments, there you will have the option to edit or delete them.')");
+$spdb->query("INSERT INTO $spdb->comments (comment_post_ID, comment_author, comment_author_email, comment_author_url, comment_author_IP, comment_date, comment_date_gmt, comment_content) VALUES ('1', 'SteamPress', 'steampress@steampress.berlios.de', 'http://steampress.berlios.de', '127.0.0.1', '$now', '$now_gmt', 'Hi, this is a comment.<br />To delete a comment, just log in, and view the posts\' comments, there you will have the option to edit or delete them.')");
 
 // Set up admin user
 $random_password = substr(md5(uniqid(microtime())), 0, 6);
