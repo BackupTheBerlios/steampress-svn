@@ -244,3 +244,31 @@ legend
 {
 	text-align: right;
 }
+
+#sp-install
+{
+	background: #666;
+}
+
+#install
+{
+	width: 60%;
+	margin: 20% auto;
+	text-align: center;
+	padding: 20px;
+	border: #ccc;
+	background: #fff;
+}
+
+#install p, dl, dt dd
+{
+	text-align: left;
+}
+
+#install #footer
+{
+	text-align: center;
+	font-size: 0.8em;
+	line-height: 1.2em;
+	color: #060;
+}

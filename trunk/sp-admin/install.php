@@ -16,57 +16,13 @@ else
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-	<title>SteamPress &rsaquo; Installation</title>
+	<title>SteamPress Installation</title>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-	<style media="screen" type="text/css">
-	<!--
-	html {
-		background: #eee;
-	}
-	body {
-		background: #fff;
-		color: #000;
-		font-family: Georgia, "Times New Roman", Times, serif;
-		margin-left: 20%;
-		margin-right: 20%;
-		padding: .2em 2em;
-	}
-	
-	h1 {
-		color: #006;
-		font-size: 18px;
-		font-weight: lighter;
-	}
-	
-	h2 {
-		font-size: 16px;
-	}
-	
-	p, li, dt {
-		line-height: 140%;
-		padding-bottom: 2px;
-	}
-
-	ul, ol {
-		padding: 5px 5px 5px 20px;
-	}
-	#logo {
-		margin-bottom: 2em;
-	}
-.step a, .step input {
-	font-size: 2em;
-}
-.step, th {
-	text-align: right;
-}
-#footer {
-text-align: center; border-top: 1px solid #ccc; padding-top: 1em; font-style: italic;
-}
-	-->
-	</style>
+	<link rel="stylesheet" href="<?php echo get_settings('siteurl') ?>sp-admin.css" type="text/css" />
 </head>
-<body>
-<h1 id="logo"><img alt="SteamPress" src="http://static.steampress.berlios.de/logo.png" /></h1>
+<body id="sp-install">
+<div id="install">
+<h1><img alt="SteamPress" src="../sp-images/sp-logo.png" /></h1>
 <?php
 // Let's check to make sure SP isn't already installed.
 $spdb->hide_errors();
@@ -78,7 +34,7 @@ switch($step) {
 
 	case 0:
 ?>
-<p>Welcome to SteamPress installation. We&#8217;re now going to go through a few steps to get you up and running with the latest in personal publishing platforms. You may want to peruse the <a href="../readme.html">ReadMe documentation</a> at your leisure.</p>
+<p>Welcome to SteamPress installation. We're now going to go through a few steps to get you up and running with the latest in personal publishing platforms.</p>
 <h2 class="step"><a href="install.php?step=1">First Step &raquo;</a></h2>
 <?php
 	break;
@@ -198,5 +154,6 @@ upgrade_all();
 }
 ?>
 <p id="footer"><a href="http://steampress.berlios.de/">SteamPress</a>, personal publishing platform.</p>
+</div>
 </body>
 </html>
