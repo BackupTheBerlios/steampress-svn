@@ -46,7 +46,7 @@ case 'lostpassword':
 	window.onload = focusit;
 	</script>
 </head>
-<body>
+<body id="sp-login">
 <div id="login">
 <h1><a href="http://steampress.berlios.de/">SteamPress</a></h1>
 <p><?php _e('Please enter your information here. We will send you a new password.') ?></p>
@@ -160,10 +160,10 @@ default:
 	window.onload = focusit;
 	</script>
 </head>
-<body>
+<body id="sp-login">
 
 <div id="login">
-<h1><a href="http://steampress.berlios.de/">SteamPress</a></h1>
+<h1><img src="./sp-images/sp-logo.png" alt="SteamPress" /></h1>
 <?php
 if ( $error )
 	echo "<div id='login_error'>$error</div>";

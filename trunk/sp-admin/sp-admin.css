@@ -129,8 +129,6 @@ p, tr, td, li, th {
 #categorydiv {
     float: right;
     width: 17%;
-    height: 15em;
-    overflow: auto;
   }
 
 #categorydiv label {
@@ -215,4 +213,34 @@ legend
 {
 	padding: 1px;
 	border: 1px solid #000;
+}
+
+#sp-login
+{
+	background: #666;
+}
+
+#login
+{
+	width: 30%;
+	margin: 20% auto;
+	text-align: center;
+	padding: 20px;
+	border: #ccc;
+	background: #fff;
+}
+
+#login p, #login form p
+{
+	text-align: left;
+}
+
+#login ul li
+{
+	display: inline;
+}
+
+#login .submit
+{
+	text-align: right;
 }
