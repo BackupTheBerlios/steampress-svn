@@ -1,0 +1,54 @@
+#!/bin/bash
+
+rpl -R 'wp-' 'sp-' *
+rpl -R 'wp_' 'sp_' *
+rpl -R '$wp' '$sp' *
+rpl -R 'wordpress.org' 'steampress.berlios.de' *
+rpl -R 'wordpress' 'steampress' *
+rpl -R 'WordPress' 'SteamPress' *
+rpl -R 'WP' 'SP' *
+rpl -R 'wptexturize' 'sptexturize' *
+rpl -R 'wphead' 'sphead' *
+rename wp- sp- *
+cd sp-admin
+rename wp- sp- *
+cd ..
+cd sp-content
+rename wp- sp- *
+cd ..
+cd sp-includes
+rename wp- sp- *
+cd ..
+cd sp-images
+rename wp- sp- *
+cd ..
+rm -rf CVS
+rm -rf .svn
+rm -rf readme.html
+rm -rf b2-include
+rm -rf sp-mail.php
+rm -rf sp-admin/CVS
+rm -rf sp-admin/.svn
+rm -rf sp-admin/help
+rm -rf sp-admin/bookmarklet.php
+rm -rf sp-admin/sidebar.php
+rm -rf sp-content/CVS
+rm -rf sp-content/.svn
+rm -rf sp-content/plugins/.svn
+rm -rf sp-content/plugins/CVS
+rm -rf sp-includes/CVS
+rm -rf sp-includes/.svn
+rm -rf sp-includes/languages
+rm -rf sp-includes/class-pop3.php
+rm -rf sp-images/CVS
+rm -rf sp-images/.svn
+rm -rf sp-images/smilies/.svn
+rm -rf sp-images/smilies/CVS
+rm -rf sp-images/links
+rm wp.php
+rm *~
+rm sp-admin/*~
+rm sp-content/*~
+rm sp-content/plugins/*~
+rm sp-images/*~
+rm sp-includes/*~
