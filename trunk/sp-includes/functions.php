@@ -1568,13 +1568,9 @@ endif;
 
 function logged_in()
 {
-	//all session code is commented out until its finished
 	global $error, $spdb;
 	$usercookie =  $_COOKIE['steampressuser_' . COOKIEHASH];
 	$passcookie = $_COOKIE['steampresspass_' . COOKIEHASH];
-	//@session_start();
-	//$usersession = $_SESSION['steampressuser_' . COOKIEHASH];
-	//$passsession = $_SESSION['steampresspass_' . COOKIEHASH];
 	if(isset($_POST['loginformsubmit']) && empty($usercookie) && empty($passcookie))
 	{
 		$spuser = $_POST['log'];
@@ -1582,26 +1578,21 @@ function logged_in()
 		$passfromdb = $spdb->get_row("SELECT user_pass FROM $spdb->users WHERE user_login = '$spuser'", 'ARRAY_A');
 		if(!$passfromdb)
 		{
-			$error = "Incorrect Username. Remember, usernames are CaSe SeNsEtIvE";
+			$error = __('Wrong login.');
 			include(ABSPATH . SPINC . '/login.php');
 			die();
 		}
 		if($sppass == $passfromdb['user_pass'])
 		{
-			//if($_POST['usesessions'])
-			//{
-			//	$_SESSION['steampressuser_' . COOKIEHASH] = $spuser;
-			//	$_SESSION['steampresspass_' . COOKIEHASH] = md5($sppass);
-			//}
-			//else
-			//{
-				setcookie('steampressuser_' . COOKIEHASH, $spuser, time() + 31536000, COOKIEPATH);
-				setcookie('steampresspass_' . COOKIEHASH, md5($sppass), time() + 31536000, COOKIEPATH);
-			//}
+			setcookie('steampressuser_' . COOKIEHASH, $spuser, time() + 31536000, COOKIEPATH);
+			setcookie('steampresspass_' . COOKIEHASH, md5($sppass), time() + 31536000, COOKIEPATH);
+			//this is here so allt he code recognizes the user as logged in after
+			//the initial login, strange things happen otherwise
+			header('Location: ' . $_SERVER['PHP_SELF']);
 		}
 		else
 		{
-			$error = "Incorrect Password.";
+			$error = __('Incorrect Password.');
 			require(ABSPATH . SPINC . '/login.php');
 			die();
 		}
@@ -1618,20 +1609,14 @@ function logged_in()
 			$passfromdb = $spdb->get_row("SELECT user_pass FROM $spdb->users WHERE user_login = '$usercookie'", 'ARRAY_A');
 			if(!$passfromdb)
 			{
-				$error = "Incorrect Username. Remember, usernames are CaSe SeNsEtIvE";
+				$error = __('Wrong login.');
 				include(ABSPATH . SPINC . '/login.php');
 				die();
 			}
 			else
 			{
-				if($passcookie == md5($passfromdb['user_pass']))
+				if($passcookie != md5($passfromdb['user_pass']))
 				{
-				return true;
-				}
-				else
-				{
-					//expire the cookies and kill the sessions
-					//session_destroy();
 				   setcookie('steampressuser_' . COOKIEHASH, ' ', time() - 31536000, COOKIEPATH);
 				   setcookie('steampresspass_' . COOKIEHASH, ' ', time() - 31536000, COOKIEPATH);
 					include(ABSPATH . SPINC . '/login.php');
