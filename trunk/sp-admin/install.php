@@ -134,7 +134,7 @@ upgrade_all();
 
 <p><em>Finished!</em></p>
 
-<p>Now you can <a href="../sp-login.php">log in</a> with the <strong>login</strong>
+<p>Now you can <a href="./">log in</a> with the <strong>login</strong>
   "<code>admin</code>" and <strong>password</strong> "<code><?php echo $random_password; ?></code>".</p>
 <p><strong><em>Note that password</em></strong> carefully! It is a <em>random</em>
   password that was generated just for you. If you lose it, you
@@ -146,7 +146,7 @@ upgrade_all();
 <dt>Password</dt>
 <dd><code><?php echo $random_password; ?></code></dd>
 <dt>Login address</dt>
-<dd><a href="../sp-login.php">sp-login.php</a></dd>
+<dd><a href="./">/sp-admin/</a></dd>
 </dl>
 <p>Were you expecting more steps? Sorry to disappoint. All done! :)</p>
 <?php
