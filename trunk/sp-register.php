@@ -100,13 +100,8 @@ case 'register':
 
 <div id="login"> 
 	<h2><?php _e('Registration Complete') ?></h2>
-	<p><?php _e('Login:') ?> <strong><?php echo $user_login; ?></strong><br />
-	<?php _e('Password:') ?> <strong><?php echo $stars; ?></strong><br />
-	<?php _e('E-mail:') ?> <strong><?php echo $user_email; ?></strong></p>
-	<form action="sp-login.php" method="post" name="login">
-		<input type="hidden" name="log" value="<?php echo $user_login; ?>" />
-		<input type="submit" value="<?php _e('Login') ?>" name="submit" />
-	</form>
+	<p><a href="<?php get_settings('siteurl'); ?>/sp-admin/" 
+title="<?php _e('Login') ?>"><?php _e('Login') ?></a></p>
 </div>
 </body>
 </html>
