@@ -1,6 +1,0 @@
-Changelog
-
-20041207: steampress 0.1.0
-
-All files edited to match contribute.txt guidelines.
-First objective attained; superficial code cleanup.
