@@ -32,11 +32,11 @@ h4 {
     line-height:1.4em;
   }
 
-ol li {
+li {
     list-style : none;
   }
 
-p {
+p, tr, td, li, th {
     padding: 5px;
     margin: 5px;
   }
