@@ -1589,6 +1589,7 @@ function logged_in()
 			//this is here so allt he code recognizes the user as logged in after
 			//the initial login, strange things happen otherwise
 			header('Location: ' . $_SERVER['PHP_SELF']);
+			die();
 		}
 		else
 		{
