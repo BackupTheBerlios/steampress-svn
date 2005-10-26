@@ -1,0 +1,237 @@
+<!DOCTYPE webproject>
+<webproject>
+  <project type="Local" name="steampress" encoding="utf8" enableEvents="true" >
+    <upload/>
+    <defaultDTD>-//w3c//dtd xhtml 1.0 strict//en</defaultDTD>
+    <item url="wp-admin/" uploadstatus="1" />
+    <item modified_time="1129673930" url="wp-admin/admin-footer.php" uploadstatus="1" />
+    <item modified_time="1129673960" url="wp-admin/admin-functions.php" uploadstatus="1" />
+    <item modified_time="1128960254" url="wp-admin/admin-header.php" uploadstatus="1" />
+    <item modified_time="1128960254" url="wp-admin/admin.php" uploadstatus="1" />
+    <item modified_time="1128960254" url="wp-admin/categories.php" uploadstatus="1" />
+    <item modified_time="1128960254" url="wp-admin/edit-comments.php" uploadstatus="1" />
+    <item modified_time="1129671531" url="wp-admin/edit-form-advanced.php" uploadstatus="1" />
+    <item modified_time="1129671531" url="wp-admin/edit-form-comment.php" uploadstatus="1" />
+    <item modified_time="1129676507" url="wp-admin/edit-form.php" uploadstatus="1" />
+    <item modified_time="1129676656" url="wp-admin/edit-page-form.php" uploadstatus="1" />
+    <item modified_time="1128960254" url="wp-admin/edit-pages.php" uploadstatus="1" />
+    <item modified_time="1128960254" url="wp-admin/edit.php" uploadstatus="1" />
+    <item modified_time="1128960254" url="wp-admin/import-b2.php" uploadstatus="1" />
+    <item modified_time="1128960254" url="wp-admin/import-blogger.php" uploadstatus="1" />
+    <item modified_time="1128960254" url="wp-admin/import-greymatter.php" uploadstatus="1" />
+    <item modified_time="1128960254" url="wp-admin/import-livejournal.php" uploadstatus="1" />
+    <item modified_time="1128960254" url="wp-admin/import-mt.php" uploadstatus="1" />
+    <item modified_time="1128960254" url="wp-admin/import-rss.php" uploadstatus="1" />
+    <item modified_time="1128960254" url="wp-admin/import-textpattern.php" uploadstatus="1" />
+    <item modified_time="1129698313" url="wp-admin/index.php" uploadstatus="1" />
+    <item modified_time="1128960254" url="wp-admin/install-helper.php" uploadstatus="1" />
+    <item modified_time="1129843651" url="wp-admin/install.php" uploadstatus="1" />
+    <item modified_time="1129698481" url="wp-admin/link-add.php" uploadstatus="1" />
+    <item modified_time="1128960254" url="wp-admin/link-categories.php" uploadstatus="1" />
+    <item modified_time="1128960254" url="wp-admin/link-import.php" uploadstatus="1" />
+    <item modified_time="1128960254" url="wp-admin/link-manager.php" uploadstatus="1" />
+    <item modified_time="1128960254" url="wp-admin/link-parse-opml.php" uploadstatus="1" />
+    <item modified_time="1128960254" url="wp-admin/menu-header.php" uploadstatus="1" />
+    <item modified_time="1129699226" url="wp-admin/menu.php" uploadstatus="1" />
+    <item modified_time="1128960254" url="wp-admin/moderation.php" uploadstatus="1" />
+    <item modified_time="1128960254" url="wp-admin/options-discussion.php" uploadstatus="1" />
+    <item modified_time="1128960254" url="wp-admin/options-general.php" uploadstatus="1" />
+    <item modified_time="1128960254" url="wp-admin/options-head.php" uploadstatus="1" />
+    <item modified_time="1128960254" url="wp-admin/options-permalink.php" uploadstatus="1" />
+    <item modified_time="1128960254" url="wp-admin/options-reading.php" uploadstatus="1" />
+    <item modified_time="1129698708" url="wp-admin/options-writing.php" uploadstatus="1" />
+    <item modified_time="1128960254" url="wp-admin/options.php" uploadstatus="1" />
+    <item modified_time="1128960254" url="wp-admin/page-new.php" uploadstatus="1" />
+    <item modified_time="1128960254" url="wp-admin/plugins.php" uploadstatus="1" />
+    <item modified_time="1129676746" url="wp-admin/post.php" uploadstatus="1" />
+    <item modified_time="1129698638" url="wp-admin/profile.php" uploadstatus="1" />
+    <item modified_time="1128960254" url="wp-admin/setup-config.php" uploadstatus="1" />
+    <item modified_time="1128960254" url="wp-admin/themes.php" uploadstatus="1" />
+    <item modified_time="1128960254" url="wp-admin/update-links.php" uploadstatus="1" />
+    <item modified_time="1128960254" url="wp-admin/upgrade-functions.php" uploadstatus="1" />
+    <item modified_time="1128960254" url="wp-admin/upgrade-schema.php" uploadstatus="1" />
+    <item modified_time="1128960254" url="wp-admin/upgrade.php" uploadstatus="1" />
+    <item modified_time="1128960254" url="wp-admin/upload.php" uploadstatus="1" />
+    <item modified_time="1128960254" url="wp-admin/user-edit.php" uploadstatus="1" />
+    <item modified_time="1128960254" url="wp-admin/users.php" uploadstatus="1" />
+    <item modified_time="1129700261" url="wp-admin/wp-admin.css" uploadstatus="1" />
+    <item url="wp-content/" uploadstatus="1" />
+    <item url="wp-content/plugins/" uploadstatus="1" />
+    <item modified_time="1128960268" url="wp-content/plugins/hello.php" uploadstatus="1" />
+    <item modified_time="1128960268" url="wp-content/plugins/markdown.php" uploadstatus="1" />
+    <item modified_time="1128960268" url="wp-content/plugins/textile1.php" uploadstatus="1" />
+    <item url="wp-content/themes/" uploadstatus="1" />
+    <item url="wp-content/themes/default/" uploadstatus="1" />
+    <item url="wp-content/themes/default/images/" uploadstatus="1" />
+    <item modified_time="1128960268" url="wp-content/themes/default/images/kubrickbg.jpg" uploadstatus="1" />
+    <item modified_time="1128960268" url="wp-content/themes/default/images/kubrickbgcolor.jpg" uploadstatus="1" />
+    <item modified_time="1128960268" url="wp-content/themes/default/images/kubrickbgwide.jpg" uploadstatus="1" />
+    <item modified_time="1128960268" url="wp-content/themes/default/images/kubrickfooter.jpg" uploadstatus="1" />
+    <item modified_time="1128960268" url="wp-content/themes/default/images/kubrickheader.jpg" uploadstatus="1" />
+    <item modified_time="1128960268" url="wp-content/themes/default/404.php" uploadstatus="1" />
+    <item modified_time="1128960268" url="wp-content/themes/default/archive.php" uploadstatus="1" />
+    <item modified_time="1128960268" url="wp-content/themes/default/archives.php" uploadstatus="1" />
+    <item modified_time="1128960268" url="wp-content/themes/default/comments-popup.php" uploadstatus="1" />
+    <item modified_time="1128960268" url="wp-content/themes/default/comments.php" uploadstatus="1" />
+    <item modified_time="1129822460" url="wp-content/themes/default/footer.php" uploadstatus="1" />
+    <item modified_time="1128960268" url="wp-content/themes/default/header.php" uploadstatus="1" />
+    <item modified_time="1128960268" url="wp-content/themes/default/index.php" uploadstatus="1" />
+    <item modified_time="1128960268" url="wp-content/themes/default/links.php" uploadstatus="1" />
+    <item modified_time="1128960268" url="wp-content/themes/default/page.php" uploadstatus="1" />
+    <item modified_time="1128960268" url="wp-content/themes/default/search.php" uploadstatus="1" />
+    <item modified_time="1128960268" url="wp-content/themes/default/searchform.php" uploadstatus="1" />
+    <item modified_time="1128960268" url="wp-content/themes/default/sidebar.php" uploadstatus="1" />
+    <item modified_time="1128960268" url="wp-content/themes/default/single.php" uploadstatus="1" />
+    <item modified_time="1128960268" url="wp-content/themes/default/style.css" uploadstatus="1" />
+    <item url="wp-images/" uploadstatus="1" />
+    <item url="wp-images/smilies/" uploadstatus="1" />
+    <item modified_time="1128960268" url="wp-images/smilies/icon_arrow.gif" uploadstatus="1" />
+    <item modified_time="1128960268" url="wp-images/smilies/icon_biggrin.gif" uploadstatus="1" />
+    <item modified_time="1128960268" url="wp-images/smilies/icon_confused.gif" uploadstatus="1" />
+    <item modified_time="1128960268" url="wp-images/smilies/icon_cool.gif" uploadstatus="1" />
+    <item modified_time="1128960268" url="wp-images/smilies/icon_cry.gif" uploadstatus="1" />
+    <item modified_time="1128960268" url="wp-images/smilies/icon_eek.gif" uploadstatus="1" />
+    <item modified_time="1128960268" url="wp-images/smilies/icon_evil.gif" uploadstatus="1" />
+    <item modified_time="1128960268" url="wp-images/smilies/icon_exclaim.gif" uploadstatus="1" />
+    <item modified_time="1128960268" url="wp-images/smilies/icon_idea.gif" uploadstatus="1" />
+    <item modified_time="1128960268" url="wp-images/smilies/icon_lol.gif" uploadstatus="1" />
+    <item modified_time="1128960268" url="wp-images/smilies/icon_mad.gif" uploadstatus="1" />
+    <item modified_time="1128960268" url="wp-images/smilies/icon_mrgreen.gif" uploadstatus="1" />
+    <item modified_time="1128960268" url="wp-images/smilies/icon_neutral.gif" uploadstatus="1" />
+    <item modified_time="1128960268" url="wp-images/smilies/icon_question.gif" uploadstatus="1" />
+    <item modified_time="1128960268" url="wp-images/smilies/icon_razz.gif" uploadstatus="1" />
+    <item modified_time="1128960268" url="wp-images/smilies/icon_redface.gif" uploadstatus="1" />
+    <item modified_time="1128960268" url="wp-images/smilies/icon_rolleyes.gif" uploadstatus="1" />
+    <item modified_time="1128960268" url="wp-images/smilies/icon_sad.gif" uploadstatus="1" />
+    <item modified_time="1128960268" url="wp-images/smilies/icon_smile.gif" uploadstatus="1" />
+    <item modified_time="1128960268" url="wp-images/smilies/icon_surprised.gif" uploadstatus="1" />
+    <item modified_time="1128960268" url="wp-images/smilies/icon_twisted.gif" uploadstatus="1" />
+    <item modified_time="1128960268" url="wp-images/smilies/icon_wink.gif" uploadstatus="1" />
+    <item modified_time="1128960267" url="wp-images/wp-small.png" uploadstatus="1" />
+    <item modified_time="1128960267" url="wp-images/wpminilogo.png" uploadstatus="1" />
+    <item url="wp-includes/" uploadstatus="1" />
+    <item modified_time="1128960268" url="wp-includes/class-IXR.php" uploadstatus="1" />
+    <item modified_time="1128960267" url="wp-includes/class-pop3.php" uploadstatus="1" />
+    <item modified_time="1128960267" url="wp-includes/class-snoopy.php" uploadstatus="1" />
+    <item modified_time="1128960267" url="wp-includes/classes.php" uploadstatus="1" />
+    <item modified_time="1128960267" url="wp-includes/comment-functions.php" uploadstatus="1" />
+    <item modified_time="1128960267" url="wp-includes/default-filters.php" uploadstatus="1" />
+    <item modified_time="1128960267" url="wp-includes/feed-functions.php" uploadstatus="1" />
+    <item modified_time="1128960267" url="wp-includes/functions-compat.php" uploadstatus="1" />
+    <item modified_time="1128960267" url="wp-includes/functions-formatting.php" uploadstatus="1" />
+    <item modified_time="1128960267" url="wp-includes/functions-post.php" uploadstatus="1" />
+    <item modified_time="1129671727" url="wp-includes/functions.php" uploadstatus="1" />
+    <item modified_time="1128960268" url="wp-includes/gettext.php" uploadstatus="1" />
+    <item modified_time="1128960267" url="wp-includes/kses.php" uploadstatus="1" />
+    <item modified_time="1128960268" url="wp-includes/links.php" uploadstatus="1" />
+    <item modified_time="1128960268" url="wp-includes/locale.php" uploadstatus="1" />
+    <item modified_time="1128960267" url="wp-includes/pluggable-functions.php" uploadstatus="1" />
+    <item modified_time="1128960267" url="wp-includes/rss-functions.php" uploadstatus="1" />
+    <item modified_time="1128960267" url="wp-includes/streams.php" uploadstatus="1" />
+    <item modified_time="1128960267" url="wp-includes/template-functions-author.php" uploadstatus="1" />
+    <item modified_time="1128960267" url="wp-includes/template-functions-category.php" uploadstatus="1" />
+    <item modified_time="1128960268" url="wp-includes/template-functions-general.php" uploadstatus="1" />
+    <item modified_time="1128960268" url="wp-includes/template-functions-links.php" uploadstatus="1" />
+    <item modified_time="1128960267" url="wp-includes/template-functions-post.php" uploadstatus="1" />
+    <item modified_time="1128960268" url="wp-includes/vars.php" uploadstatus="1" />
+    <item modified_time="1128960267" url="wp-includes/version.php" uploadstatus="1" />
+    <item modified_time="1128960267" url="wp-includes/wp-db.php" uploadstatus="1" />
+    <item modified_time="1128960268" url="wp-includes/wp-l10n.php" uploadstatus="1" />
+    <item modified_time="1128960267" url="index.php" uploadstatus="1" />
+    <item modified_time="1128960267" url="license.txt" uploadstatus="1" />
+    <item modified_time="1128960267" url="readme.html" uploadstatus="1" />
+    <item modified_time="1128960267" url="wp-atom.php" uploadstatus="1" />
+    <item modified_time="1128960267" url="wp-blog-header.php" uploadstatus="1" />
+    <item modified_time="1128960267" url="wp-comments-post.php" uploadstatus="1" />
+    <item modified_time="1128960267" url="wp-commentsrss2.php" uploadstatus="1" />
+    <item modified_time="1128960267" url="wp-feed.php" uploadstatus="1" />
+    <item modified_time="1128960267" url="wp-links-opml.php" uploadstatus="1" />
+    <item modified_time="1129671373" url="wp-login.php" uploadstatus="1" />
+    <item modified_time="1128960267" url="wp-pass.php" uploadstatus="1" />
+    <item modified_time="1128960267" url="wp-rdf.php" uploadstatus="1" />
+    <item modified_time="1128960267" url="wp-register.php" uploadstatus="1" />
+    <item modified_time="1128960267" url="wp-rss.php" uploadstatus="1" />
+    <item modified_time="1128960267" url="wp-rss2.php" uploadstatus="1" />
+    <item modified_time="1128960267" url="wp-settings.php" uploadstatus="1" />
+    <item modified_time="1128960267" url="wp-trackback.php" uploadstatus="1" />
+    <item modified_time="1128960267" url="wp.php" uploadstatus="1" />
+    <item modified_time="1128960267" url="xmlrpc.php" uploadstatus="1" />
+    <item url="" uploadstatus="1" />
+    <templates>templates/</templates>
+    <toolbars>toolbars/</toolbars>
+    <annotations>
+      <annotation line="11" receiver="" url="ChangeLog.html" text="wp-admin/admin-footer.php: 20051018: Changed link to point to SteamPress. Removed some of the crap 'how fast am I?' code." />
+      <annotation line="12" receiver="" url="ChangeLog.html" text="wp-includes/functions.php: 20051018: Removed spread firefox function." />
+      <annotation line="13" receiver="" url="ChangeLog.html" text="wp-admin/wp-admin.css: 20051018: Remove references to quicktags." />
+      <annotation line="14" receiver="" url="ChangeLog.html" text="wp-admin/wp-admin.css: 20051018: Remove :focus to stop konqueror fuckery" />
+      <annotation line="15" receiver="" url="ChangeLog.html" text="wp-admin/edit-page-form.php: 20051018: removed the_quicktags()" />
+      <annotation line="16" receiver="" url="ChangeLog.html" text="wp-admin/edit-form.php: 20051018: removed the_quicktags()" />
+      <annotation line="17" receiver="" url="ChangeLog.html" text="wp-admin/edit-form-comment.php: 20051018: removed the_quicktags()" />
+      <annotation line="18" receiver="" url="ChangeLog.html" text="wp-admin/edit-form-advanced.php: 20051018: removed the_quicktags()" />
+      <annotation line="19" receiver="" url="ChangeLog.html" text="wp-admin/admin-functions.php: 20051018: removed the_quicktags function" />
+      <annotation line="20" receiver="" url="ChangeLog.html" text="wp-admin/admin-functions.php: 20051018: removed firefox crap" />
+      <annotation line="21" receiver="" url="ChangeLog.html" text="wp-admin/wp-admin.css: 20051018: removed a lot of :focus as well as and :hover on legend elements" />
+      <annotation line="22" receiver="" url="ChangeLog.html" text="wp-admin/templates.php: 20051019: removed" />
+      <annotation line="23" receiver="" url="ChangeLog.html" text="wp-admin/plugin-editor.php: 20051019: removed" />
+      <annotation line="24" receiver="" url="ChangeLog.html" text="wp-admin/theme-editor.php: 20051019: removed" />
+      <annotation line="25" receiver="" url="ChangeLog.html" text="wp-admin/sidebar.php: 20051019: removed" />
+      <annotation line="26" receiver="" url="ChangeLog.html" text="wp-admin/quicktags.js: 20051019: removed" />
+      <annotation line="27" receiver="" url="ChangeLog.html" text="wp-admin/options-writing.php: 20051019: removed options to post by email" />
+      <annotation line="28" receiver="" url="ChangeLog.html" text="wp-admin/profile.php: 20051019: removed sidebar" />
+      <annotation line="29" receiver="" url="ChangeLog.html" text="wp-admin/link-add.php: 20051019: removed option to give links targets. target always set to blank." />
+      <annotation line="30" receiver="" url="ChangeLog.html" text="wp-admin/index.php: 20051019: removed wordpress developer feeds and planet.wordpress.org feeds." />
+      <annotation line="31" receiver="" url="ChangeLog.html" text="wp-admin/index.php: 20051019: Redesigned to make zeitgeist main section on index page. Removed references to zeitgeist and used dashboard instead." />
+      <annotation line="32" receiver="" url="ChangeLog.html" text="wp-admin/index.php: 20051019: Removed references to zeitgeist and used dashboard instead." />
+      <annotation line="33" receiver="" url="ChangeLog.html" text="wp-admin/wp-admin.css: 20051018: Removed reference to zeitgeist and used dashboard instead" />
+      <annotation line="34" receiver="" url="ChangeLog.html" text="wp-mail.php: 20051018: Removed due to SQL injection possibility" />
+      <annotation line="35" receiver="" url="ChangeLog.html" text="wp-images/fade-butt.png: 20051018: Removed" />
+      <annotation line="36" receiver="" url="ChangeLog.html" text="wp-images/spreadfirefox.png: 20051018: Removed" />
+      <annotation line="37" receiver="" url="ChangeLog.html" text="wp-images/header-footer.png: 20051018: Removed" />
+    </annotations>
+    <item url="file:///" uploadstatus="1" />
+    <item modified_time="1129822979" url="ChangeLog.html" uploadstatus="1" />
+    <item url="wp-content/themes/Steam/" uploadstatus="1" />
+    <item modified_time="1129823158" url="wp-content/themes/Steam/404.php" uploadstatus="1" />
+    <item modified_time="1129823156" url="wp-content/themes/Steam/archive.php" uploadstatus="1" />
+    <item modified_time="1129823159" url="wp-content/themes/Steam/archives.php" uploadstatus="1" />
+    <item modified_time="1129823156" url="wp-content/themes/Steam/comments-popup.php" uploadstatus="1" />
+    <item modified_time="1129823161" url="wp-content/themes/Steam/comments.php" uploadstatus="1" />
+    <item modified_time="1129823162" url="wp-content/themes/Steam/footer.php" uploadstatus="1" />
+    <item modified_time="1129823162" url="wp-content/themes/Steam/header.php" uploadstatus="1" />
+    <item modified_time="1129823161" url="wp-content/themes/Steam/index.php" uploadstatus="1" />
+    <item modified_time="1129823162" url="wp-content/themes/Steam/links.php" uploadstatus="1" />
+    <item modified_time="1129823157" url="wp-content/themes/Steam/page.php" uploadstatus="1" />
+    <item modified_time="1129823161" url="wp-content/themes/Steam/search.php" uploadstatus="1" />
+    <item modified_time="1129823158" url="wp-content/themes/Steam/searchform.php" uploadstatus="1" />
+    <item modified_time="1129823159" url="wp-content/themes/Steam/sidebar.php" uploadstatus="1" />
+    <item modified_time="1129823157" url="wp-content/themes/Steam/single.php" uploadstatus="1" />
+    <item modified_time="1129823156" url="wp-content/themes/Steam/style.css" uploadstatus="1" />
+    <item url="wp-content/themes/Tagra/" uploadstatus="1" />
+    <item modified_time="1129823202" url="wp-content/themes/Tagra/404.php" uploadstatus="1" />
+    <item modified_time="1129823200" url="wp-content/themes/Tagra/archive.php" uploadstatus="1" />
+    <item modified_time="1129823202" url="wp-content/themes/Tagra/archives.php" uploadstatus="1" />
+    <item modified_time="1129823200" url="wp-content/themes/Tagra/comments-popup.php" uploadstatus="1" />
+    <item modified_time="1129823203" url="wp-content/themes/Tagra/comments.php" uploadstatus="1" />
+    <item modified_time="1129823204" url="wp-content/themes/Tagra/footer.php" uploadstatus="1" />
+    <item modified_time="1129823205" url="wp-content/themes/Tagra/header.php" uploadstatus="1" />
+    <item modified_time="1129823203" url="wp-content/themes/Tagra/index.php" uploadstatus="1" />
+    <item modified_time="1129823204" url="wp-content/themes/Tagra/links.php" uploadstatus="1" />
+    <item modified_time="1129823201" url="wp-content/themes/Tagra/page.php" uploadstatus="1" />
+    <item modified_time="1129823203" url="wp-content/themes/Tagra/search.php" uploadstatus="1" />
+    <item modified_time="1129823202" url="wp-content/themes/Tagra/searchform.php" uploadstatus="1" />
+    <item modified_time="1129823202" url="wp-content/themes/Tagra/sidebar.php" uploadstatus="1" />
+    <item modified_time="1129823202" url="wp-content/themes/Tagra/single.php" uploadstatus="1" />
+    <item modified_time="1129823201" url="wp-content/themes/Tagra/style.css" uploadstatus="1" />
+    <item modified_time="1130367218" url="wp-config.sample.php" />
+    <author>Samir M. Nassar</author>
+    <email>samir.nassar@steamedpenguin.com</email>
+    <debuggerclient persistentWatches="0" persistentBreakpoints="0" >No Debugger</debuggerclient>
+    <exclude cvsignore="false" >*~;</exclude>
+    <teamdata>
+      <taskleaders/>
+      <subprojectleaders/>
+      <mailinglist address="" />
+    </teamdata>
+    <events/>
+  </project>
+</webproject>
