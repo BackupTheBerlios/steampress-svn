@@ -13,7 +13,7 @@ $today = current_time('mysql', 1);
 if ( $recentposts = $wpdb->get_results("SELECT ID, post_title FROM $wpdb->posts WHERE post_status = 'publish' AND post_date_gmt < '$today' ORDER BY post_date DESC LIMIT 5") )
 {
 ?>
-		<h3><?php _e('Posts'); ?> <a href="edit.php" title="<?php _e('More posts...'); ?>">Edit</a></h3>
+		<h3><?php _e('Posts'); ?> <a href="edit.php" title="<?php _e('More posts...'); ?>" class="edit">Edit</a></h3>
 		<ul>
 <?php
 	foreach ($recentposts as $post)
@@ -57,7 +57,7 @@ if ( $scheduled = $wpdb->get_results("SELECT ID, post_title, post_date_gmt FROM 
 if ( $comments = $wpdb->get_results("SELECT comment_author, comment_author_url, comment_ID, comment_post_ID FROM $wpdb->comments WHERE comment_approved = '1' ORDER BY comment_date_gmt DESC LIMIT 5") )
 {
 ?>
-		<h3><?php _e('Comments'); ?> <a href="edit-comments.php" title="<?php _e('More comments...'); ?>">&raquo;</a></h3>
+		<h3><?php _e('Comments'); ?> <a href="edit-comments.php" title="<?php _e('More comments...'); ?>" class="edit">Edit</a></h3>
 		<ul>
 <?php
 	foreach ($comments as $comment)
