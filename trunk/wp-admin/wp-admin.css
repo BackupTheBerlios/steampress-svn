@@ -1,0 +1,281 @@
+* html #poststuff
+{
+	height: 100%; /* kill peekaboo bug in IE */
+}
+
+body
+{
+	background: #f8f8f8;
+	color: #000;
+	margin: 0;
+	padding: 0;
+	font: 0.9em sans-serif;
+}
+
+#wphead
+{
+	margin: 0;
+	padding: 5px;
+}
+
+#wphead h1
+{
+	font: 2em serif;
+	font-weight: bold;
+	width: 50%;
+	margin: 0 auto;
+	text-align: center;
+}
+
+#wphead span
+{
+	float: left;
+	margin: 5px 5px 0 5px;
+}
+
+#adminmenu, #adminmenu2
+{
+	border-bottom: 2px solid #444;
+	margin: 0;
+	font-size: 0.9em;
+}
+
+#adminmenu
+{
+	background-color: #555;
+	padding: 2px 0 2px 5px;
+}
+
+#adminmenu2
+{
+	background-color: #ccc;
+	padding: 2px 0 2px 20px;
+}
+
+#adminmenu li, #adminmenu2 li
+{
+	display: inline;
+	line-height: 200%;
+	list-style: none;
+	text-align: center;
+	margin: 4px;
+}
+
+#adminmenu li a, #adminmenu2 li a
+{
+	text-decoration: none;
+	padding: 2px 3px;
+	white-space: nowrap;
+}
+
+#adminmenu li a
+{
+	color: #fff;
+	border: 1px solid #fff;
+}
+
+#adminmenu2 li a
+{
+	color: #000;
+	border: 1px solid #000;
+}
+
+.updated
+{
+	border: 1px solid #fc1;
+	background-color: #ff0;
+	padding-left: 30px;
+	width: 75%;
+	margin: 10px auto;
+}
+
+.wrap, #dashboard
+{
+	border: 2px solid #000;
+	margin: 10px auto;
+	width: 85%;
+	background-color: #f0f0f0;
+	padding: 5px 20px;
+}
+
+h2, h3, h4, h5, h6
+{
+	border-bottom: 1px solid #555;
+}
+
+h2
+{
+	font-size: 1.8em;
+}
+
+h3
+{
+	font-size: 1.6em;
+}
+
+h4
+{
+	font-size: 1.4em;
+}
+
+h4
+{
+	font-size: 1.2em;
+}
+
+h5
+{
+	font-size: 1.1em;
+}
+
+fieldset
+{
+	border: 1px solid #555;
+	background-color: #f0f0f0;
+}
+
+fieldset legend
+{
+	border: 0;
+	padding: 4px;
+	text-align: center;
+	background-color: #f0f0f0;
+}
+
+fieldset legend a
+{
+	text-decoration: none;
+	border: 0;
+	margin: 1px 1px -2px 1px;
+	text-align: center;
+	font-weight: bold;
+	color: #000;
+}
+
+fieldset div input
+{}
+
+dt
+{
+	margin-top: 4px;
+	margin-bottom: 1px;
+}
+
+dd
+{
+	margin-bottom: 6px;
+}
+
+code
+{
+	font: 0.9em monospace;
+}
+
+#titlediv
+{
+	width: 25%;
+	min-width: 15em;
+	float: left;
+	border: 0;
+}
+
+#categorydiv
+{
+	float: right;
+	display: inline;
+	width: 20%;
+	border: 0;
+}
+
+#commentstatusdiv
+{
+	float: left;
+	margin-left: 10px;
+	width: 20%;
+}
+
+#postpassworddiv
+{
+	float: left;
+	margin-left: 10px;
+	width: 15%;
+}
+
+#postexcerpt
+{
+	float: left;
+	width: 65%;
+}
+
+#metainfo, #postdiv, #postexcerpt
+{
+clear: both;
+}
+
+#footer
+{
+	margin: 10px auto;
+	width: 75%;
+	padding: 5px 20px;
+	font-size: 0.75em;
+	text-align: center;
+}
+
+#login
+{
+	width: 60%;
+	margin: 50px auto;
+	border: 2px solid #000;
+	padding: 25px;
+	font-size: 1em;
+	background-color: #f0f0f0;
+}
+
+#login h1 a
+{
+	color: #000;
+}
+
+.options ul li
+{
+	list-style-type : none;
+}
+
+.wrap table
+{
+	border: 0;
+	font-size: 0.9em;
+}
+
+.wrap table tr
+{
+	background-color: #eee;
+	border-bottom: 1px solid #ccc;
+}
+
+.wrap table tr.alternate
+{
+	background-color: #fff;
+	border-bottom: 1px solid #ccc;
+}
+
+.wrap table tr td
+{
+	padding: 2px;
+}
+
+.togl, .vers, .auth
+{
+	text-align: center;
+}
+
+.togl
+{
+	background: #faa;
+}
+
+textarea
+{
+	width: 80%;
+	height: 13em;
+}
