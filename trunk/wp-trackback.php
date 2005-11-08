@@ -1,22 +1,27 @@
 <?php
 require_once( dirname(__FILE__) . '/wp-config.php' );
 
-if ( empty($doing_trackback) ) {
+if ( empty($doing_trackback) )
+{
 	$doing_trackback = true;
 	$tb = true;
 	require_once('wp-blog-header.php');
 }
 
-function trackback_response($error = 0, $error_message = '') {
+function trackback_response($error = 0, $error_message = '')
+{
 	header('Content-Type: text/xml; charset=' . get_option('blog_charset') );
-	if ($error) {
+	if ($error)
+	{
 		echo '<?xml version="1.0" encoding="utf-8"?'.">\n";
 		echo "<response>\n";
 		echo "<error>1</error>\n";
 		echo "<message>$error_message</message>\n";
 		echo "</response>";
 		die();
-	} else {
+	}
+	else
+	{
 		echo '<?xml version="1.0" encoding="utf-8"?'.">\n";
 		echo "<response>\n";
 		echo "<error>0</error>\n";
@@ -27,7 +32,8 @@ function trackback_response($error = 0, $error_message = '') {
 // trackback is done by a POST
 $request_array = 'HTTP_POST_VARS';
 
-if ( !$_GET['tb_id'] ) {
+if ( !$_GET['tb_id'] )
+{
 	$tb_id = explode('/', $_SERVER['REQUEST_URI']);
 	$tb_id = intval( $tb_id[ count($tb_id) - 1 ] );
 }
@@ -39,35 +45,48 @@ $blog_name = $_POST['blog_name'];
 $charset   = $_POST['charset'];
 
 if ($charset)
+{
 	$charset = strtoupper( trim($charset) );
+}
 else
+{
 	$charset = 'ASCII, UTF-8, ISO-8859-1, JIS, EUC-JP, SJIS';
+}
 
-if ( function_exists('mb_convert_encoding') ) { // For international trackbacks
+if ( function_exists('mb_convert_encoding') ) // For international trackbacks
+{
 	$title     = mb_convert_encoding($title, get_settings('blog_charset'), $charset);
 	$excerpt   = mb_convert_encoding($excerpt, get_settings('blog_charset'), $charset);
 	$blog_name = mb_convert_encoding($blog_name, get_settings('blog_charset'), $charset);
 }
 
-if ( is_single() || is_page() ) 
-    $tb_id = $posts[0]->ID;
+if ( is_single() || is_page() )
+{
+	$tb_id = $posts[0]->ID;
+}
 
 if ( !intval( $tb_id ) )
+{
 	trackback_response(1, 'I really need an ID for this to work.');
+}
 
-if (empty($title) && empty($tb_url) && empty($blog_name)) {
+if (empty($title) && empty($tb_url) && empty($blog_name))
+{
 	// If it doesn't look like a trackback at all...
 	header('Location: ' . get_permalink($tb_id));
 	exit;
 }
 
-if ( !empty($tb_url) && !empty($title) && !empty($tb_url) ) {
+if ( !empty($tb_url) && !empty($title) && !empty($tb_url) )
+{
 	header('Content-Type: text/xml; charset=' . get_option('blog_charset') );
 
 	$pingstatus = $wpdb->get_var("SELECT ping_status FROM $wpdb->posts WHERE ID = $tb_id");
 
 	if ( 'open' != $pingstatus )
+	{
 		trackback_response(1, 'Sorry, trackbacks are closed for this item.');
+	}
 
 	$title =  wp_specialchars( strip_tags( $title ) );
 	$title = (strlen($title) > 250) ? substr($title, 0, 250) . '...' : $title;
@@ -83,7 +102,9 @@ if ( !empty($tb_url) && !empty($title) && !empty($tb_url) ) {
 
 	$dupe = $wpdb->get_results("SELECT * FROM $wpdb->comments WHERE comment_post_ID = '$comment_post_ID' AND comment_author_url = '$comment_author_url'");
 	if ( $dupe )
+	{
 		trackback_response(1, 'We already have a ping from that URI for this post.');
+	}
 
 	$commentdata = compact('comment_post_ID', 'comment_author', 'comment_author_email', 'comment_author_url', 'comment_content', 'comment_type');
 
