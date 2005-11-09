@@ -1,4 +1,4 @@
-<?php 
+<?php
 /* Don't remove these lines. */
 add_filter('comment_text', 'popuplinks');
 foreach ($posts as $post) { start_wp();
@@ -98,12 +98,12 @@ if (!empty($commentstatus->post_password) && $_COOKIE['wp-postpass_'. COOKIEHASH
 ?>
 
 <!-- // this is just the end of the motor - don't touch that line either :) -->
-<?php //} ?> 
-<p class="credit"><?php timer_stop(1); ?> <cite>Powered by <a href="http://wordpress.org" title="Powered by WordPress, state-of-the-art semantic personal publishing platform"><strong>Wordpress</strong></a></cite></p>
+<?php //} ?>
+<p class="credit"><?php timer_stop(1); ?> <cite>Powered by <a href="http://steamedpenguin.com/projects/steampress/" title="Powered by SteamPress, lightweight personal publishing platform"><strong>SteamPress</strong></a></cite></p>
 <?php // Seen at http://www.mijnkopthee.nl/log2/archive/2003/05/28/esc(18) ?>
 <script type="text/javascript">
 <!--
-document.onkeypress = function esc(e) {	
+document.onkeypress = function esc(e) {
 	if(typeof(e) == "undefined") { e=event; }
 	if (e.keyCode == 27) { self.close(); }
 }
