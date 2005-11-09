@@ -58,30 +58,30 @@ window.onload = focusit;
 </script>
 <?php endif; ?>
 <div id="poststuff">
-    <fieldset id="titlediv">
-      <legend><a href="http://wordpress.org/docs/reference/post/#title" title="<?php _e('Help on titles') ?>"><?php _e('Title') ?></a></legend> 
-	  <div><input type="text" name="post_title" size="30" tabindex="1" value="<?php echo $edited_post_title; ?>" id="title" /></div>
-    </fieldset>
+	<fieldset id="titlediv">
+	<legend><a href="http://wordpress.org/docs/reference/post/#title" title="<?php _e('Help on titles') ?>"><?php _e('Title') ?></a></legend>
+	<div><input type="text" name="post_title" size="30" tabindex="1" value="<?php echo $edited_post_title; ?>" id="title" /></div>
+	</fieldset>
 
-    <fieldset id="categorydiv">
-      <legend><a href="http://wordpress.org/docs/reference/post/#category" title="<?php _e('Help on categories') ?>"><?php _e('Categories') ?></a></legend> 
-	  <div><?php dropdown_categories(get_settings('default_category')); ?></div>
-    </fieldset>
+	<fieldset id="categorydiv">
+	<legend><a href="http://wordpress.org/docs/reference/post/#category" title="<?php _e('Help on categories') ?>"><?php _e('Categories') ?></a></legend>
+	<div><?php dropdown_categories(get_settings('default_category')); ?></div>
+	</fieldset>
 
-    <fieldset id="commentstatusdiv">
-      <legend><a href="http://wordpress.org/docs/reference/post/#comments" title="<?php _e('Help on comment status') ?>"><?php _e('Discussion') ?></a></legend> 
-	  <div>
-	  <input name="advanced_view" type="hidden" value="1" />
-	  <label for="comment_status" class="selectit">
-	      <input name="comment_status" type="checkbox" id="comment_status" value="open" <?php checked($comment_status, 'open'); ?> />
-         <?php _e('Allow Comments') ?></label> 
-		 <label for="ping_status" class="selectit"><input name="ping_status" type="checkbox" id="ping_status" value="open" <?php checked($ping_status, 'open'); ?> /> <?php _e('Allow Pings') ?></label>
+	<fieldset id="commentstatusdiv">
+	<legend><a href="http://wordpress.org/docs/reference/post/#comments" title="<?php _e('Help on comment status') ?>"><?php _e('Discussion') ?></a></legend>
+	<div>
+	<input name="advanced_view" type="hidden" value="1" />
+	<label for="comment_status" class="selectit">
+		<input name="comment_status" type="checkbox" id="comment_status" value="open" <?php checked($comment_status, 'open'); ?> />
+		<?php _e('Allow Comments') ?></label>
+		<label for="ping_status" class="selectit"><input name="ping_status" type="checkbox" id="ping_status" value="open" <?php checked($ping_status, 'open'); ?> /> <?php _e('Allow Pings') ?></label>
 </div>
 </fieldset>
-    <fieldset id="postpassworddiv">
-      <legend><a href="http://wordpress.org/docs/reference/post/#post_password" title="<?php _e('Help on post password') ?>"><?php _e('Post Password') ?></a></legend> 
-	  <div><input name="post_password" type="text" size="13" id="post_password" value="<?php echo $post_password ?>" /></div>
-    </fieldset>
+	<fieldset id="postpassworddiv">
+	<legend><a href="http://wordpress.org/docs/reference/post/#post_password" title="<?php _e('Help on post password') ?>"><?php _e('Post Password') ?></a></legend>
+	<div><input name="post_password" type="text" size="13" id="post_password" value="<?php echo $post_password ?>" /></div>
+	</fieldset>
 
 <br />
 <fieldset id="postexcerpt">
@@ -89,13 +89,13 @@ window.onload = focusit;
 <div><textarea rows="1" cols="40" name="excerpt" tabindex="4" id="excerpt"><?php echo $excerpt ?></textarea></div>
 </fieldset>
 <fieldset id="postdiv">
-       <legend><a href="http://wordpress.org/docs/reference/post/#post" title="<?php _e('Help with post field') ?>"><?php _e('Post') ?></a></legend>
- 
+	<legend><a href="http://wordpress.org/docs/reference/post/#post" title="<?php _e('Help with post field') ?>"><?php _e('Post') ?></a></legend>
+
 <?php
- $rows = get_settings('default_post_edit_rows');
- if (($rows < 3) || ($rows > 100)) {
-     $rows = 10;
- }
+$rows = get_settings('default_post_edit_rows');
+if (($rows < 3) || ($rows > 100)) {
+	$rows = 10;
+}
 ?>
 <div><textarea cols="40" name="content" tabindex="5" id="content"><?php echo $content ?></textarea></div>
 </fieldset>
@@ -111,12 +111,12 @@ edCanvas = document.getElementById('content');
 <?php echo $form_prevstatus ?>
 
 
-<p class="submit"><?php echo $saveasdraft; ?> <input type="submit" name="submit" value="<?php _e('Save') ?>" style="font-weight: bold;" tabindex="6" /> 
-<?php 
+<p class="submit"><?php echo $saveasdraft; ?> <input type="submit" name="submit" value="<?php _e('Save') ?>" style="font-weight: bold;" tabindex="6" />
+<?php
 if ('publish' != $post_status || 0 == $post_ID) {
 ?>
 <?php if ( user_can_create_post($user_ID) ) : ?>
-	<input name="publish" type="submit" id="publish" tabindex="10" value="<?php _e('Publish') ?>" /> 
+	<input name="publish" type="submit" id="publish" tabindex="10" value="<?php _e('Publish') ?>" />
 <?php endif; ?>
 <?php
 }
@@ -138,8 +138,8 @@ if ('publish' != $post_status || 0 == $post_ID) {
 		<td><?php if ( user_can_create_post($user_ID) ) : ?>
 <label for="post_status_publish" class="selectit"><input id="post_status_publish" name="post_status" type="radio" value="publish" <?php checked($post_status, 'publish'); ?> /> <?php _e('Published') ?></label><br />
 <?php endif; ?>
-	  <label for="post_status_draft" class="selectit"><input id="post_status_draft" name="post_status" type="radio" value="draft" <?php checked($post_status, 'draft'); ?> /> <?php _e('Draft') ?></label><br />
-	  <label for="post_status_private" class="selectit"><input id="post_status_private" name="post_status" type="radio" value="private" <?php checked($post_status, 'private'); ?> /> <?php _e('Private') ?></label></td>
+	<label for="post_status_draft" class="selectit"><input id="post_status_draft" name="post_status" type="radio" value="draft" <?php checked($post_status, 'draft'); ?> /> <?php _e('Draft') ?></label><br />
+	<label for="post_status_private" class="selectit"><input id="post_status_private" name="post_status" type="radio" value="private" <?php checked($post_status, 'private'); ?> /> <?php _e('Private') ?></label></td>
 	</tr>
 	<tr>
 		<th scope="row" valign="top"><?php _e('Send trackbacks to'); ?>:</th>
@@ -155,7 +155,7 @@ if ('publish' != $post_status || 0 == $post_ID) {
 		<th scope="row"><?php _e('Post author'); ?>:</th>
 		<td>
 		<select name="post_author_override" id="post_author_override">
-		<?php 
+		<?php
 		foreach ($users as $o) :
 			if ( $post_author == $o->ID || ( empty($post_ID) && $user_ID == $o->ID ) ) $selected = 'selected="selected"';
 			else $selected = '';
@@ -185,11 +185,11 @@ if ('publish' != $post_status || 0 == $post_ID) {
 <fieldset id="postcustom">
 <legend><?php _e('Custom Fields') ?></legend>
 <div id="postcustomstuff">
-<?php 
+<?php
 if($metadata = has_meta($post_ID)) {
 ?>
 <?php
-	list_meta($metadata); 
+	list_meta($metadata);
 ?>
 <?php
 }
@@ -197,7 +197,7 @@ if($metadata = has_meta($post_ID)) {
 ?>
 </div>
 </fieldset>
-<?php 
+<?php
 if ('' != $pinged)
 	echo $pings;
 ?>

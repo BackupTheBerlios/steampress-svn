@@ -104,112 +104,112 @@ if (isset($updated)) { ?>
 <h2><?php _e('Profile'); ?></h2>
 <form name="profile" id="profile" action="profile.php" method="post">
 	<p>
-    <input type="hidden" name="action" value="update" />
-    <input type="hidden" name="checkuser_id" value="<?php echo $user_ID ?>" />
-  </p>
+	<input type="hidden" name="action" value="update" />
+	<input type="hidden" name="checkuser_id" value="<?php echo $user_ID ?>" />
+</p>
 
-  <table width="99%"  border="0" cellspacing="2" cellpadding="3" class="editform">
-    <tr>
-      <th width="33%" scope="row"><?php _e('Username:') ?></th>
-      <td width="67%"><?php echo $profiledata->user_login; ?></td>
-    </tr>
-    <tr>
-      <th scope="row"><?php _e('Level:') ?></th>
-      <td><?php echo $profiledata->user_level; ?></td>
-    </tr>
-    <tr>
-      <th scope="row"><?php _e('Posts:') ?></th>
-      <td>    <?php
+<table width="99%"  border="0" cellspacing="2" cellpadding="3" class="editform">
+	<tr>
+	<th width="33%" scope="row"><?php _e('Username:') ?></th>
+	<td width="67%"><?php echo $profiledata->user_login; ?></td>
+	</tr>
+	<tr>
+	<th scope="row"><?php _e('Level:') ?></th>
+	<td><?php echo $profiledata->user_level; ?></td>
+	</tr>
+	<tr>
+	<th scope="row"><?php _e('Posts:') ?></th>
+	<td>    <?php
 	$posts = get_usernumposts($user_ID);
 	echo $posts;
 	?></td>
-    </tr>
-    <tr>
-      <th scope="row"><?php _e('First name:') ?></th>
-      <td><input type="text" name="newuser_firstname" id="newuser_firstname" value="<?php echo $profiledata->user_firstname ?>" /></td>
-    </tr>
-    <tr>
-      <th scope="row"><?php _e('Last name:') ?></th>
-      <td><input type="text" name="newuser_lastname" id="newuser_lastname2" value="<?php echo $profiledata->user_lastname ?>" /></td>
-    </tr>
-    <tr>
-      <th scope="row"><?php _e('Nickname:') ?></th>
-      <td><input type="text" name="newuser_nickname" id="newuser_nickname2" value="<?php echo $profiledata->user_nickname ?>" /></td>
-    </tr>
-    <tr>
-      <th scope="row"><?php _e('How to display name:') ?> </th>
-      <td><select name="newuser_idmode">
-        <option value="nickname"<?php
+	</tr>
+	<tr>
+	<th scope="row"><?php _e('First name:') ?></th>
+	<td><input type="text" name="newuser_firstname" id="newuser_firstname" value="<?php echo $profiledata->user_firstname ?>" /></td>
+	</tr>
+	<tr>
+	<th scope="row"><?php _e('Last name:') ?></th>
+	<td><input type="text" name="newuser_lastname" id="newuser_lastname2" value="<?php echo $profiledata->user_lastname ?>" /></td>
+	</tr>
+	<tr>
+	<th scope="row"><?php _e('Nickname:') ?></th>
+	<td><input type="text" name="newuser_nickname" id="newuser_nickname2" value="<?php echo $profiledata->user_nickname ?>" /></td>
+	</tr>
+	<tr>
+	<th scope="row"><?php _e('How to display name:') ?> </th>
+	<td><select name="newuser_idmode">
+		<option value="nickname"<?php
 	if ($profiledata->user_idmode == 'nickname')
 	echo ' selected="selected"'; ?>><?php echo $profiledata->user_nickname ?></option>
-        <option value="login"<?php
+		<option value="login"<?php
 	if ($profiledata->user_idmode=="login")
 	echo ' selected="selected"'; ?>><?php echo $profiledata->user_login ?></option>
 	<?php if ( !empty( $profiledata->user_firstname ) ) : ?>
-        <option value="firstname"<?php
+		<option value="firstname"<?php
 	if ($profiledata->user_idmode=="firstname")
 	echo ' selected="selected"'; ?>><?php echo $profiledata->user_firstname ?></option>
 	<?php endif; ?>
 	<?php if ( !empty( $profiledata->user_lastname ) ) : ?>
-        <option value="lastname"<?php
+		<option value="lastname"<?php
 	if ($profiledata->user_idmode=="lastname")
 	echo ' selected="selected"'; ?>><?php echo $profiledata->user_lastname ?></option>
 	<?php endif; ?>
 	<?php if ( !empty( $profiledata->user_firstname ) && !empty( $profiledata->user_lastname ) ) : ?>
-        <option value="namefl"<?php
+		<option value="namefl"<?php
 	if ($profiledata->user_idmode=="namefl")
 	echo ' selected="selected"'; ?>><?php echo $profiledata->user_firstname." ".$profiledata->user_lastname ?></option>
 	<?php endif; ?>
 	<?php if ( !empty( $profiledata->user_firstname ) && !empty( $profiledata->user_lastname ) ) : ?>
-        <option value="namelf"<?php
+		<option value="namelf"<?php
 	if ($profiledata->user_idmode=="namelf")
 	echo ' selected="selected"'; ?>><?php echo $profiledata->user_lastname." ".$profiledata->user_firstname ?></option>
 	<?php endif; ?>
-      </select>        </td>
-    </tr>
-    <tr>
-      <th scope="row"><?php _e('E-mail:') ?></th>
-      <td><input type="text" name="newuser_email" id="newuser_email2" value="<?php echo $profiledata->user_email ?>" /></td>
-    </tr>
-    <tr>
-      <th scope="row"><?php _e('Website:') ?></th>
-      <td><input type="text" name="newuser_url" id="newuser_url2" value="<?php echo $profiledata->user_url ?>" /></td>
-    </tr>
-    <tr>
-      <th scope="row"><?php _e('ICQ:') ?></th>
-      <td><input type="text" name="newuser_icq" id="newuser_icq2" value="<?php if ($profiledata->user_icq > 0) { echo $profiledata->user_icq; } ?>" /></td>
-    </tr>
-    <tr>
-      <th scope="row"><?php _e('AIM:') ?></th>
-      <td><input type="text" name="newuser_aim" id="newuser_aim2" value="<?php echo $profiledata->user_aim ?>" /></td>
-    </tr>
-    <tr>
-      <th scope="row"><?php _e('MSN IM:') ?> </th>
-      <td><input type="text" name="newuser_msn" id="newuser_msn2" value="<?php echo $profiledata->user_msn ?>" /></td>
-    </tr>
-    <tr>
-      <th scope="row"><?php _e('Yahoo IM:') ?> </th>
-      <td>        <input type="text" name="newuser_yim" id="newuser_yim2" value="<?php echo $profiledata->user_yim ?>" />      </td>
-    </tr>
-    <tr>
-      <th scope="row"><?php _e('Profile:') ?></th>
-      <td><textarea name="user_description" rows="5" id="textarea2" style="width: 99%; "><?php echo $profiledata->user_description ?></textarea></td>
-    </tr>
+	</select>        </td>
+	</tr>
+	<tr>
+	<th scope="row"><?php _e('E-mail:') ?></th>
+	<td><input type="text" name="newuser_email" id="newuser_email2" value="<?php echo $profiledata->user_email ?>" /></td>
+	</tr>
+	<tr>
+	<th scope="row"><?php _e('Website:') ?></th>
+	<td><input type="text" name="newuser_url" id="newuser_url2" value="<?php echo $profiledata->user_url ?>" /></td>
+	</tr>
+	<tr>
+	<th scope="row"><?php _e('ICQ:') ?></th>
+	<td><input type="text" name="newuser_icq" id="newuser_icq2" value="<?php if ($profiledata->user_icq > 0) { echo $profiledata->user_icq; } ?>" /></td>
+	</tr>
+	<tr>
+	<th scope="row"><?php _e('AIM:') ?></th>
+	<td><input type="text" name="newuser_aim" id="newuser_aim2" value="<?php echo $profiledata->user_aim ?>" /></td>
+	</tr>
+	<tr>
+	<th scope="row"><?php _e('MSN IM:') ?> </th>
+	<td><input type="text" name="newuser_msn" id="newuser_msn2" value="<?php echo $profiledata->user_msn ?>" /></td>
+	</tr>
+	<tr>
+	<th scope="row"><?php _e('Yahoo IM:') ?> </th>
+	<td>        <input type="text" name="newuser_yim" id="newuser_yim2" value="<?php echo $profiledata->user_yim ?>" />      </td>
+	</tr>
+	<tr>
+	<th scope="row"><?php _e('Profile:') ?></th>
+	<td><textarea name="user_description" rows="5" id="textarea2" style="width: 99%; "><?php echo $profiledata->user_description ?></textarea></td>
+	</tr>
 <?php
 $show_password_fields = apply_filters('show_password_fields', true);
 if ( $show_password_fields ) :
 ?>
-    <tr>
-      <th scope="row"><?php _e('New <strong>Password</strong> (Leave blank to stay the same.)') ?></th>
-      <td><input type="password" name="pass1" size="16" value="" />
-      	<br />
-        <input type="password" name="pass2" size="16" value="" /></td>
-    </tr>
+	<tr>
+	<th scope="row"><?php _e('New <strong>Password</strong> (Leave blank to stay the same.)') ?></th>
+	<td><input type="password" name="pass1" size="16" value="" />
+		<br />
+		<input type="password" name="pass2" size="16" value="" /></td>
+	</tr>
 <?php endif; ?>
-  </table>
-  <p class="submit">
-    <input type="submit" value="<?php _e('Update Profile &raquo;') ?>" name="submit" />
-  </p>
+</table>
+<p class="submit">
+	<input type="submit" value="<?php _e('Update Profile &raquo;') ?>" name="submit" />
+</p>
 </form>
 </div>
 
@@ -221,4 +221,4 @@ break;
 
 /* </Profile | My Profile> */
 include('admin-footer.php');
- ?>
+?>

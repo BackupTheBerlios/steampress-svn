@@ -44,13 +44,13 @@ header( 'Content-Type: text/html; charset=utf-8' );
 		margin-bottom:2px;
 	}
 	</style>
-</head><body> 
-<h1 id="logo"><a href="http://wordpress.org">WordPress</a></h1> 
+</head><body>
+<h1 id="logo"><a href="http://wordpress.org">WordPress</a></h1>
 <?php
 switch($step) {
 
 	case 0:
-?> 
+?>
 <p>Howdy! We&#8217;re about to begin the process to import all of your Movable Type entries into WordPress. Before we get started, you need to edit this file (<code>import-mt.php</code>) and change one line so we know where to find your MT export file. To make this easy put the import file into the <code>wp-admin</code> directory. Look for the line that says:</p>
 <p><code>define('MTEXPORT', '');</code></p>
 <p>and change it to</p>
@@ -60,7 +60,7 @@ switch($step) {
 <p>The importer is smart enough not to import duplicates, so you can run this multiple times without worry if&#8212;for whatever reason&#8212;it doesn't finish. If you get an <strong>out of memory</strong> error try splitting up the import file into pieces. </p>
 <?php
 	break;
-	
+
 	case 1:
 if ('' != MTEXPORT && !file_exists(MTEXPORT)) die("The file you specified does not seem to exist. Please check the path you've given.");
 if ('' == MTEXPORT) die("You must edit the MTEXPORT line as described on the <a href='import-mt.php'>previous page</a> to continue.");
@@ -87,7 +87,7 @@ function users_form($n) {
 <?php }
 
 $i = -1;
-foreach ($posts as $post) { 
+foreach ($posts as $post) {
 	if ('' != trim($post)) {
 		++$i;
 		unset($post_categories);
@@ -97,7 +97,7 @@ foreach ($posts as $post) {
 		}
 	}//end of foreach
 //we need to find unique values of author names, while preserving the order, so this function emulates the unique_value(); php function, without the sorting.
-$authors[0] = array_shift($temp); 
+$authors[0] = array_shift($temp);
 $y = count($temp) + 1;
 for ($x = 1; $x < $y; $x++) {
 	$next = array_shift($temp);
@@ -120,18 +120,18 @@ for ($x = 1; $x < $y; $x++) {
 	echo '<input type="submit" value="Submit">'.'<br/>';
 	echo '</form>';
 	echo '</ol>';
-	
+
 	flush();
 
 	break;
-	
+
 	case 2:
 	$newauthornames = array();
 	$formnames = array();
 	$selectnames = array();
 	$mtnames = array();
-	foreach($_POST['user'] as $key => $line) { 
-	$newname = trim(stripslashes($line)); 
+	foreach($_POST['user'] as $key => $line) {
+	$newname = trim(stripslashes($line));
 	if ($newname == '') $newname = 'left_blank';//passing author names from step 1 to step 2 is accomplished by using POST. left_blank denotes an empty entry in the form.
 	array_push($formnames,"$newname");
 	}// $formnames is the array with the form entered names
@@ -143,7 +143,7 @@ for ($x = 1; $x < $y; $x++) {
 	for ($i = 0; $i < $count; $i++) {
 	if ( $selectnames[$i] != '#NONE#') {//if no name was selected from the select menu, use the name entered in the form
 	array_push($newauthornames,"$selectnames[$i]");
-	} 
+	}
 	else {
 	array_push($newauthornames,"$formnames[$i]");
 	}
@@ -156,9 +156,9 @@ for ($x = 1; $x < $y; $x++) {
 	$md5pass = md5(changeme);
 	if (!(in_array($author, $mtnames))) { //a new mt author name is found
 		++$j;
-		$mtnames[$j] = $author; //add that new mt author name to an array 
+		$mtnames[$j] = $author; //add that new mt author name to an array
 		$user_id = $wpdb->get_var("SELECT ID FROM $wpdb->users WHERE user_login = '$newauthornames[$j]'"); //check if the new author name defined by the user is a pre-existing wp user
-		if (!$user_id) { //banging my head against the desk now. 
+		if (!$user_id) { //banging my head against the desk now.
 			if ($newauthornames[$j] == 'left_blank') { //check if the user does not want to change the authorname
 				$wpdb->query("INSERT INTO $wpdb->users (user_level, user_login, user_pass, user_nickname) VALUES ('1', '$author', '$md5pass', '$author')"); // if user does not want to change, insert the authorname $author
 				$user_id = $wpdb->get_var("SELECT ID FROM $wpdb->users WHERE user_login = '$author'");
@@ -168,9 +168,9 @@ for ($x = 1; $x < $y; $x++) {
 			$user_id = $wpdb->get_var("SELECT ID FROM $wpdb->users WHERE user_login = '$newauthornames[$j]'");
 			}
 		} else return $user_id; // return pre-existing wp username if it exists
-    } else {
-    $key = array_search($author, $mtnames); //find the array key for $author in the $mtnames array
-    $user_id = $wpdb->get_var("SELECT ID FROM $wpdb->users WHERE user_login = '$newauthornames[$key]'");//use that key to get the value of the author's name from $newauthornames
+	} else {
+	$key = array_search($author, $mtnames); //find the array key for $author in the $mtnames array
+	$user_id = $wpdb->get_var("SELECT ID FROM $wpdb->users WHERE user_login = '$newauthornames[$key]'");//use that key to get the value of the author's name from $newauthornames
 	}
 	return $user_id;
 }//function checkauthor ends here
@@ -200,27 +200,27 @@ foreach ($posts as $post) { if ('' != trim($post)) {
 	// Then take the comments out
 	preg_match("|(-----\nCOMMENT:.*)|s", $post, $comments);
 	$post = preg_replace("|(-----\nCOMMENT:.*)|s", '', $post);
-	
+
 	// We ignore the keywords
 	$post = preg_replace("|(-----\nKEYWORDS:.*)|s", '', $post);
-	
+
 	// We want the excerpt
 	preg_match("|-----\nEXCERPT:(.*)|s", $post, $excerpt);
 	$excerpt = addslashes(trim($excerpt[1]));
 	$post = preg_replace("|(-----\nEXCERPT:.*)|s", '', $post);
-	
+
 	// We're going to put extended body into main body with a more tag
 	preg_match("|-----\nEXTENDED BODY:(.*)|s", $post, $extended);
 	$extended = trim($extended[1]);
 	if ('' != $extended) $extended = "\n<!--more-->\n$extended";
 	$post = preg_replace("|(-----\nEXTENDED BODY:.*)|s", '', $post);
-	
+
 	// Now for the main body
 	preg_match("|-----\nBODY:(.*)|s", $post, $body);
 	$body = trim($body[1]);
 	$post_content = addslashes($body . $extended);
 	$post = preg_replace("|(-----\nBODY:.*)|s", '', $post);
-	
+
 	// Grab the metadata from what's left
 	$metadata = explode("\n", $post);
 	foreach ($metadata as $line) {
@@ -228,47 +228,47 @@ foreach ($posts as $post) { if ('' != trim($post)) {
 		$key = trim($token[1]);
 		$value = trim($token[2]);
 		// Now we decide what it is and what to do with it
-        switch($key) {
+		switch($key) {
 			case '':
 				break;
-            case 'AUTHOR':
-                $post_author = $value;
-                break;
-            case 'TITLE':
-                $post_title = addslashes($value);
+			case 'AUTHOR':
+				$post_author = $value;
+				break;
+			case 'TITLE':
+				$post_title = addslashes($value);
 				echo '<i>'.stripslashes($post_title).'</i>... ';
 				$post_name = sanitize_title($post_title);
-                break;
-            case 'STATUS':
-                // "publish" and "draft" enumeration items match up; no change required
-                $post_status = $value;
+				break;
+			case 'STATUS':
+				// "publish" and "draft" enumeration items match up; no change required
+				$post_status = $value;
 				if (empty($post_status)) $post_status = 'publish';
-                break;
-            case 'ALLOW COMMENTS':
-                $post_allow_comments = $value;
-                if ($post_allow_comments == 1) {
-                    $comment_status = 'open';
-                } else {
-                    $comment_status = 'closed';
-                }
-                break;
-            case 'CONVERT BREAKS':
-                $post_convert_breaks = $value;
-                break;
-            case 'ALLOW PINGS':
-                $post_allow_pings = trim($meta[2][0]);
-                if ($post_allow_pings == 1) {
-                    $post_allow_pings = 'open';
-                } else {
-                    $post_allow_pings = 'closed';
-                }
-                break;
-            case 'PRIMARY CATEGORY':
+				break;
+			case 'ALLOW COMMENTS':
+				$post_allow_comments = $value;
+				if ($post_allow_comments == 1) {
+					$comment_status = 'open';
+				} else {
+					$comment_status = 'closed';
+				}
+				break;
+			case 'CONVERT BREAKS':
+				$post_convert_breaks = $value;
+				break;
+			case 'ALLOW PINGS':
+				$post_allow_pings = trim($meta[2][0]);
+				if ($post_allow_pings == 1) {
+					$post_allow_pings = 'open';
+				} else {
+					$post_allow_pings = 'closed';
+				}
+				break;
+			case 'PRIMARY CATEGORY':
 				$post_categories[] = addslashes($value);
-                break;
-            case 'CATEGORY':    
+				break;
+			case 'CATEGORY':
 				$post_categories[] = addslashes($value);
-                break;
+				break;
 			case 'DATE':
 				$post_date = strtotime($value);
 				$post_date = date('Y-m-d H:i:s', $post_date);
@@ -277,7 +277,7 @@ foreach ($posts as $post) { if ('' != trim($post)) {
 			default:
 //				echo "\n$key: $value";
 				break;
-        } // end switch
+		} // end switch
 	} // End foreach
 
 	// Let's check to see if it's in already
@@ -285,9 +285,9 @@ foreach ($posts as $post) { if ('' != trim($post)) {
 		echo "Post already imported.";
 	} else {
 		$post_author = checkauthor($post_author);//just so that if a post already exists, new users are not created by checkauthor
-	    $wpdb->query("INSERT INTO $wpdb->posts (
+		$wpdb->query("INSERT INTO $wpdb->posts (
 			post_author, post_date, post_date_gmt, post_content, post_title, post_excerpt,  post_status, comment_status, ping_status, post_name, post_modified, post_modified_gmt)
-			VALUES 
+			VALUES
 			('$post_author', '$post_date', '$post_date_gmt', '$post_content', '$post_title', '$excerpt', '$post_status', '$comment_status', '$ping_status', '$post_name','$post_date', '$post_date_gmt')");
 		$post_id = $wpdb->get_var("SELECT ID FROM $wpdb->posts WHERE post_title = '$post_title' AND post_date = '$post_date'");
 		if (0 != count($post_categories)) {
@@ -303,7 +303,7 @@ foreach ($posts as $post) { if ('' != trim($post)) {
 			// Double check it's not there already
 			$exists = $wpdb->get_row("SELECT * FROM $wpdb->post2cat WHERE post_id = $post_id AND category_id = $cat_id");
 
-			 if (!$exists) { 
+			if (!$exists) {
 				$wpdb->query("
 				INSERT INTO $wpdb->post2cat
 				(post_id, category_id)
@@ -381,16 +381,16 @@ foreach ($posts as $post) { if ('' != trim($post)) {
 			$comment_date = trim($comment_date[1]);
 			$comment_date = date('Y-m-d H:i:s', strtotime($comment_date));
 			$ping = preg_replace('|(\n?DATE:.*)|', '', $ping);
-      
- 			preg_match("|TITLE:(.*)|", $ping, $ping_title);
+
+			preg_match("|TITLE:(.*)|", $ping, $ping_title);
 			$ping_title = addslashes(trim($ping_title[1]));
 			$ping = preg_replace('|(\n?TITLE:.*)|', '', $ping);
 
 			$comment_content = addslashes(trim($ping));
 			$comment_content = str_replace('-----', '', $comment_content);
-			
+
 			$comment_content = "<strong>$ping_title</strong>\n\n$comment_content";
-      
+
 			// Check if it's already there
 			if (!$wpdb->get_row("SELECT * FROM $wpdb->comments WHERE comment_date = '$comment_date' AND comment_content = '$comment_content'")) {
 				$wpdb->query("INSERT INTO $wpdb->comments (comment_post_ID, comment_author, comment_author_email, comment_author_url, comment_author_IP, comment_date, comment_content, comment_approved, comment_type)
@@ -413,6 +413,6 @@ upgrade_all();
 <?php
 	break;
 }
-?> 
+?>
 </body>
 </html>

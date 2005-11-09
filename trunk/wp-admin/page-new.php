@@ -7,12 +7,18 @@ require_once('admin-header.php');
 get_currentuserinfo();
 ?>
 
-<?php if ( isset($_GET['saved']) ) : ?>
+<?php
+if ( isset($_GET['saved']) )
+{
+?>
 <div class="updated"><p><strong><?php _e('Page saved.') ?> <a href="edit-pages.php"><?php _e('Manage pages'); ?> &raquo;</a></strong></p></div>
-<?php endif; ?>
+<?php
+}
+?>
 
 <?php
-if ($user_level > 0) {
+if ($user_level > 0)
+{
 	$action = 'post';
 	get_currentuserinfo();
 	//set defaults
@@ -27,4 +33,4 @@ if ($user_level > 0) {
 }
 ?>
 
-<?php include('admin-footer.php'); ?> 
+<?php include('admin-footer.php'); ?>

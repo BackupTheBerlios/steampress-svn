@@ -20,88 +20,88 @@ function checked($checked, $current) {
 
 function return_categories_list( $parent = 0, $sortbyname = FALSE )
 {
-        /*
-         * This function returns an list of all categories
-         * that have $parent as their parent
-         * if no parent is specified we will assume top level caegories
-         * are required.
-         */
-        global $wpdb;
+		/*
+		* This function returns an list of all categories
+		* that have $parent as their parent
+		* if no parent is specified we will assume top level caegories
+		* are required.
+		*/
+		global $wpdb;
 
-        // select sort order
-        $sort = "cat_id";
-        if( TRUE == $sortbyname )
-        {
-                $sort = "cat_name";
-        }
+		// select sort order
+		$sort = "cat_id";
+		if( TRUE == $sortbyname )
+		{
+				$sort = "cat_name";
+		}
 
-        // First query the database
-        $cats_tmp = $wpdb->get_results("SELECT cat_ID FROM $wpdb->categories WHERE category_parent = $parent ORDER BY $sort");
+		// First query the database
+		$cats_tmp = $wpdb->get_results("SELECT cat_ID FROM $wpdb->categories WHERE category_parent = $parent ORDER BY $sort");
 
-        // Now strip this down to a simple array of IDs
-        $cats = array();
-        if( count($cats_tmp) > 0 )
-        {
-                foreach( $cats_tmp as $cat )
-                {
-                        $cats[] = $cat->cat_ID;
-                }
-        }
+		// Now strip this down to a simple array of IDs
+		$cats = array();
+		if( count($cats_tmp) > 0 )
+		{
+				foreach( $cats_tmp as $cat )
+				{
+						$cats[] = $cat->cat_ID;
+				}
+		}
 
-        // Return the list of categories
-        return $cats;
+		// Return the list of categories
+		return $cats;
 }
 
 function get_nested_categories($default = 0, $parent = 0) {
- global $post_ID, $mode, $wpdb;
+global $post_ID, $mode, $wpdb;
 
- if ($post_ID) {
-   $checked_categories = $wpdb->get_col("
-     SELECT category_id
-     FROM $wpdb->categories, $wpdb->post2cat
-     WHERE $wpdb->post2cat.category_id = cat_ID AND $wpdb->post2cat.post_id = '$post_ID'
-     ");
+if ($post_ID) {
+$checked_categories = $wpdb->get_col("
+	SELECT category_id
+	FROM $wpdb->categories, $wpdb->post2cat
+	WHERE $wpdb->post2cat.category_id = cat_ID AND $wpdb->post2cat.post_id = '$post_ID'
+	");
 
-   if(count($checked_categories) == 0)
-   {
-     // No selected categories, strange
-     $checked_categories[] = $default;
-   }
+if(count($checked_categories) == 0)
+{
+	// No selected categories, strange
+	$checked_categories[] = $default;
+}
 
- } else {
-   $checked_categories[] = $default;
- }
+} else {
+$checked_categories[] = $default;
+}
 
- $cats = return_categories_list($parent, TRUE);
- $result = array();
+$cats = return_categories_list($parent, TRUE);
+$result = array();
 
- foreach($cats as $cat)
- {
-   $result[$cat]['children'] = get_nested_categories($default, $cat);
-   $result[$cat]['cat_ID'] = $cat;
-   $result[$cat]['checked'] = in_array($cat, $checked_categories);
-   $result[$cat]['cat_name'] = get_the_category_by_ID($cat);
- }
+foreach($cats as $cat)
+{
+$result[$cat]['children'] = get_nested_categories($default, $cat);
+$result[$cat]['cat_ID'] = $cat;
+$result[$cat]['checked'] = in_array($cat, $checked_categories);
+$result[$cat]['cat_name'] = get_the_category_by_ID($cat);
+}
 
- return $result;
+return $result;
 }
 
 function write_nested_categories($categories) {
- foreach($categories as $category) {
-   echo '<label for="category-', $category['cat_ID'], '" class="selectit"><input value="', $category['cat_ID'],
-     '" type="checkbox" name="post_category[]" id="category-', $category['cat_ID'], '"',
-     ($category['checked'] ? ' checked="checked"' : ""), '/> ', wp_specialchars($category['cat_name']), "</label>\n";
+foreach($categories as $category) {
+echo '<label for="category-', $category['cat_ID'], '" class="selectit"><input value="', $category['cat_ID'],
+	'" type="checkbox" name="post_category[]" id="category-', $category['cat_ID'], '"',
+	($category['checked'] ? ' checked="checked"' : ""), '/> ', wp_specialchars($category['cat_name']), "</label>\n";
 
-   if(isset($category['children'])) {
-     echo "\n<span class='cat-nest'>\n";
-     write_nested_categories($category['children']);
-     echo "</span>\n";
-   }
- }
+if(isset($category['children'])) {
+	echo "\n<span class='cat-nest'>\n";
+	write_nested_categories($category['children']);
+	echo "</span>\n";
+}
+}
 }
 
 function dropdown_categories($default = 0) {
- write_nested_categories(get_nested_categories($default));
+write_nested_categories(get_nested_categories($default));
 }
 
 // Dandy new recursive multiple category stuff.
@@ -148,17 +148,17 @@ function page_rows( $parent = 0, $level = 0, $pages = 0 ) {
 				$id = $post->ID;
 				$class = ('alternate' == $class) ? '' : 'alternate';
 ?>
-  <tr class='<?php echo $class; ?>'>
-    <th scope="row"><?php echo $post->ID; ?></th>
-    <td>
-      <?php echo $pad; ?><?php the_title() ?>
-    </td>
-    <td><?php the_author() ?></td>
-    <td><?php echo mysql2date('Y-m-d g:i a', $post->post_modified); ?></td>
+<tr class='<?php echo $class; ?>'>
+	<th scope="row"><?php echo $post->ID; ?></th>
+	<td>
+	<?php echo $pad; ?><?php the_title() ?>
+	</td>
+	<td><?php the_author() ?></td>
+	<td><?php echo mysql2date('Y-m-d g:i a', $post->post_modified); ?></td>
 	<td><a href="<?php the_permalink(); ?>" rel="permalink" class="edit"><?php _e('View'); ?></a></td>
-    <td><?php if (($user_level > $authordata->user_level) or ($user_login == $authordata->user_login)) { echo "<a href='post.php?action=edit&amp;post=$id' class='edit'>" . __('Edit') . "</a>"; } ?></td>
-    <td><?php if (($user_level > $authordata->user_level) or ($user_login == $authordata->user_login)) { echo "<a href='post.php?action=delete&amp;post=$id' class='delete' onclick=\"return confirm('" . sprintf(__("You are about to delete this post \'%s\'\\n  \'OK\' to delete, \'Cancel\' to stop."), the_title('','',0)) . "')\">" . __('Delete') . "</a>"; } ?></td>
-  </tr>
+	<td><?php if (($user_level > $authordata->user_level) or ($user_login == $authordata->user_login)) { echo "<a href='post.php?action=edit&amp;post=$id' class='edit'>" . __('Edit') . "</a>"; } ?></td>
+	<td><?php if (($user_level > $authordata->user_level) or ($user_login == $authordata->user_login)) { echo "<a href='post.php?action=delete&amp;post=$id' class='delete' onclick=\"return confirm('" . sprintf(__("You are about to delete this post \'%s\'\\n  \'OK\' to delete, \'Cancel\' to stop."), the_title('','',0)) . "')\">" . __('Delete') . "</a>"; } ?></td>
+</tr>
 
 <?php
 				page_rows($id, $level + 1, $pages);
@@ -192,89 +192,89 @@ function wp_dropdown_cats($currentcat = 0, $currentparent = 0, $parent = 0, $lev
 
 function wp_create_thumbnail($file, $max_side, $effect = '') {
 
-    // 1 = GIF, 2 = JPEG, 3 = PNG
+	// 1 = GIF, 2 = JPEG, 3 = PNG
 
-    if(file_exists($file)) {
-        $type = getimagesize($file);
+	if(file_exists($file)) {
+		$type = getimagesize($file);
 
-        // if the associated function doesn't exist - then it's not
-        // handle. duh. i hope.
+		// if the associated function doesn't exist - then it's not
+		// handle. duh. i hope.
 
-        if(!function_exists('imagegif') && $type[2] == 1) {
-            $error = __('Filetype not supported. Thumbnail not created.');
-        }elseif(!function_exists('imagejpeg') && $type[2] == 2) {
-            $error = __('Filetype not supported. Thumbnail not created.');
-        }elseif(!function_exists('imagepng') && $type[2] == 3) {
-            $error = __('Filetype not supported. Thumbnail not created.');
-        } else {
+		if(!function_exists('imagegif') && $type[2] == 1) {
+			$error = __('Filetype not supported. Thumbnail not created.');
+		}elseif(!function_exists('imagejpeg') && $type[2] == 2) {
+			$error = __('Filetype not supported. Thumbnail not created.');
+		}elseif(!function_exists('imagepng') && $type[2] == 3) {
+			$error = __('Filetype not supported. Thumbnail not created.');
+		} else {
 
-            // create the initial copy from the original file
-            if($type[2] == 1) {
-                $image = imagecreatefromgif($file);
-            } elseif($type[2] == 2) {
-                $image = imagecreatefromjpeg($file);
-            } elseif($type[2] == 3) {
-                $image = imagecreatefrompng($file);
-            }
+			// create the initial copy from the original file
+			if($type[2] == 1) {
+				$image = imagecreatefromgif($file);
+			} elseif($type[2] == 2) {
+				$image = imagecreatefromjpeg($file);
+			} elseif($type[2] == 3) {
+				$image = imagecreatefrompng($file);
+			}
 
 			if (function_exists('imageantialias'))
-	            imageantialias($image, TRUE);
+				imageantialias($image, TRUE);
 
-            $image_attr = getimagesize($file);
+			$image_attr = getimagesize($file);
 
-            // figure out the longest side
+			// figure out the longest side
 
-            if($image_attr[0] > $image_attr[1]) {
-                $image_width = $image_attr[0];
-                $image_height = $image_attr[1];
-                $image_new_width = $max_side;
+			if($image_attr[0] > $image_attr[1]) {
+				$image_width = $image_attr[0];
+				$image_height = $image_attr[1];
+				$image_new_width = $max_side;
 
-                $image_ratio = $image_width/$image_new_width;
-                $image_new_height = $image_height/$image_ratio;
-                //width is > height
-            } else {
-                $image_width = $image_attr[0];
-                $image_height = $image_attr[1];
-                $image_new_height = $max_side;
+				$image_ratio = $image_width/$image_new_width;
+				$image_new_height = $image_height/$image_ratio;
+				//width is > height
+			} else {
+				$image_width = $image_attr[0];
+				$image_height = $image_attr[1];
+				$image_new_height = $max_side;
 
-                $image_ratio = $image_height/$image_new_height;
-                $image_new_width = $image_width/$image_ratio;
-                //height > width
-            }
+				$image_ratio = $image_height/$image_new_height;
+				$image_new_width = $image_width/$image_ratio;
+				//height > width
+			}
 
-            $thumbnail = imagecreatetruecolor($image_new_width, $image_new_height);
-            @imagecopyresampled($thumbnail, $image, 0, 0, 0, 0, $image_new_width, $image_new_height, $image_attr[0], $image_attr[1]);
+			$thumbnail = imagecreatetruecolor($image_new_width, $image_new_height);
+			@imagecopyresampled($thumbnail, $image, 0, 0, 0, 0, $image_new_width, $image_new_height, $image_attr[0], $image_attr[1]);
 
-            // move the thumbnail to it's final destination
+			// move the thumbnail to it's final destination
 
-            $path = explode('/', $file);
-            $thumbpath = substr($file, 0, strrpos($file, '/')) . '/thumb-' . $path[count($path)-1];
+			$path = explode('/', $file);
+			$thumbpath = substr($file, 0, strrpos($file, '/')) . '/thumb-' . $path[count($path)-1];
 
-            if($type[2] == 1) {
-                if(!imagegif($thumbnail, $thumbpath)) {
-                    $error = __("Thumbnail path invalid");
-                }
-            } elseif($type[2] == 2) {
-                if(!imagejpeg($thumbnail, $thumbpath)) {
-                    $error = __("Thumbnail path invalid");
-                }
-            } elseif($type[2] == 3) {
-                if(!imagepng($thumbnail, $thumbpath)) {
-                    $error = __("Thumbnail path invalid");
-                }
-            }
+			if($type[2] == 1) {
+				if(!imagegif($thumbnail, $thumbpath)) {
+					$error = __("Thumbnail path invalid");
+				}
+			} elseif($type[2] == 2) {
+				if(!imagejpeg($thumbnail, $thumbpath)) {
+					$error = __("Thumbnail path invalid");
+				}
+			} elseif($type[2] == 3) {
+				if(!imagepng($thumbnail, $thumbpath)) {
+					$error = __("Thumbnail path invalid");
+				}
+			}
 
-        }
-    }
+		}
+	}
 
-    if(!empty($error))
-    {
-        return $error;
-    }
-    else
-    {
-        return 1;
-    }
+	if(!empty($error))
+	{
+		return $error;
+	}
+	else
+	{
+		return 1;
+	}
 }
 
 // Some postmeta stuff
@@ -884,7 +884,7 @@ function get_home_path() {
 
 function get_real_file_to_edit($file) {
 	if ('index.php' == $file ||
-			 '.htaccess' == $file) {
+			'.htaccess' == $file) {
 		$real_file = get_home_path() . $file;
 	} else {
 		$real_file = ABSPATH . $file;

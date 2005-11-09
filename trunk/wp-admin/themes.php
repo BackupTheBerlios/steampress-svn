@@ -5,19 +5,19 @@ if ( isset($_GET['action']) ) {
 	check_admin_referer();
 
 	if ('activate' == $_GET['action']) {
-	  if (isset($_GET['template'])) {
-	    update_option('template', $_GET['template']);
-	  }
+	if (isset($_GET['template'])) {
+		update_option('template', $_GET['template']);
+	}
 
-	  if (isset($_GET['stylesheet'])) {
-	    update_option('stylesheet', $_GET['stylesheet']);
-	  }
+	if (isset($_GET['stylesheet'])) {
+		update_option('stylesheet', $_GET['stylesheet']);
+	}
 
 		do_action('switch_theme', get_current_theme());
 
-	  header('Location: themes.php?activated=true');
+	header('Location: themes.php?activated=true');
 	}
- }
+}
 
 $title = __('Manage Themes');
 $parent_file = 'themes.php';
@@ -89,16 +89,16 @@ $current_stylesheet = $themes[$current_theme]['Stylesheet'];
 		if ($style != '') $style = 'class="' . $style . '"';
 
 		echo "
-	  <tr $style>";
+	<tr $style>";
 if ( $current )
 	echo "<td><strong>$title $version</strong></td>";
 else
 	echo "<td>$title $version</td>";
 echo "
-	     <td class=\"auth\">$author</td>
-	     <td class=\"desc\">$description</td>
-	     <td class=\"togl\">$action</td>
-	  </tr>";
+		<td class=\"auth\">$author</td>
+		<td class=\"desc\">$description</td>
+		<td class=\"togl\">$action</td>
+	</tr>";
 	}
 ?>
 
@@ -123,7 +123,7 @@ if (count($broken_themes)) {
 	</tr>
 <?php
 	$theme = '';
-	
+
 	$theme_names = array_keys($broken_themes);
 	natcasesort($theme_names);
 
@@ -133,10 +133,10 @@ if (count($broken_themes)) {
 
 		$theme = ('class="alternate"' == $theme) ? '' : 'class="alternate"';
 		echo "
-	  <tr $theme>
-	     <td>$title</td>
-	     <td>$description</td>
-	  </tr>";
+	<tr $theme>
+		<td>$title</td>
+		<td>$description</td>
+	</tr>";
 	}
 ?>
 </table>

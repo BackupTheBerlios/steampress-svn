@@ -1,16 +1,24 @@
 <?php
 
 $wpvarstoreset = array('action','standalone', 'option_group_id');
-for ($i=0; $i<count($wpvarstoreset); $i += 1) {
+for ($i=0; $i<count($wpvarstoreset); $i += 1)
+{
 	$wpvar = $wpvarstoreset[$i];
-	if (!isset($$wpvar)) {
-		if (empty($_POST["$wpvar"])) {
-			if (empty($_GET["$wpvar"])) {
+	if (!isset($$wpvar))
+	{
+		if (empty($_POST["$wpvar"]))
+		{
+			if (empty($_GET["$wpvar"]))
+			{
 				$$wpvar = '';
-			} else {
+			}
+			else
+			{
 				$$wpvar = $_GET["$wpvar"];
 			}
-		} else {
+		}
+		else
+		{
 			$$wpvar = $_POST["$wpvar"];
 		}
 	}
@@ -19,6 +27,11 @@ for ($i=0; $i<count($wpvarstoreset); $i += 1) {
 
 <br clear="all" />
 
-<?php if (isset($_GET['updated'])) : ?>
+<?php
+if (isset($_GET['updated']))
+{
+?>
 <div class="updated"><p><strong><?php _e('Options saved.') ?></strong></p></div>
-<?php endif; ?>
+<?php
+}
+?>

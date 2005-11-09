@@ -2,7 +2,7 @@
 require_once('admin.php');
 
 $title = __('Edit User');
-$parent_file = 'profile.php';	
+$parent_file = 'profile.php';
 $submenu_file = 'users.php';
 
 $wpvarstoreset = array('action', 'redirect', 'profile', 'user_id');
@@ -62,7 +62,7 @@ $new_msn         = wp_specialchars($_POST['new_msn']);
 $new_yim         = wp_specialchars($_POST['new_yim']);
 $new_email       = wp_specialchars($_POST['new_email']);
 $new_url         = wp_specialchars($_POST['new_url']);
-$new_url         = preg_match('/^(https?|ftps?|mailto|news|gopher):/is', $new_url) ? $new_url : 'http://' . $new_url; 
+$new_url         = preg_match('/^(https?|ftps?|mailto|news|gopher):/is', $new_url) ? $new_url : 'http://' . $new_url;
 $new_idmode      = wp_specialchars($_POST['new_idmode']);
 $new_description = $_POST['new_description'];
 
@@ -196,11 +196,11 @@ if ( $show_password_fields ) :
 	</tr>
 <?php endif; ?>
 </table>
-  <p class="submit">
+<p class="submit">
 	<input type="hidden" name="action" value="update" />
 	<input type="hidden" name="user_id" id="user_id" value="<?php echo $user_id; ?>" />
-    <input type="submit" value="<?php _e('Update User &raquo;') ?>" name="submit" />
-  </p>
+	<input type="submit" value="<?php _e('Update User &raquo;') ?>" name="submit" />
+</p>
 </form>
 </div>
 

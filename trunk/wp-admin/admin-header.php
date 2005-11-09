@@ -29,7 +29,7 @@ function toggleHidden()
 	{
 		if ( allElements[i].className.indexOf('hidden') != -1 )
 		{
-			 allElements[i].className = allElements[i].className.replace('hidden', '');
+			allElements[i].className = allElements[i].className.replace('hidden', '');
 		}
 	}
 }
@@ -48,10 +48,10 @@ function GetElementsWithClassName(elementName, className) {
 }
 
 function meChecked() {
-  var undefined;
-  var eMe = document.getElementById('me');
-  if (eMe == undefined) return false;
-  else return eMe.checked;
+var undefined;
+var eMe = document.getElementById('me');
+if (eMe == undefined) return false;
+else return eMe.checked;
 }
 
 function upit() {
@@ -60,12 +60,12 @@ function upit() {
 	var results = document.getElementById('rel');
 	var linkText, linkUrl, inputs = '';
 	for (i = 0; i < inputColl.length; i++) {
-		 inputColl[i].disabled = isMe;
-		 inputColl[i].parentNode.className = isMe ? 'disabled' : '';
-		 if (!isMe && inputColl[i].checked && inputColl[i].value != '') {
+		inputColl[i].disabled = isMe;
+		inputColl[i].parentNode.className = isMe ? 'disabled' : '';
+		if (!isMe && inputColl[i].checked && inputColl[i].value != '') {
 			inputs += inputColl[i].value + ' ';
 				}
-		 }
+		}
 	inputs = inputs.substr(0,inputs.length - 1);
 	if (isMe) inputs='me';
 	results.value = inputs;

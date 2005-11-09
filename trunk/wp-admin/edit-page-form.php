@@ -13,7 +13,7 @@ if (0 == $post_ID) {
 $sendto = $_SERVER['HTTP_REFERER'];
 
 if ( 0 != $post_ID && $sendto == get_permalink($post_ID) )
- 	$sendto = 'redo';
+	$sendto = 'redo';
 $sendto = wp_specialchars( $sendto );
 
 ?>
@@ -34,40 +34,40 @@ function focusit() {
 window.onload = focusit;
 //-->
 </script>
-    <fieldset id="titlediv">
-      <legend><?php _e('Page Title') ?></legend>
- 	  <div><input type="text" name="post_title" size="30" tabindex="1" value="<?php echo $edited_post_title; ?>" id="title" /></div>
-    </fieldset>
+	<fieldset id="titlediv">
+	<legend><?php _e('Page Title') ?></legend>
+	<div><input type="text" name="post_title" size="30" tabindex="1" value="<?php echo $edited_post_title; ?>" id="title" /></div>
+	</fieldset>
 <fieldset id="commentstatusdiv">
-      <legend><?php _e('Discussion') ?></legend>
-	  <div>
-	  <input name="advanced_view" type="hidden" value="1" />
-	  <label for="comment_status" class="selectit">
-	      <input name="comment_status" type="checkbox" id="comment_status" value="open" <?php checked($comment_status, 'open'); ?> />
-         <?php _e('Allow Comments') ?></label>
-		 <label for="ping_status" class="selectit"><input name="ping_status" type="checkbox" id="ping_status" value="open" <?php checked($ping_status, 'open'); ?> /> <?php _e('Allow Pings') ?></label>
+	<legend><?php _e('Discussion') ?></legend>
+	<div>
+	<input name="advanced_view" type="hidden" value="1" />
+	<label for="comment_status" class="selectit">
+		<input name="comment_status" type="checkbox" id="comment_status" value="open" <?php checked($comment_status, 'open'); ?> />
+		<?php _e('Allow Comments') ?></label>
+		<label for="ping_status" class="selectit"><input name="ping_status" type="checkbox" id="ping_status" value="open" <?php checked($ping_status, 'open'); ?> /> <?php _e('Allow Pings') ?></label>
 	</div>
 </fieldset>
-    <fieldset id="postpassworddiv">
-      <legend><?php _e('Page Password') ?></legend>
-	  <div><input name="post_password" type="text" size="13" id="post_password" value="<?php echo $post_password ?>" /></div>
-    </fieldset>
-    <fieldset id="pageparent">
-      <legend><?php _e('Page Parent') ?></legend>
-	  <div><select name="parent_id">
-	  <option value='0'><?php _e('Main Page (no parent)'); ?></option>
+	<fieldset id="postpassworddiv">
+	<legend><?php _e('Page Password') ?></legend>
+	<div><input name="post_password" type="text" size="13" id="post_password" value="<?php echo $post_password ?>" /></div>
+	</fieldset>
+	<fieldset id="pageparent">
+	<legend><?php _e('Page Parent') ?></legend>
+	<div><select name="parent_id">
+	<option value='0'><?php _e('Main Page (no parent)'); ?></option>
 			<?php parent_dropdown($post_parent); ?>
-        </select>
-	  </div>
-    </fieldset>
+		</select>
+	</div>
+	</fieldset>
 <fieldset id="postdiv">
-    <legend><?php _e('Page Content') ?></legend>
+	<legend><?php _e('Page Content') ?></legend>
 
 <?php
- $rows = get_settings('default_post_edit_rows');
- if (($rows < 3) || ($rows > 100)) {
-     $rows = 10;
- }
+$rows = get_settings('default_post_edit_rows');
+if (($rows < 3) || ($rows > 100)) {
+	$rows = 10;
+}
 ?>
 <div><textarea name="content" tabindex="4" id="content"><?php echo $content ?></textarea></div>
 </fieldset>
@@ -90,7 +90,7 @@ edCanvas = document.getElementById('content');
 </p>
 
 <fieldset id="pageoptions">
-	 <legend><?php _e('Page Options') ?></legend>
+	<legend><?php _e('Page Options') ?></legend>
 <table width="100%" cellspacing="2" cellpadding="5" class="editform">
 <?php if ( 0 != count( get_page_templates() ) ) { ?>
 	<tr valign="top">

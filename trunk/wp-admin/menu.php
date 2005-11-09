@@ -14,7 +14,9 @@ $menu[35] = array(__('Users'), 0, 'profile.php');
 $menu[40] = array(__('Options'), 6, 'options-general.php');
 
 if ( get_option('use_fileupload') )
+{
 	$menu[45] = array(__('Upload'), get_settings('fileupload_minlevel'), 'upload.php');
+}
 
 $submenu['post.php'][5] = array(__('Write Post'), 1, 'post.php');
 $submenu['post.php'][10] = array(__('Write Page'), 5, 'page-new.php');
@@ -41,14 +43,16 @@ $submenu['options-general.php'][20] = array(__('Discussion'), 6, 'options-discus
 $submenu['options-general.php'][25] = array(__('Permalinks'), 6, 'options-permalink.php');
 
 // Create list of page plugin hook names.
-foreach ($menu as $menu_page) {
+foreach ($menu as $menu_page)
+{
 	$admin_page_hooks[$menu_page[2]] = sanitize_title($menu_page[0]);
 }
 
 do_action('admin_menu', '');
 ksort($menu); // make it all pretty
 
-if (! user_can_access_admin_page()) {
+if (! user_can_access_admin_page())
+{
 	die( __('You do not have sufficient permissions to access this page.') );
 }
 

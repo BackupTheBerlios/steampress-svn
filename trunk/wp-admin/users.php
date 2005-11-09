@@ -3,7 +3,7 @@ require_once('admin.php');
 
 $title = __('Users');
 $parent_file = 'profile.php';
-	
+
 $wpvarstoreset = array('action');
 for ($i=0; $i<count($wpvarstoreset); $i += 1) {
 	$wpvar = $wpvarstoreset[$i];
@@ -31,7 +31,7 @@ case 'adduser':
 	$user_firstname = wp_specialchars(trim($_POST['firstname']));
 	$user_lastname  = wp_specialchars(trim($_POST['lastname']));
 	$user_uri       = wp_specialchars(trim($_POST['uri']));
-		
+
 	/* checking that username has been typed */
 	if ($user_login == '')
 		die (__('<strong>ERROR</strong>: Please enter a username.'));
@@ -49,7 +49,7 @@ case 'adduser':
 
 	/* checking that the username isn't already used by another user */
 	$loginthere = $wpdb->get_var("SELECT user_login FROM $wpdb->users WHERE user_login = '$user_login'");
-    if ($loginthere)
+	if ($loginthere)
 		die (__('<strong>ERROR</strong>: This username is already registered, please choose another one.'));
 
 	/* checking e-mail address */
@@ -68,9 +68,9 @@ case 'adduser':
 	$now = gmdate('Y-m-d H:i:s');
 	$new_users_can_blog = get_settings('new_users_can_blog');
 
-	$result = $wpdb->query("INSERT INTO $wpdb->users 
+	$result = $wpdb->query("INSERT INTO $wpdb->users
 		(user_login, user_pass, user_nickname, user_email, user_ip, user_domain, user_browser, user_registered, user_level, user_idmode, user_firstname, user_lastname, user_nicename, user_url)
-	VALUES 
+	VALUES
 		('$user_login', MD5('$pass1'), '$user_nickname', '$user_email', '$user_ip', '$user_domain', '$user_browser', '$now', '$new_users_can_blog', 'nickname', '$user_firstname', '$user_lastname', '$user_nicename', '$user_uri')");
 
 	do_action('user_register', $wpdb->insert_id);
@@ -139,7 +139,7 @@ case 'delete':
 	$post_ids = $wpdb->get_col("SELECT ID FROM $wpdb->posts WHERE post_author = $id");
 	if ($post_ids) {
 		$post_ids = implode(',', $post_ids);
-		
+
 		// Delete comments, *backs
 		$wpdb->query("DELETE FROM $wpdb->comments WHERE comment_post_ID IN ($post_ids)");
 		// Clean cats
@@ -159,7 +159,7 @@ case 'delete':
 break;
 
 default:
-	
+
 	include ('admin-header.php');
 	?>
 
@@ -167,8 +167,8 @@ default:
 <div class="updated"><p><?php _e('User deleted.') ?></p></div>
 <?php endif; ?>
 <div class="wrap">
-  <h2><?php _e('Authors') ?></h2>
-  <table cellpadding="3" cellspacing="3" width="100%">
+<h2><?php _e('Authors') ?></h2>
+<table cellpadding="3" cellspacing="3" width="100%">
 	<tr>
 	<th><?php _e('ID') ?></th>
 	<th><?php _e('Nickname') ?></th>
@@ -215,10 +215,10 @@ default:
 	echo '</td>';
 	echo '</tr>';
 	}
-	
+
 	?>
-	
-  </table>
+
+</table>
 </div>
 
 <?php
@@ -260,7 +260,7 @@ echo "\n<tr $style>
 <td align='center'>";
 
 	if ($user_level >= 6)
-		echo "<a href='users.php?action=promote&amp;id=$user_data->ID&amp;prom=up' class='edit'>". __('Promote') . '</a>';	
+		echo "<a href='users.php?action=promote&amp;id=$user_data->ID&amp;prom=up' class='edit'>". __('Promote') . '</a>';
 	echo "</td>\n";
 	echo '<td>';
 	if (($user_level >= 6) and ($user_level > $user_data->user_level))
@@ -273,55 +273,55 @@ echo "\n<tr $style>
 }
 
 ?>
-	
+
 	</table>
-	  <p><?php _e('Deleting a user also deletes all posts made by that user.') ?></p>
+	<p><?php _e('Deleting a user also deletes all posts made by that user.') ?></p>
 </div>
 
-	<?php 
+	<?php
 	} ?>
 <div class="wrap">
 <h2><?php _e('Add New User') ?></h2>
 <?php printf(__('<p>Users can <a href="%s/wp-register.php">register themselves</a> or you can manually create users here.</p>'), get_settings('siteurl')); ?>
 <form action="" method="post" name="adduser" id="adduser">
-  <table class="editform" width="100%" cellspacing="2" cellpadding="5">
-    <tr>
-      <th scope="row" width="33%"><?php _e('Nickname') ?>
-      <input name="action" type="hidden" id="action" value="adduser" /></th>
-      <td width="66%"><input name="user_login" type="text" id="user_login" /></td>
-    </tr>
-    <tr>
-      <th scope="row"><?php _e('First Name') ?> </th>
-      <td><input name="firstname" type="text" id="firstname" /></td>
-    </tr>
-    <tr>
-      <th scope="row"><?php _e('Last Name') ?> </th>
-      <td><input name="lastname" type="text" id="lastname" /></td>
-    </tr>
-    <tr>
-      <th scope="row"><?php _e('E-mail') ?></th>
-      <td><input name="email" type="text" id="email" /></td>
-    </tr>
-    <tr>
-      <th scope="row"><?php _e('Website') ?></th>
-      <td><input name="uri" type="text" id="uri" /></td>
-    </tr>
+<table class="editform" width="100%" cellspacing="2" cellpadding="5">
+	<tr>
+	<th scope="row" width="33%"><?php _e('Nickname') ?>
+	<input name="action" type="hidden" id="action" value="adduser" /></th>
+	<td width="66%"><input name="user_login" type="text" id="user_login" /></td>
+	</tr>
+	<tr>
+	<th scope="row"><?php _e('First Name') ?> </th>
+	<td><input name="firstname" type="text" id="firstname" /></td>
+	</tr>
+	<tr>
+	<th scope="row"><?php _e('Last Name') ?> </th>
+	<td><input name="lastname" type="text" id="lastname" /></td>
+	</tr>
+	<tr>
+	<th scope="row"><?php _e('E-mail') ?></th>
+	<td><input name="email" type="text" id="email" /></td>
+	</tr>
+	<tr>
+	<th scope="row"><?php _e('Website') ?></th>
+	<td><input name="uri" type="text" id="uri" /></td>
+	</tr>
 <?php
 $show_password_fields = apply_filters('show_password_fields', true);
 if ( $show_password_fields ) :
 ?>
-    <tr>
-      <th scope="row"><?php _e('Password (twice)') ?> </th>
-      <td><input name="pass1" type="password" id="pass1" />
-      <br />
-      <input name="pass2" type="password" id="pass2" /></td>
-    </tr>
+	<tr>
+	<th scope="row"><?php _e('Password (twice)') ?> </th>
+	<td><input name="pass1" type="password" id="pass1" />
+	<br />
+	<input name="pass2" type="password" id="pass2" /></td>
+	</tr>
 <?php endif; ?>
-  </table>
-  <p class="submit">
-    <input name="adduser" type="submit" id="adduser" value="<?php _e('Add User') ?> &raquo;" />
-  </p>
-  </form>
+</table>
+<p class="submit">
+	<input name="adduser" type="submit" id="adduser" value="<?php _e('Add User') ?> &raquo;" />
+</p>
+</form>
 </div>
 	<?php
 

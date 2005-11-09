@@ -15,7 +15,7 @@ if ( isset($_POST) ) {
 			$permalink_structure = preg_replace('#/+#', '/', '/' . $_POST['permalink_structure']);
 		$wp_rewrite->set_permalink_structure($permalink_structure);
 	}
-	
+
 	if ( isset($_POST['category_base']) ) {
 		$category_base = $_POST['category_base'];
 		if (! empty($category_base) )
@@ -23,7 +23,7 @@ if ( isset($_POST) ) {
 		$wp_rewrite->set_category_base($category_base);
 	}
 }
-	
+
 $permalink_structure = get_settings('permalink_structure');
 $category_base = get_settings('category_base');
 
@@ -47,13 +47,13 @@ save_mod_rewrite_rules();
 if ($writable)
 	_e('Permalink structure updated.');
 else
-	_e('You should update your .htaccess now.'); 
+	_e('You should update your .htaccess now.');
 ?></p></div>
 <?php endif; ?>
 
-<div class="wrap"> 
-  <h2><?php _e('Edit Permalink Structure') ?></h2> 
-  <p><?php _e('By default WordPress uses web URIs which have question marks and lots of numbers in them, however WordPress offers you the ability to create a custom URI structure for your permalinks and archives. This can improve the aesthetics, usability, and longevity of your links. A <a href="http://codex.wordpress.org/Using_Permalinks">number of tags are available</a>, and here are some examples to get you started.'); ?></p>
+<div class="wrap">
+<h2><?php _e('Edit Permalink Structure') ?></h2>
+<p><?php _e('By default WordPress uses web URIs which have question marks and lots of numbers in them, however WordPress offers you the ability to create a custom URI structure for your permalinks and archives. This can improve the aesthetics, usability, and longevity of your links. A <a href="http://codex.wordpress.org/Using_Permalinks">number of tags are available</a>, and here are some examples to get you started.'); ?></p>
 
 <?php if ($is_apache) : ?>
 <dl>
@@ -84,30 +84,30 @@ else
 </dl>
 <?php endif; ?>
 
-  <form name="form" action="options-permalink.php" method="post"> 
-    <p><?php _e('Use the template tags above to create a virtual site structure:') ?></p>
-    <p> 
-      <?php _e('Structure'); ?>: <input name="permalink_structure" type="text" class="code" style="width: 60%;" value="<?php echo $permalink_structure; ?>" size="50" /> 
-    </p> 
+<form name="form" action="options-permalink.php" method="post">
+	<p><?php _e('Use the template tags above to create a virtual site structure:') ?></p>
+	<p>
+	<?php _e('Structure'); ?>: <input name="permalink_structure" type="text" class="code" style="width: 60%;" value="<?php echo $permalink_structure; ?>" size="50" />
+	</p>
 <?php if ($is_apache) : ?>
 	<p><?php _e('If you like, you may enter a custom prefix for your category URIs here. For example, <code>/taxonomy/categorias</code> would make your category links like <code>http://example.org/taxonomy/categorias/uncategorized/</code>. If you leave this blank the default will be used.') ?></p>
 <?php else : ?>
 	<p><?php _e('If you like, you may enter a custom prefix for your category URIs here. For example, <code>/index.php/taxonomy/categorias</code> would make your category links like <code>http://example.org/index.php/taxonomy/categorias/uncategorized/</code>. If you leave this blank the default will be used.') ?></p>
 <?php endif; ?>
-	<p> 
-  <?php _e('Category base'); ?>: <input name="category_base" type="text" class="code"  value="<?php echo $category_base; ?>" size="30" /> 
-     </p> 
-    <p class="submit"> 
-      <input type="submit" name="submit" value="<?php _e('Update Permalink Structure &raquo;') ?>" /> 
-    </p> 
-  </form> 
+	<p>
+<?php _e('Category base'); ?>: <input name="category_base" type="text" class="code"  value="<?php echo $category_base; ?>" size="30" />
+	</p>
+	<p class="submit">
+	<input type="submit" name="submit" value="<?php _e('Update Permalink Structure &raquo;') ?>" />
+	</p>
+</form>
 <?php if ( $permalink_structure && !$usingpi && !$writable ) : ?>
-  <p><?php _e('If your <code>.htaccess</code> was <a href="http://codex.wordpress.org/Make_a_Directory_Writable">writable</a> we could do this automatically, but it isn&#8217;t so these are the mod_rewrite rules you should have in your <code>.htaccess</code> file. Click in the field and press <kbd>CTRL + a</kbd> to select all.') ?></p>
+<p><?php _e('If your <code>.htaccess</code> was <a href="http://codex.wordpress.org/Make_a_Directory_Writable">writable</a> we could do this automatically, but it isn&#8217;t so these are the mod_rewrite rules you should have in your <code>.htaccess</code> file. Click in the field and press <kbd>CTRL + a</kbd> to select all.') ?></p>
 <form action="options-permalink.php" method="post">
-   <p>
+<p>
 <textarea rows="5" style="width: 98%;" name="rules"><?php echo $wp_rewrite->mod_rewrite_rules(); ?>
 </textarea>
-    </p>
+	</p>
 </form>
 <?php endif; ?>
 

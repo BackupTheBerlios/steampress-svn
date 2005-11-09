@@ -2,8 +2,8 @@
 if ( defined('ABSPATH') )
 	require_once( ABSPATH . 'wp-config.php');
 else
-    require_once('../wp-config.php');
-    
+	require_once('../wp-config.php');
+
 require_once(ABSPATH . 'wp-admin/admin-functions.php');
 auth_redirect();
 
@@ -23,18 +23,18 @@ $time_format = get_settings('time_format');
 
 $wpvarstoreset = array('profile','redirect','redirect_url','a','popuptitle','popupurl','text', 'trackback', 'pingback');
 for ($i=0; $i<count($wpvarstoreset); $i += 1) {
-    $wpvar = $wpvarstoreset[$i];
-    if (!isset($$wpvar)) {
-        if (empty($_POST["$wpvar"])) {
-            if (empty($_GET["$wpvar"])) {
-                $$wpvar = '';
-            } else {
-                $$wpvar = $_GET["$wpvar"];
-            }
-        } else {
-            $$wpvar = $_POST["$wpvar"];
-        }
-    }
+	$wpvar = $wpvarstoreset[$i];
+	if (!isset($$wpvar)) {
+		if (empty($_POST["$wpvar"])) {
+			if (empty($_GET["$wpvar"])) {
+				$$wpvar = '';
+			} else {
+				$$wpvar = $_GET["$wpvar"];
+			}
+		} else {
+			$$wpvar = $_POST["$wpvar"];
+		}
+	}
 }
 
 require(ABSPATH . '/wp-admin/menu.php');
@@ -47,22 +47,22 @@ if (isset($_GET['page'])) {
 	if ( $page_hook ) {
 		if (! isset($_GET['noheader']))
 			require_once(ABSPATH . '/wp-admin/admin-header.php');
-		
+
 		do_action($page_hook);
 	} else {
 		if ( validate_file($plugin_page) ) {
 			die(__('Invalid plugin page'));
 		}
-		
+
 		if (! file_exists(ABSPATH . "wp-content/plugins/$plugin_page"))
 			die(sprintf(__('Cannot load %s.'), $plugin_page));
 
 		if (! isset($_GET['noheader']))
 			require_once(ABSPATH . '/wp-admin/admin-header.php');
-		
+
 		include(ABSPATH . "wp-content/plugins/$plugin_page");
 	}
-	
+
 	include(ABSPATH . 'wp-admin/admin-footer.php');
 
 	exit();

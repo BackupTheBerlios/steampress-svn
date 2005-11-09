@@ -9,9 +9,9 @@ $post_author = 1; // Author to import posts as author ID
 $timezone_offset = 0; // GMT offset of posts your importing
 
 function unhtmlentities($string) { // From php.net for < 4.3 compat
-   $trans_tbl = get_html_translation_table(HTML_ENTITIES);
-   $trans_tbl = array_flip($trans_tbl);
-   return strtr($string, $trans_tbl);
+$trans_tbl = get_html_translation_table(HTML_ENTITIES);
+$trans_tbl = array_flip($trans_tbl);
+return strtr($string, $trans_tbl);
 }
 
 $add_hours = intval($timezone_offset);
@@ -52,13 +52,13 @@ header( 'Content-Type: text/html; charset=utf-8' );
 		line-height: 140%;
 	}
 	</style>
-</head><body> 
-<h1 id="logo"><a href="http://wordpress.org/">WordPress</a></h1> 
+</head><body>
+<h1 id="logo"><a href="http://wordpress.org/">WordPress</a></h1>
 <?php
 switch($step) {
 
 	case 0:
-?> 
+?>
 <p>Howdy! This importer allows you to extract posts from any RSS 2.0 file into your blog. This is useful if you want to import your posts from a system that is not handled by a custom import tool. To get started you must edit the following line in this file (<code>import-rss.php</code>) </p>
 <p><code>define('RSSFILE', '');</code></p>
 <p>You want to define where the RSS file we'll be working with is, for example: </p>
@@ -130,7 +130,7 @@ $content = str_replace('<hr>', '<hr />', $content);
 
 // This can mess up on posts with no titles, but checking content is much slower
 // So we do it as a last resort
-if ('' == $title) : 
+if ('' == $title) :
 	$dupe = $wpdb->get_var("SELECT ID FROM $wpdb->posts WHERE post_content = '$content' AND post_date = '$post_date'");
 else :
 	$dupe = $wpdb->get_var("SELECT ID FROM $wpdb->posts WHERE post_title = '$title' AND post_date = '$post_date'");
@@ -139,11 +139,11 @@ endif;
 // Now lets put it in the DB
 if ($dupe) :
 	echo 'Post already imported';
-else : 
-	
-	$wpdb->query("INSERT INTO $wpdb->posts 
+else :
+
+	$wpdb->query("INSERT INTO $wpdb->posts
 		(post_author, post_date, post_date_gmt, post_content, post_title,post_status, comment_status, ping_status, post_name, guid)
-		VALUES 
+		VALUES
 		('$post_author', '$post_date', DATE_ADD('$post_date', INTERVAL '$add_hours:$add_minutes' HOUR_MINUTE), '$content', '$title', 'publish', '$comment_status', '$ping_status', '$post_name', '$guid')");
 	$post_id = $wpdb->get_var("SELECT ID FROM $wpdb->posts WHERE post_title = '$title' AND post_date = '$post_date'");
 	if (!$post_id) die("couldn't get post ID");
@@ -160,8 +160,8 @@ else :
 		if ('' == trim($post_category)) $cat_id = 1;
 		// Double check it's not there already
 		$exists = $wpdb->get_row("SELECT * FROM $wpdb->post2cat WHERE post_id = $post_id AND category_id = $cat_id");
-	
-		 if (!$exists) { 
+
+		if (!$exists) {
 			$wpdb->query("
 			INSERT INTO $wpdb->post2cat
 			(post_id, category_id)
@@ -186,6 +186,6 @@ endforeach;
 <?php
 	break;
 }
-?> 
+?>
 </body>
 </html>

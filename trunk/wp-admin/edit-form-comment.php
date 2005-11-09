@@ -18,32 +18,32 @@ function focusit() {
 window.onload = focusit;
 </script>
 <fieldset id="namediv">
-    <legend><?php _e('Name:') ?></legend>
+	<legend><?php _e('Name:') ?></legend>
 	<div>
-	  <input type="text" name="newcomment_author" size="22" value="<?php echo format_to_edit($commentdata['comment_author']) ?>" tabindex="1" id="name" />
-    </div>
+	<input type="text" name="newcomment_author" size="22" value="<?php echo format_to_edit($commentdata['comment_author']) ?>" tabindex="1" id="name" />
+	</div>
 </fieldset>
 <fieldset id="emaildiv">
-        <legend><?php _e('E-mail:') ?></legend>
+		<legend><?php _e('E-mail:') ?></legend>
 		<div>
-		  <input type="text" name="newcomment_author_email" size="30" value="<?php echo format_to_edit($commentdata['comment_author_email']) ?>" tabindex="2" id="email" />
-    </div>
+		<input type="text" name="newcomment_author_email" size="30" value="<?php echo format_to_edit($commentdata['comment_author_email']) ?>" tabindex="2" id="email" />
+	</div>
 </fieldset>
 <fieldset id="uridiv">
-        <legend><?php _e('URI:') ?></legend>
+		<legend><?php _e('URI:') ?></legend>
 		<div>
-		  <input type="text" name="newcomment_author_url" size="35" value="<?php echo format_to_edit($commentdata['comment_author_url']) ?>" tabindex="3" id="URL" />
-    </div>
+		<input type="text" name="newcomment_author_url" size="35" value="<?php echo format_to_edit($commentdata['comment_author_url']) ?>" tabindex="3" id="URL" />
+	</div>
 </fieldset>
 
 <fieldset style="clear: both;">
-        <legend><?php _e('Comment') ?></legend>
+		<legend><?php _e('Comment') ?></legend>
 
 <?php
- $rows = get_settings('default_post_edit_rows');
- if (($rows < 3) || ($rows > 100)) {
-     $rows = 10;
- }
+$rows = get_settings('default_post_edit_rows');
+if (($rows < 3) || ($rows > 100)) {
+	$rows = 10;
+}
 ?>
 <div><textarea name="content" tabindex="4" id="content" style="width: 99%"><?php echo $content ?></textarea></div>
 </fieldset>
@@ -55,7 +55,7 @@ edCanvas = document.getElementById('content');
 </script>
 
 <p class="submit"><input type="submit" name="editcomment" id="editcomment" value="<?php echo $submitbutton_text ?>" style="font-weight: bold;" tabindex="6" />
-  <input name="referredby" type="hidden" id="referredby" value="<?php echo $_SERVER['HTTP_REFERER']; ?>" />
+<input name="referredby" type="hidden" id="referredby" value="<?php echo $_SERVER['HTTP_REFERER']; ?>" />
 </p>
 
 </div>
@@ -67,8 +67,8 @@ edCanvas = document.getElementById('content');
 	<tr>
 		<th scope="row" valign="top"><?php _e('Comment Status') ?>:</th>
 		<td><label for="comment_status_approved" class="selectit"><input id="comment_status_approved" name="comment_status" type="radio" value="1" <?php checked($comment_status, '1'); ?> /> <?php _e('Approved') ?></label><br />
-	  <label for="comment_status_moderated" class="selectit"><input id="comment_status_moderated" name="comment_status" type="radio" value="0" <?php checked($comment_status, '0'); ?> /> <?php _e('Moderated') ?></label><br />
-	  <label for="comment_status_spam" class="selectit"><input id="comment_status_spam" name="comment_status" type="radio" value="spam" <?php checked($comment_status, 'spam'); ?> /> <?php _e('Spam') ?></label></td>
+	<label for="comment_status_moderated" class="selectit"><input id="comment_status_moderated" name="comment_status" type="radio" value="0" <?php checked($comment_status, '0'); ?> /> <?php _e('Moderated') ?></label><br />
+	<label for="comment_status_spam" class="selectit"><input id="comment_status_spam" name="comment_status" type="radio" value="spam" <?php checked($comment_status, 'spam'); ?> /> <?php _e('Spam') ?></label></td>
 	</tr>
 
 <?php if ($user_level > 4) : ?>

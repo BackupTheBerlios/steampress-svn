@@ -57,8 +57,8 @@ header( 'Content-Type: text/html; charset=utf-8' );
 		margin-bottom:2px;
 	}
 	</style>
-</head><body> 
-<h1 id="logo"><a href="http://wordpress.org">WordPress</a></h1> 
+</head><body>
+<h1 id="logo"><a href="http://wordpress.org">WordPress</a></h1>
 
 <?php
 switch ($action) {
@@ -120,11 +120,11 @@ case "step1":
 <li>importing posts, comments, and karma...<br /><ul><?php
 
 	chdir($archivespath);
-	
+
 	for($i = 0; $i <= $lastentry; $i = $i + 1) {
-		
+
 		$entryfile = "";
-		
+
 		if ($i<10000000) {
 			$entryfile .= "0";
 			if ($i<1000000) {
@@ -204,7 +204,7 @@ case "step1":
 
 			if (!$result)
 				die ("Error in posting...");
-			
+
 			$query = "SELECT ID FROM $wpdb->posts ORDER BY ID DESC LIMIT 1";
 			$post_ID = $wpdb->get_var($query);
 
@@ -213,9 +213,9 @@ case "step1":
 
 			// Update the post2cat table.
 			$exists = $wpdb->get_row("SELECT * FROM $wpdb->post2cat WHERE post_id = $post_ID AND category_id = $post_category");
-			  
+
 			if (!$exists) {
-			  $wpdb->query("
+			$wpdb->query("
 					INSERT INTO $wpdb->post2cat
 					(post_id, category_id)
 					VALUES
@@ -258,7 +258,7 @@ case "step1":
 			}
 			echo "... <b>Done</b></li>";
 		}
-	} 
+	}
 	upgrade_all();
 	?>
 </ul><b>Done</b></li></ul>

@@ -1,20 +1,24 @@
 <?php
 require_once('admin.php');
 
-if ( isset($_GET['action']) ) {
+if ( isset($_GET['action']) )
+{
 	check_admin_referer();
 
-	if ('activate' == $_GET['action']) {
+	if ('activate' == $_GET['action'])
+	{
 		$current = get_settings('active_plugins');
-		if (!in_array($_GET['plugin'], $current)) {
+		if (!in_array($_GET['plugin'], $current))
+		{
 			$current[] = trim( $_GET['plugin'] );
 		}
 		sort($current);
 		update_option('active_plugins', $current);
 		header('Location: plugins.php?activate=true');
 	}
-	
-	if ('deactivate' == $_GET['action']) {
+
+	if ('deactivate' == $_GET['action'])
+	{
 		$current = get_settings('active_plugins');
 		array_splice($current, array_search( $_GET['plugin'], $current), 1 ); // Array-fu!
 		update_option('active_plugins', $current);
@@ -32,15 +36,18 @@ $check_plugins = get_settings('active_plugins');
 
 // Sanity check.  If the active plugin list is not an array, make it an
 // empty array.
-if ( !is_array($check_plugins) ) {
+if ( !is_array($check_plugins) )
+{
 	$check_plugins = array();
-	update_option('active_plugins', $check_plugins);	
+	update_option('active_plugins', $check_plugins);
 }
 
 // If a plugin file does not exist, remove it from the list of active
 // plugins.
-foreach ($check_plugins as $check_plugin) {
-	if (!file_exists(ABSPATH . 'wp-content/plugins/' . $check_plugin)) {
+foreach ($check_plugins as $check_plugin)
+{
+	if (!file_exists(ABSPATH . 'wp-content/plugins/' . $check_plugin))
+	{
 			$current = get_settings('active_plugins');
 			unset($current[$_GET['plugin']]);
 			update_option('active_plugins', $current);
@@ -48,14 +55,24 @@ foreach ($check_plugins as $check_plugin) {
 }
 ?>
 
-<?php if (isset($_GET['activate'])) : ?>
+<?php
+if (isset($_GET['activate']))
+{
+?>
 <div class="updated"><p><?php _e('Plugin <strong>activated</strong>.') ?></p>
 </div>
-<?php endif; ?>
-<?php if (isset($_GET['deactivate'])) : ?>
+<?php
+}
+?>
+<?php
+if (isset($_GET['deactivate']))
+{
+?>
 <div class="updated"><p><?php _e('Plugin <strong>deactivated</strong>.') ?></p>
 </div>
-<?php endif; ?>
+<?php
+}
+?>
 
 <div class="wrap">
 <h2><?php _e('Plugin Management'); ?></h2>
@@ -63,13 +80,18 @@ foreach ($check_plugins as $check_plugin) {
 <?php
 
 if ( get_settings('active_plugins') )
+{
 	$current_plugins = get_settings('active_plugins');
+}
 
 $plugins = get_plugins();
 
-if (empty($plugins)) {
+if (empty($plugins))
+{
 	_e("<p>Couldn't open plugins directory or there are no plugins available.</p>"); // TODO: make more helpful
-} else {
+}
+else
+{
 ?>
 <table width="100%" cellpadding="3" cellspacing="3">
 	<tr>
@@ -81,18 +103,25 @@ if (empty($plugins)) {
 	</tr>
 <?php
 	$style = '';
-	foreach($plugins as $plugin_file => $plugin_data) {
+	foreach($plugins as $plugin_file => $plugin_data)
+	{
 		$style = ('class="alternate"' == $style|| 'class="alternate active"' == $style) ? '' : 'alternate';
 
-		if (!empty($current_plugins) && in_array($plugin_file, $current_plugins)) {
+		if (!empty($current_plugins) && in_array($plugin_file, $current_plugins))
+		{
 			$action = "<a href='plugins.php?action=deactivate&amp;plugin=$plugin_file' title='".__('Deactivate this plugin')."' class='delete'>".__('Deactivate')."</a>";
 			$plugin_data['Title'] = "<strong>{$plugin_data['Title']}</strong>";
 			$style .= $style == 'alternate' ? ' active' : 'active';
-		} else {
+		}
+		else
+		{
 			$action = "<a href='plugins.php?action=activate&amp;plugin=$plugin_file' title='".__('Activate this plugin')."' class='edit'>".__('Activate')."</a>";
 		}
 		$plugin_data['Description'] = wp_kses($plugin_data['Description'], array('a' => array('href' => array(),'title' => array()),'abbr' => array('title' => array()),'acronym' => array('title' => array()),'code' => array(),'em' => array(),'strong' => array()) ); ;
-		if ($style != '') $style = 'class="' . $style . '"';
+		if ($style != '')
+		{
+			$style = 'class="' . $style . '"';
+		}
 		echo "
 	<tr $style>
 		<td class=\"name\">{$plugin_data['Title']}</td>

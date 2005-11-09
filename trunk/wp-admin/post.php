@@ -173,7 +173,7 @@ case 'post':
 		// Double check it's not there already
 		$exists = $wpdb->get_row("SELECT * FROM $wpdb->post2cat WHERE post_id = $post_ID AND category_id = $post_category");
 
-		 if (!$exists) {
+		if (!$exists) {
 			$wpdb->query("
 			INSERT INTO $wpdb->post2cat
 			(post_id, category_id)

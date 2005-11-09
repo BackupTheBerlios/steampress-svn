@@ -43,7 +43,7 @@ case 'update':
 	foreach($comment as $key => $value) {
 	if ($feelinglucky && 'later' == $value)
 		$value = 'delete';
-	    switch($value) {
+		switch($value) {
 			case 'later':
 				// do nothing with that comment
 				// wp_set_comment_status($key, "hold");
@@ -53,10 +53,10 @@ case 'update':
 				wp_set_comment_status($key, 'delete');
 				++$item_deleted;
 				break;
- 			case 'spam':
- 				wp_set_comment_status($key, 'spam');
- 				++$item_spam;
- 				break;
+			case 'spam':
+				wp_set_comment_status($key, 'spam');
+				++$item_spam;
+				break;
 			case 'approve':
 				wp_set_comment_status($key, 'approve');
 				if ( get_settings('comments_notify') == true ) {
@@ -64,7 +64,7 @@ case 'update':
 				}
 				++$item_approved;
 				break;
-	    }
+		}
 	}
 
 	$file = basename(__FILE__);
@@ -85,9 +85,9 @@ if ( isset($_GET['deleted']) || isset($_GET['approved']) || isset($_GET['ignored
 	$spam     = (int) $_GET['spam'];
 	if ($approved) {
 		if ('1' == $approved) {
-		 echo __("1 comment approved <br />") . "\n";
+		echo __("1 comment approved <br />") . "\n";
 		} else {
-		 echo sprintf(__("%s comments approved <br />"), $approved) . "\n";
+		echo sprintf(__("%s comments approved <br />"), $approved) . "\n";
 		}
 	}
 	if ($deleted) {
@@ -97,13 +97,13 @@ if ( isset($_GET['deleted']) || isset($_GET['approved']) || isset($_GET['ignored
 		echo sprintf(__("%s comments deleted <br />"), $deleted) . "\n";
 		}
 	}
- 	if ($spam) {
- 		if ('1' == $spam) {
- 		echo __("1 comment marked as spam <br />") . "\n";
- 		} else {
- 		echo sprintf(__("%s comments marked as spam <br />"), $spam) . "\n";
- 		}
- 	}
+	if ($spam) {
+		if ('1' == $spam) {
+		echo __("1 comment marked as spam <br />") . "\n";
+		} else {
+		echo sprintf(__("%s comments marked as spam <br />"), $spam) . "\n";
+		}
+	}
 	if ($ignored) {
 		if ('1' == $ignored) {
 		echo __("1 comment unchanged <br />") . "\n";
@@ -115,7 +115,7 @@ if ( isset($_GET['deleted']) || isset($_GET['approved']) || isset($_GET['ignored
 }
 
 ?>
-	
+
 <div class="wrap">
 
 <?php
@@ -125,29 +125,29 @@ else
 	$comments = '';
 
 if ($comments) {
-    // list all comments that are waiting for approval
-    $file = basename(__FILE__);
+	// list all comments that are waiting for approval
+	$file = basename(__FILE__);
 ?>
-    <h2><?php _e('Moderation Queue') ?></h2>
-    <form name="approval" action="moderation.php" method="post">
-    <input type="hidden" name="action" value="update" />
-    <ol id="comments" class="commentlist">
+	<h2><?php _e('Moderation Queue') ?></h2>
+	<form name="approval" action="moderation.php" method="post">
+	<input type="hidden" name="action" value="update" />
+	<ol id="comments" class="commentlist">
 <?php
 $i = 0;
-    foreach($comments as $comment) {
+	foreach($comments as $comment) {
 	++$i;
 	$comment_date = mysql2date(get_settings("date_format") . " @ " . get_settings("time_format"), $comment->comment_date);
 	$post_title = $wpdb->get_var("SELECT post_title FROM $wpdb->posts WHERE ID='$comment->comment_post_ID'");
 	if ($i % 2) $class = 'class="alternate"';
 	else $class = '';
-	echo "\n\t<li id='comment-$comment->comment_ID' $class>"; 
+	echo "\n\t<li id='comment-$comment->comment_ID' $class>";
 	?>
 			<p><strong><?php _e('Name:') ?></strong> <?php comment_author_link() ?> <?php if ($comment->comment_author_email) { ?>| <strong><?php _e('E-mail:') ?></strong> <?php comment_author_email_link() ?> <?php } if ($comment->comment_author_email) { ?> | <strong><?php _e('URI:') ?></strong> <?php comment_author_url_link() ?> <?php } ?>| <strong><?php _e('IP:') ?></strong> <a href="http://ws.arin.net/cgi-bin/whois.pl?queryinput=<?php comment_author_IP() ?>"><?php comment_author_IP() ?></a></p>
 <?php comment_text() ?>
 <p><?php
 echo '<a href="post.php?action=editcomment&amp;comment='.$comment->comment_ID.'">' . __('Edit') . '</a> | ';?>
-<a href="<?php echo get_permalink($comment->comment_post_ID); ?>"><?php _e('View Post') ?></a> | 
-<?php 
+<a href="<?php echo get_permalink($comment->comment_post_ID); ?>"><?php _e('View Post') ?></a> |
+<?php
 echo " <a href=\"post.php?action=deletecomment&amp;p=".$comment->comment_post_ID."&amp;comment=".$comment->comment_ID."\" onclick=\"return confirm('" . sprintf(__("You are about to delete this comment by \'%s\'\\n  \'Cancel\' to stop, \'OK\' to delete."), $comment->comment_author) . "')\">" . __('Delete just this comment') . "</a> | "; ?>  <?php _e('Bulk action:') ?>
 	<input type="radio" name="comment[<?php echo $comment->comment_ID; ?>]" id="comment[<?php echo $comment->comment_ID; ?>]-approve" value="approve" /> <label for="comment[<?php echo $comment->comment_ID; ?>]-approve"><?php _e('Approve') ?></label>
 	<input type="radio" name="comment[<?php echo $comment->comment_ID; ?>]" id="comment[<?php echo $comment->comment_ID; ?>]-spam" value="spam" /> <label for="comment[<?php echo $comment->comment_ID; ?>]-spam"><?php _e('Spam') ?></label>
@@ -157,11 +157,11 @@ echo " <a href=\"post.php?action=deletecomment&amp;p=".$comment->comment_post_ID
 
 	</li>
 <?php
-    }
+	}
 ?>
-    </ol>
+	</ol>
 
-    <p class="submit"><input type="submit" name="submit" value="<?php _e('Moderate Comments &raquo;') ?>" /></p>
+	<p class="submit"><input type="submit" name="submit" value="<?php _e('Moderate Comments &raquo;') ?>" /></p>
 <script type="text/javascript">
 // <![CDATA[
 function markAllForDelete() {
@@ -201,11 +201,11 @@ document.write('<ul><li><a href="javascript:markAllForApprove()"><?php _e('Mark 
 		<input name="feelinglucky" type="checkbox" id="feelinglucky" value="true" /> <label for="feelinglucky"><?php _e('Delete every comment marked "defer." <strong>Warning: This can&#8217;t be undone.</strong>'); ?></label>
 	</p>
 </noscript>
-    </form>
+	</form>
 <?php
 } else {
-    // nothing to approve
-    echo __("<p>Currently there are no comments for you to moderate.</p>") . "\n";
+	// nothing to approve
+	echo __("<p>Currently there are no comments for you to moderate.</p>") . "\n";
 }
 ?>
 
