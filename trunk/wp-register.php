@@ -2,48 +2,64 @@
 require('./wp-config.php');
 
 $wpvarstoreset = array('action');
-for ($i=0; $i<count($wpvarstoreset); $i += 1) {
+for ($i=0; $i<count($wpvarstoreset); $i += 1)
+{
 	$wpvar = $wpvarstoreset[$i];
-	if (!isset($$wpvar)) {
-		if (empty($_POST["$wpvar"])) {
-			if (empty($_GET["$wpvar"])) {
+	if (!isset($$wpvar))
+	{
+		if (empty($_POST["$wpvar"]))
+		{
+			if (empty($_GET["$wpvar"]))
+			{
 				$$wpvar = '';
-			} else {
+			}
+			else
+			{
 				$$wpvar = $_GET["$wpvar"];
 			}
-		} else {
+		}
+		else
+		{
 			$$wpvar = $_POST["$wpvar"];
 		}
 	}
 }
 
 if ( !get_settings('users_can_register') )
+{
 	$action = 'disabled';
+}
 
 header( 'Content-Type: ' . get_bloginfo('html_type') . '; charset=' . get_bloginfo('charset') );
 
-switch($action) {
+switch($action)
+{
 
-case 'register':
+	case 'register':
 
 	$user_login = $_POST['user_login'];
 	$user_email = $_POST['user_email'];
-		
+
 	/* checking that username has been typed */
-	if ($user_login == '') {
+	if ($user_login == '')
+	{
 		die (__('<strong>ERROR</strong>: Please enter a username.'));
 	}
 
 	/* checking e-mail address */
-	if ($user_email == '') {
+	if ($user_email == '')
+	{
 		die (__('<strong>ERROR</strong>: Please type your e-mail address.'));
-	} else if (!is_email($user_email)) {
+	}
+	else if (!is_email($user_email))
+	{
 		die (__('<strong>ERROR</strong>: The email address isn&#8217;t correct.'));
 	}
 
 	/* checking the username isn't already used by another user */
 	$result = $wpdb->get_results("SELECT user_login FROM $wpdb->users WHERE user_login = '$user_login'");
-    if (count($result) >= 1) {
+	if (count($result) >= 1)
+	{
 		die (__('<strong>ERROR</strong>: This username is already registered, please choose another one.'));
 	}
 
@@ -53,31 +69,33 @@ case 'register':
 
 	$user_login = $wpdb->escape( preg_replace('|a-z0-9 _.-|i', '', $user_login) );
 	$user_nickname = $user_login;
-   $user_nicename = sanitize_title($user_nickname);
+	$user_nicename = sanitize_title($user_nickname);
 	$now = gmdate('Y-m-d H:i:s');
 	$user_level = get_settings('new_users_can_blog');
 	$password = substr( md5( uniqid( microtime() ) ), 0, 7);
 
-	$result = $wpdb->query("INSERT INTO $wpdb->users 
+	$result = $wpdb->query("INSERT INTO $wpdb->users
 		(user_login, user_pass, user_nickname, user_email, user_ip, user_browser, user_registered, user_level, user_idmode, user_nicename)
-	VALUES 
+	VALUES
 		('$user_login', MD5('$password'), '$user_nickname', '$user_email', '$user_ip', '$user_browser', '$now', '$user_level', 'nickname', '$user_nicename')");
 
 	do_action('user_register', $wpdb->insert_id);
 
-	if ($result == false) {
+	if ($result == false)
+	{
 		die (sprintf(__('<strong>ERROR</strong>: Couldn&#8217;t register you... please contact the <a href="mailto:%s">webmaster</a> !'), get_settings('admin_email')));
 	}
 
 	$stars = '';
-	for ($i = 0; $i < strlen($pass1); $i = $i + 1) {
+	for ($i = 0; $i < strlen($pass1); $i = $i + 1)
+	{
 		$stars .= '*';
 	}
-	
+
 	$message  = sprintf(__('Username: %s'), $user_login) . "\r\n";
 	$message .= sprintf(__('Password: %s'), $password) . "\r\n";
 	$message .= get_settings('siteurl') . "/wp-login.php\r\n";
-	
+
 	wp_mail($user_email, sprintf(__('[%s] Your username and password'), get_settings('blogname')), $message);
 
 	$message  = sprintf(__('New user registration on your blog %s:'), get_settings('blogname')) . "\r\n\r\n";
@@ -90,18 +108,18 @@ case 'register':
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-	<title>WordPress &raquo; <?php _e('Registration Complete') ?></title>
-	<meta http-equiv="Content-Type" content="<?php bloginfo('html_type'); ?>; charset=<?php echo get_settings('blog_charset'); ?>" />	
+	<title>SteamPress &raquo; <?php _e('Registration Complete') ?></title>
+	<meta http-equiv="Content-Type" content="<?php bloginfo('html_type'); ?>; charset=<?php echo get_settings('blog_charset'); ?>" />
 	<link rel="stylesheet" href="wp-admin/wp-admin.css" type="text/css" />
 	<style type="text/css">
 	.submit {
-		font-size: 1.7em;
+		font-size: 1.5em;
 	}
 	</style>
 </head>
 <body>
 
-<div id="login"> 
+<div id="login">
 	<h2><?php _e('Registration Complete') ?></h2>
 	<p><?php printf(__('Username: %s'), "<strong>$user_login</strong>") ?><br />
 	<?php printf(__('Password: %s'), '<strong>' . __('emailed to you') . '</strong>') ?> <br />
@@ -120,7 +138,7 @@ case 'disabled':
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-	<title>WordPress &raquo; <?php _e('Registration Currently Disabled') ?></title>
+	<title>SteamPress &raquo; <?php _e('Registration Currently Disabled') ?></title>
 	<meta http-equiv="Content-Type" content="<?php bloginfo('html_type'); ?>; charset=<?php echo get_settings('blog_charset'); ?>">
 	<link rel="stylesheet" href="wp-admin/wp-admin.css" type="text/css">
 </head>
@@ -146,19 +164,19 @@ default:
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-	<title>WordPress &raquo; <?php _e('Registration Form') ?></title>
+	<title>SteamPress &raquo; <?php _e('Registration Form') ?></title>
 	<meta http-equiv="Content-Type" content="<?php bloginfo('html_type'); ?>; charset=<?php echo get_settings('blog_charset'); ?>" />
 	<link rel="stylesheet" href="wp-admin/wp-admin.css" type="text/css" />
 	<style type="text/css">
 	#user_email, #user_login, #submit {
-		font-size: 1.7em;
+		font-size: 1.5em;
 	}
 	</style>
 </head>
 
 <body>
 <div id="login">
-<h1><a href="http://wordpress.org/">WordPress</a></h1>
+<h1><a href="http://steamedpenguin.com/projects/steampress/">SteamPress</a></h1>
 <h2><?php _e('Register for this blog') ?></h2>
 
 <form method="post" action="wp-register.php" id="registerform">
