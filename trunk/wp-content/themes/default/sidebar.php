@@ -61,7 +61,7 @@
 					<li><?php wp_loginout(); ?></li>
 					<li><a href="http://validator.w3.org/check/referer" title="This page validates as XHTML 1.0 Transitional">Valid <abbr title="eXtensible HyperText Markup Language">XHTML</abbr></a></li>
 					<li><a href="http://gmpg.org/xfn/"><abbr title="XHTML Friends Network">XFN</abbr></a></li>
-					<li><a href="http://steamedpenguin.com/projects/steampress//" title="Powered by SteamPress, lightweight personal publishing platform.">SteamPress</a></li>
+					<li><a href="http://steamedpenguin.com/projects/steampress/" title="Powered by SteamPress, lightweight personal publishing platform.">SteamPress</a></li>
 					<?php wp_meta(); ?>
 				</ul>
 				</li>
