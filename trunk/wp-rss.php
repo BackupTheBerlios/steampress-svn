@@ -13,7 +13,7 @@ $more = 1;
 
 ?>
 <?php echo '<?xml version="1.0" encoding="'.get_settings('blog_charset').'"?'.'>'; ?>
-<!-- generator="wordpress/<?php echo $wp_version ?>" -->
+<!-- generator="steampress/<?php echo $wp_version ?>" -->
 <rss version="0.92">
 <channel>
 	<title><?php bloginfo_rss('name') ?></title>
