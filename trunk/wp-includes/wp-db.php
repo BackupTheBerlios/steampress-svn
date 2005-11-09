@@ -11,12 +11,15 @@ define('ARRAY_A', 'ARRAY_A', false);
 define('ARRAY_N', 'ARRAY_N', false);
 
 if (!defined('SAVEQUERIES'))
+{
 	define('SAVEQUERIES', false);
+}
 
-class wpdb {
+class wpdb
+{
 
 	var $show_errors = true;
-	var $num_queries = 0;	
+	var $num_queries = 0;
 	var $last_query;
 	var $col_info;
 	var $queries;
@@ -39,9 +42,11 @@ class wpdb {
 	// ==================================================================
 	//	DB Constructor - connects to the server and selects a database
 
-	function wpdb($dbuser, $dbpassword, $dbname, $dbhost) {
+	function wpdb($dbuser, $dbpassword, $dbname, $dbhost)
+	{
 		$this->dbh = @mysql_connect($dbhost, $dbuser, $dbpassword);
-		if (!$this->dbh) {
+		if (!$this->dbh)
+		{
 			$this->bail("
 <h1>Error establishing a database connection</h1>
 <p>This either means that the username and password information in your <code>wp-config.php</code> file is incorrect or we can't contact the database server at <code>$dbhost</code>. This could mean your host's database server is down.</p>
@@ -60,8 +65,10 @@ class wpdb {
 	// ==================================================================
 	//	Select a DB (if another one needs to be selected)
 
-	function select($db) {
-		if (!@mysql_select_db($db, $this->dbh)) {
+	function select($db)
+	{
+		if (!@mysql_select_db($db, $this->dbh))
+		{
 			$this->bail("
 <h1>Can&#8217;t select database</h1>
 <p>We were able to connect to the database server (which means your username and password is okay) but not able to select the <code>$db</code> database.</p>
@@ -75,47 +82,58 @@ class wpdb {
 
 	// ====================================================================
 	//	Format a string correctly for safe insert under all PHP conditions
-	
-	function escape($str) {
-		return addslashes($str);				
+
+	function escape($str)
+	{
+		return addslashes($str);
 	}
 
 	// ==================================================================
 	//	Print SQL/DB error.
 
-	function print_error($str = '') {
+	function print_error($str = '')
+	{
 		global $EZSQL_ERROR;
-		if (!$str) $str = mysql_error();
-		$EZSQL_ERROR[] = 
+		if (!$str)
+		{
+			$str = mysql_error();
+		}
+		$EZSQL_ERROR[] =
 		array ('query' => $this->last_query, 'error_str' => $str);
 
 		// Is error output turned on or not..
-		if ( $this->show_errors ) {
+		if ( $this->show_errors )
+		{
 			// If there is an error then take note of it
 			print "<div id='error'>
 			<p class='wpdberror'><strong>WordPress database error:</strong> [$str]<br />
 			<code>$this->last_query</code></p>
 			</div>";
-		} else {
-			return false;	
+		}
+		else
+		{
+			return false;
 		}
 	}
 
 	// ==================================================================
 	//	Turn error handling on or off..
 
-	function show_errors() {
+	function show_errors()
+	{
 		$this->show_errors = true;
 	}
-	
-	function hide_errors() {
+
+	function hide_errors()
+	{
 		$this->show_errors = false;
 	}
 
 	// ==================================================================
 	//	Kill cached query results
 
-	function flush() {
+	function flush()
+	{
 		$this->last_result = null;
 		$this->col_info = null;
 		$this->last_query = null;
@@ -124,7 +142,8 @@ class wpdb {
 	// ==================================================================
 	//	Basic Query	- see docs for more detail
 
-	function query($query) {
+	function query($query)
+	{
 		// initialise return
 		$return_val = 0;
 		$this->flush();
@@ -137,36 +156,47 @@ class wpdb {
 
 		// Perform the query via std mysql_query function..
 		if (SAVEQUERIES)
+		{
 			$this->timer_start();
-		
+		}
+
 		$this->result = @mysql_query($query, $this->dbh);
 		++$this->num_queries;
 
 		if (SAVEQUERIES)
+		{
 			$this->queries[] = array( $query, $this->timer_stop() );
+		}
 
 		// If there is an error then take note of it..
-		if ( mysql_error() ) {
+		if ( mysql_error() )
+		{
 			$this->print_error();
 			return false;
 		}
 
-		if ( preg_match("/^\\s*(insert|delete|update|replace) /i",$query) ) {
+		if ( preg_match("/^\\s*(insert|delete|update|replace) /i",$query) )
+		{
 			$this->rows_affected = mysql_affected_rows();
 			// Take note of the insert_id
-			if ( preg_match("/^\\s*(insert|replace) /i",$query) ) {
-				$this->insert_id = mysql_insert_id($this->dbh);	
+			if ( preg_match("/^\\s*(insert|replace) /i",$query) )
+			{
+				$this->insert_id = mysql_insert_id($this->dbh);
 			}
 			// Return number of rows affected
 			$return_val = $this->rows_affected;
-		} else {
+		}
+		else
+		{
 			$i = 0;
-			while ($i < @mysql_num_fields($this->result)) {
+			while ($i < @mysql_num_fields($this->result))
+			{
 				$this->col_info[$i] = @mysql_fetch_field($this->result);
 				$i++;
 			}
 			$num_rows = 0;
-			while ( $row = @mysql_fetch_object($this->result) ) {
+			while ( $row = @mysql_fetch_object($this->result) )
+			{
 				$this->last_result[$num_rows] = $row;
 				$num_rows++;
 			}
@@ -175,24 +205,27 @@ class wpdb {
 
 			// Log number of rows the query returned
 			$this->num_rows = $num_rows;
-			
+
 			// Return number of rows selected
 			$return_val = $this->num_rows;
 		}
-
 		return $return_val;
 	}
 
 	// ==================================================================
 	//	Get one variable from the DB - see docs for more detail
 
-	function get_var($query=null, $x = 0, $y = 0) {
+	function get_var($query=null, $x = 0, $y = 0)
+	{
 		$this->func_call = "\$db->get_var(\"$query\",$x,$y)";
 		if ( $query )
+		{
 			$this->query($query);
+		}
 
 		// Extract var out of cached results based x,y vals
-		if ( $this->last_result[$y] ) {
+		if ( $this->last_result[$y] )
+		{
 			$values = array_values(get_object_vars($this->last_result[$y]));
 		}
 
@@ -203,18 +236,28 @@ class wpdb {
 	// ==================================================================
 	//	Get one row from the DB - see docs for more detail
 
-	function get_row($query = null, $output = OBJECT, $y = 0) {
+	function get_row($query = null, $output = OBJECT, $y = 0)
+	{
 		$this->func_call = "\$db->get_row(\"$query\",$output,$y)";
 		if ( $query )
+		{
 			$this->query($query);
+		}
 
-		if ( $output == OBJECT ) {
+		if ( $output == OBJECT )
+		{
 			return $this->last_result[$y] ? $this->last_result[$y] : null;
-		} elseif ( $output == ARRAY_A ) {
+		}
+		elseif ( $output == ARRAY_A )
+		{
 			return $this->last_result[$y] ? get_object_vars($this->last_result[$y]) : null;
-		} elseif ( $output == ARRAY_N ) {
+		}
+		elseif ( $output == ARRAY_N )
+		{
 			return $this->last_result[$y] ? array_values(get_object_vars($this->last_result[$y])) : null;
-		} else {
+		}
+		else
+		{
 			$this->print_error(" \$db->get_row(string query, output type, int offset) -- Output type must be one of: OBJECT, ARRAY_A, ARRAY_N");
 		}
 	}
@@ -223,12 +266,16 @@ class wpdb {
 	//	Function to get 1 column from the cached result set based in X index
 	// se docs for usage and info
 
-	function get_col($query = null , $x = 0) {
+	function get_col($query = null , $x = 0)
+	{
 		if ( $query )
+		{
 			$this->query($query);
+		}
 
 		// Extract the column values
-		for ( $i=0; $i < count($this->last_result); $i++ ) {
+		for ( $i=0; $i < count($this->last_result); $i++ )
+		{
 			$new_array[$i] = $this->get_var(null, $x, $i);
 		}
 		return $new_array;
@@ -237,27 +284,38 @@ class wpdb {
 	// ==================================================================
 	// Return the the query as a result set - see docs for more details
 
-	function get_results($query = null, $output = OBJECT) {
+	function get_results($query = null, $output = OBJECT)
+	{
 		$this->func_call = "\$db->get_results(\"$query\", $output)";
 
 		if ( $query )
+		{
 			$this->query($query);
+		}
 
 		// Send back array of objects. Each row is an object
-		if ( $output == OBJECT ) {
+		if ( $output == OBJECT )
+		{
 			return $this->last_result;
-		} elseif ( $output == ARRAY_A || $output == ARRAY_N ) {
-			if ( $this->last_result ) {
+		}
+		elseif ( $output == ARRAY_A || $output == ARRAY_N )
+		{
+			if ( $this->last_result )
+			{
 				$i = 0;
-				foreach( $this->last_result as $row ) {
+				foreach( $this->last_result as $row )
+				{
 					$new_array[$i] = (array) $row;
-					if ( $output == ARRAY_N ) {
+					if ( $output == ARRAY_N )
+					{
 						$new_array[$i] = array_values($new_array[$i]);
 					}
 					$i++;
 				}
 				return $new_array;
-			} else {
+			}
+			else
+			{
 				return null;
 			}
 		}
@@ -268,29 +326,37 @@ class wpdb {
 	// Function to get column meta data info pertaining to the last query
 	// see docs for more info and usage
 
-	function get_col_info($info_type = 'name', $col_offset = -1) {
-		if ( $this->col_info ) {
-			if ( $col_offset == -1 ) {
+	function get_col_info($info_type = 'name', $col_offset = -1)
+	{
+		if ( $this->col_info )
+		{
+			if ( $col_offset == -1 )
+			{
 				$i = 0;
-				foreach($this->col_info as $col ) {
+				foreach($this->col_info as $col )
+				{
 					$new_array[$i] = $col->{$info_type};
 					$i++;
 				}
 				return $new_array;
-			} else {
+			}
+			else
+			{
 				return $this->col_info[$col_offset]->{$info_type};
 			}
 		}
 	}
 
-	function timer_start() {
+	function timer_start()
+	{
 		$mtime = microtime();
 		$mtime = explode(' ', $mtime);
 		$this->time_start = $mtime[1] + $mtime[0];
 		return true;
 	}
-	
-	function timer_stop($precision = 3) {
+
+	function timer_stop($precision = 3)
+	{
 		$mtime = microtime();
 		$mtime = explode(' ', $mtime);
 		$time_end = $mtime[1] + $mtime[0];
@@ -298,60 +364,63 @@ class wpdb {
 		return $time_total;
 	}
 
-	function bail($message) { // Just wraps errors in a nice header and footer
-	if ( !$this->show_errors )
-		return false;
-	header( 'Content-Type: text/html; charset=utf-8');		
-	echo <<<HEAD
-	<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-	<html xmlns="http://www.w3.org/1999/xhtml">
-	<head>
-		<title>WordPress &rsaquo; Error</title>
-		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-		<style media="screen" type="text/css">
-		<!--
-		html {
-			background: #eee;
+	function bail($message) // Just wraps errors in a nice header and footer
+	{
+		if ( !$this->show_errors )
+		{
+			return false;
 		}
-		body {
-			background: #fff;
-			color: #000;
-			font-family: Georgia, "Times New Roman", Times, serif;
-			margin-left: 25%;
-			margin-right: 25%;
-			padding: .2em 2em;
-		}
-		
-		h1 {
-			color: #006;
-			font-size: 18px;
-			font-weight: lighter;
-		}
-		
-		h2 {
-			font-size: 16px;
-		}
-		
-		p, li, dt {
-			line-height: 140%;
-			padding-bottom: 2px;
-		}
-	
-		ul, ol {
-			padding: 5px 5px 5px 20px;
-		}
-		#logo {
-			margin-bottom: 2em;
-		}
-		-->
-		</style>
-	</head>
-	<body>
-	<h1 id="logo"><img alt="WordPress" src="http://static.wordpress.org/logo.png" /></h1>
+		header( 'Content-Type: text/html; charset=utf-8');
+		echo <<<HEAD
+		<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+		<html xmlns="http://www.w3.org/1999/xhtml">
+		<head>
+			<title>WordPress &rsaquo; Error</title>
+			<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+			<style media="screen" type="text/css">
+			<!--
+			html {
+				background: #eee;
+			}
+			body {
+				background: #fff;
+				color: #000;
+				font-family: Georgia, "Times New Roman", Times, serif;
+				margin-left: 25%;
+				margin-right: 25%;
+				padding: .2em 2em;
+			}
+
+			h1 {
+				color: #006;
+				font-size: 18px;
+				font-weight: lighter;
+			}
+
+			h2 {
+				font-size: 16px;
+			}
+
+			p, li, dt {
+				line-height: 140%;
+				padding-bottom: 2px;
+			}
+
+			ul, ol {
+				padding: 5px 5px 5px 20px;
+			}
+			#logo {
+				margin-bottom: 2em;
+			}
+			-->
+			</style>
+		</head>
+		<body>
+		<h1 id="logo"><img alt="WordPress" src="http://static.wordpress.org/logo.png" /></h1>
 HEAD;
-	echo $message;
-	echo "</body></html>";
-	die();
+		echo $message;
+		echo "</body></html>";
+		die();
 	}
 }
 
