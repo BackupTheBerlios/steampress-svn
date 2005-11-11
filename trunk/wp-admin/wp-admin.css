@@ -187,18 +187,37 @@ code
 	border: 0;
 }
 
+#categorydiv span.cat-nest
+{
+	display: block;
+	margin-left: 10px;
+}
+
+#categorydiv div
+{
+	overflow: auto;
+	height: 15em;
+}
+
 #commentstatusdiv
 {
 	float: left;
-	margin-left: 10px;
 	width: 20%;
+}
+
+#commentstatusdiv div label
+{
+	display: block;
+	font-size: 0.6em;
+	margin: 2px;
+	padding: 0;
 }
 
 #postpassworddiv
 {
 	float: left;
-	margin-left: 10px;
 	width: 15%;
+	margin-left: 20px;
 }
 
 #postexcerpt
@@ -207,7 +226,7 @@ code
 	width: 65%;
 }
 
-#metainfo, #postdiv, #postexcerpt
+#postdiv
 {
 clear: both;
 }
@@ -274,10 +293,16 @@ clear: both;
 	background: #faa;
 }
 
-textarea
+#content
 {
-	width: 80%;
+	width: 100%;
 	height: 13em;
+}
+
+#excerpt
+{
+	width: 100%;
+	height: 2em;
 }
 
 .edit
