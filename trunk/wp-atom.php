@@ -44,7 +44,7 @@ if ($posts)
 		</author>
 		<title type="html"><?php the_title_rss() ?></title>
 		<link rel="alternate" type="text/html" href="<?php permalink_single_rss() ?>" />
-		<id><?php bloginfo_rss('atom_url') ?></id>
+		<id><?php the_guid(); ?></id>
 		<updated><?php echo get_post_time('Y-m-d\TH:i:s\Z', true); ?></updated>
 		<published><?php echo get_post_time('Y-m-d\TH:i:s\Z', true); ?></published>
 <?php // Atom categories
