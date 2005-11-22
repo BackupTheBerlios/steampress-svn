@@ -1,5 +1,44 @@
 <?php
 
+/*************************************************
+
+SteamPress - Blogging without the Dirt
+Author: SteamPress Development Team (developers@steampress.org)
+Copyright (c): 2005 ispi, all rights reserved
+
+    This file is part of SteamPress.
+
+    SteamPress is free software; you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation; either version 2 of the License, or
+    (at your option) any later version.
+
+    SteamPress is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with SteamPress; if not, write to the Free Software
+    Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+
+You may contact the authors of Snoopy by e-mail at:
+developers@steampress.org
+
+Or, write to:
+
+SteamPress Development Team
+c/o Samir M. Nassar
+2015 Central Ave. NE, #226
+Minneapolis, MN 55418
+USA
+
+The latest version of SteamPress can be obtained from:
+http://steampress.org/
+
+*************************************************/
+ 
+
 $wpvarstoreset = array('action');
 for ($i=0; $i<count($wpvarstoreset); $i += 1) {
 	$wpvar = $wpvarstoreset[$i];
@@ -39,9 +78,9 @@ case "step1":
 		for($bgm=1; $bgm<13; $bgm++) {
 
 		$bgmm = zeroise($bgm,2);
-	
+
 		$archivefile = "../$bgy"."_"."$bgmm"."_01_wordpress.php";
-		
+
 		if (file_exists($archivefile)) {
 
 			$f = fopen($archivefile,"r");
@@ -127,9 +166,9 @@ case "step1":
 
 			$post_content = addslashes($post_content);
 			$post_content = str_replace('<br>', '<br />', $post_content); // the XHTML touch... ;)
-			
+
 			$post_title = addslashes($post_title);
-			
+
 			// Quick-n-dirty check for dups:
 			$dupcheck = $wpdb->get_results("SELECT ID,post_date,post_title FROM $wpdb->posts WHERE post_date='$post_date' AND post_title='$post_title' LIMIT 1",ARRAY_A);
 			if ($dupcheck[0]['ID']) {
@@ -140,15 +179,15 @@ case "step1":
 			}
 
 			$result = $wpdb->query("
-			INSERT INTO $wpdb->posts 
+			INSERT INTO $wpdb->posts
 				(post_author,post_date,post_content,post_title,post_category)
-			VALUES 
+			VALUES
 				('$post_author_ID','$post_date','$post_content','$post_title','1')
 			");
 
 
 			} echo '... <strong>Done</strong></li>';
-			
+
 		}}
 	}
 

@@ -1,5 +1,44 @@
 <?php
 
+/*************************************************
+
+SteamPress - Blogging without the Dirt
+Author: SteamPress Development Team (developers@steampress.org)
+Copyright (c): 2005 ispi, all rights reserved
+
+    This file is part of SteamPress.
+
+    SteamPress is free software; you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation; either version 2 of the License, or
+    (at your option) any later version.
+
+    SteamPress is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with SteamPress; if not, write to the Free Software
+    Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+
+You may contact the authors of Snoopy by e-mail at:
+developers@steampress.org
+
+Or, write to:
+
+SteamPress Development Team
+c/o Samir M. Nassar
+2015 Central Ave. NE, #226
+Minneapolis, MN 55418
+USA
+
+The latest version of SteamPress can be obtained from:
+http://steampress.org/
+
+*************************************************/
+ 
+
 // For security reasons, fill in the connection details to your Textpattern database below:
 
 $tp_database_name = 'textpattern';
@@ -43,13 +82,13 @@ header( 'Content-Type: text/html; charset=utf-8' );
 		line-height: 140%;
 	}
 	</style>
-</head><body> 
-<h1 id="logo"><a href="http://wordpress.org">WordPress</a></h1> 
+</head><body>
+<h1 id="logo"><a href="http://wordpress.org">WordPress</a></h1>
 <?php
 switch($step) {
 
 	case 0:
-?> 
+?>
 <p>This script imports your entries from Textpattern into WordPress. It should be relatively painless, and we hope you're happy with the result.</p>
 <p>To run this, you first need to edit this file (<code>import-textpattern.php</code>) and enter your Textpattern database connection details. Let's check if the database connection information works...</p>
 <?php
@@ -65,11 +104,11 @@ if ($connection && $database) {
 <?php
 }
 	break;
-	
+
 	case 1:
-?> 
-<h1>Step 1</h1> 
-<p>First let's get posts and comments.</p> 
+?>
+<h1>Step 1</h1>
+<p>First let's get posts and comments.</p>
 <?php
 // For people running this on .72
 $query = "ALTER TABLE `$wpdb->posts` ADD `post_name` VARCHAR(200) NOT NULL";
@@ -97,7 +136,7 @@ while ($post = mysql_fetch_array($posts)) {
 	$second = substr($posted,12,2);
 	$timestamp = mktime($hour, $minute, $second, $month, $day, $year);
 	$posted = date('Y-m-d H:i:s', $timestamp);
-	
+
 	$content = addslashes($post['Body_html']);
 	$title = addslashes($post['Title']);
 	$post_name = sanitize_title($title);
@@ -109,7 +148,7 @@ while ($post = mysql_fetch_array($posts)) {
 
 	// Get wordpress post id
 	$wp_post_ID = $wpdb->get_var("SELECT ID FROM $wpdb->posts ORDER BY ID DESC LIMIT 1");
-	
+
 	// Now let's insert comments if there are any for the TP post
 	$tp_id = $post['ID'];
 	$comments = mysql_query("SELECT * FROM txp_Discuss WHERE parentid = $tp_id");
@@ -128,11 +167,11 @@ while ($post = mysql_fetch_array($posts)) {
 
 upgrade_all();
 ?>
-<p><strong>All done.</strong> Wasn&#8217;t that fun? <a href="../">Have fun</a>.</p> 
+<p><strong>All done.</strong> Wasn&#8217;t that fun? <a href="../">Have fun</a>.</p>
 <?php
 break;
 }
-?> 
+?>
 
 </body>
 </html>

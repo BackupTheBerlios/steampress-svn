@@ -1,4 +1,43 @@
 <?php
+
+/*************************************************
+
+SteamPress - Blogging without the Dirt
+Author: SteamPress Development Team (developers@steampress.org)
+Copyright (c): 2005 ispi, all rights reserved
+
+    This file is part of SteamPress.
+
+    SteamPress is free software; you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation; either version 2 of the License, or
+    (at your option) any later version.
+
+    SteamPress is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with SteamPress; if not, write to the Free Software
+    Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+
+You may contact the authors of Snoopy by e-mail at:
+developers@steampress.org
+
+Or, write to:
+
+SteamPress Development Team
+c/o Samir M. Nassar
+2015 Central Ave. NE, #226
+Minneapolis, MN 55418
+USA
+
+The latest version of SteamPress can be obtained from:
+http://steampress.org/
+
+*************************************************/
+ 
 define('XMLFILE', '');
 // Example:
 // define('XMLFILE', '/home/example/public_html/rss.xml');
@@ -47,13 +86,13 @@ header( 'Content-Type: text/html; charset=utf-8' );
 		line-height: 140%;
 	}
 	</style>
-</head><body> 
-<h1 id="logo"><a href="http://wordpress.org/">WordPress</a></h1> 
+</head><body>
+<h1 id="logo"><a href="http://wordpress.org/">WordPress</a></h1>
 <?php
 switch($step) {
 
 	case 0:
-?> 
+?>
 <p>Howdy! This importer allows you to extract posts from a LiveJournal XML export file. To get started you must edit the following line in this file (<code>import-livejournal.php</code>) </p>
 <p><code>define('XMLFILE', '');</code></p>
 <p>You want to define where the XML file we'll be working with is, for example: </p>
@@ -62,7 +101,7 @@ switch($step) {
 <p>If you've done that and you&#8217;re all ready, <a href="import-livejournal.php?step=1">let's go</a>!</p>
 <?php
 	break;
-	
+
 	case 1:
 if ('' != XMLFILE && !file_exists(XMLFILE)) die("The file you specified does not seem to exist. Please check the path you've given.");
 if ('' == XMLFILE) die("You must edit the XMLFILE line as described on the <a href='import-rss.php'>previous page</a> to continue.");
@@ -97,11 +136,11 @@ $content = str_replace( array('<![CDATA[', ']]>'), '', addslashes( trim($content
 // Now lets put it in the DB
 if ($wpdb->get_var("SELECT ID FROM $wpdb->posts WHERE post_title = '$title' AND post_date = '$post_date'")) :
 	echo 'Post already imported';
-else : 
-	
-	$wpdb->query("INSERT INTO $wpdb->posts 
+else :
+
+	$wpdb->query("INSERT INTO $wpdb->posts
 		(post_author, post_date, post_date_gmt, post_content, post_title,post_status, comment_status, ping_status, post_name)
-		VALUES 
+		VALUES
 		('$post_author', '$post_date', DATE_ADD('$post_date', INTERVAL '$add_hours:$add_minutes' HOUR_MINUTE), '$content', '$title', 'publish', '$comment_status', '$ping_status', '$post_name')");
 	$post_id = $wpdb->get_var("SELECT ID FROM $wpdb->posts WHERE post_title = '$title' AND post_date = '$post_date'");
 	if (!$post_id) die("couldn't get post ID");
@@ -119,6 +158,6 @@ endforeach;
 <?php
 	break;
 }
-?> 
+?>
 </body>
 </html>
