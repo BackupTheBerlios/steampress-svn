@@ -1,5 +1,44 @@
 <?php
 
+/*************************************************
+
+SteamPress - Blogging without the Dirt
+Author: SteamPress Development Team (developers@steampress.org)
+Copyright (c): 2005 SteamPress, all rights reserved
+
+    This file is part of SteamPress.
+
+    SteamPress is free software; you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation; either version 2 of the License, or
+    (at your option) any later version.
+
+    SteamPress is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with SteamPress; if not, write to the Free Software
+    Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+
+You may contact the authors of Snoopy by e-mail at:
+developers@steampress.org
+
+Or, write to:
+
+SteamPress Development Team
+c/o Samir M. Nassar
+2015 Central Ave. NE, #226
+Minneapolis, MN 55418
+USA
+
+The latest version of SteamPress can be obtained from:
+http://steampress.org/
+
+*************************************************/
+ 
+
 	/* These functions can be replaced via plugins.  They are loaded after
 	 plugins are loaded. */
 
@@ -9,7 +48,7 @@ function get_currentuserinfo() {
 	global $user_login, $userdata, $user_level, $user_ID, $user_nickname, $user_email, $user_url, $user_pass_md5, $user_identity;
 	// *** retrieving user's data from cookies and db - no spoofing
 
-	if (isset($_COOKIE['wordpressuser_' . COOKIEHASH])) 
+	if (isset($_COOKIE['wordpressuser_' . COOKIEHASH]))
 		$user_login = $_COOKIE['wordpressuser_' . COOKIEHASH];
 	$userdata = get_userdatabylogin($user_login);
 	$user_level = $userdata->user_level;
@@ -37,7 +76,7 @@ function get_userdata($userid) {
 	if ( empty($cache_userdata[$userid]) && $userid != 0) {
 		$cache_userdata[$userid] = $wpdb->get_row("SELECT * FROM $wpdb->users WHERE ID = $userid");
 		$cache_userdata[$cache_userdata[$userid]->user_login] =& $cache_userdata[$userid];
-	} 
+	}
 
 	return $cache_userdata[$userid];
 }
@@ -61,7 +100,7 @@ if ( !function_exists('wp_mail') ) :
 function wp_mail($to, $subject, $message, $headers = '') {
 	if( $headers == '' ) {
 		$headers = "MIME-Version: 1.0\n" .
-			"From: " . get_settings('admin_email') . "\n" . 
+			"From: " . get_settings('admin_email') . "\n" .
 			"Content-Type: text/plain; charset=\"" . get_settings('blog_charset') . "\"\n";
 	}
 
@@ -103,14 +142,14 @@ endif;
 if ( !function_exists('auth_redirect') ) :
 function auth_redirect() {
 	// Checks if a user is logged in, if not redirects them to the login page
-	if ( (!empty($_COOKIE['wordpressuser_' . COOKIEHASH]) && 
+	if ( (!empty($_COOKIE['wordpressuser_' . COOKIEHASH]) &&
 				!wp_login($_COOKIE['wordpressuser_' . COOKIEHASH], $_COOKIE['wordpresspass_' . COOKIEHASH], true)) ||
 			 (empty($_COOKIE['wordpressuser_' . COOKIEHASH])) ) {
 		header('Expires: Wed, 11 Jan 1984 05:00:00 GMT');
 		header('Last-Modified: ' . gmdate('D, d M Y H:i:s') . ' GMT');
 		header('Cache-Control: no-cache, must-revalidate, max-age=0');
 		header('Pragma: no-cache');
-	
+
 		header('Location: ' . get_settings('siteurl') . '/wp-login.php?redirect_to=' . urlencode($_SERVER['REQUEST_URI']));
 		exit();
 	}
@@ -170,7 +209,7 @@ endif;
 if ( ! function_exists('wp_notify_postauthor') ) :
 function wp_notify_postauthor($comment_id, $comment_type='') {
 	global $wpdb;
-    
+
 	$comment = $wpdb->get_row("SELECT * FROM $wpdb->comments WHERE comment_ID='$comment_id' LIMIT 1");
 	$post = $wpdb->get_row("SELECT * FROM $wpdb->posts WHERE ID='$comment->comment_post_ID' LIMIT 1");
 	$user = $wpdb->get_row("SELECT * FROM $wpdb->users WHERE ID='$post->post_author' LIMIT 1");
@@ -180,9 +219,9 @@ function wp_notify_postauthor($comment_id, $comment_type='') {
 	$comment_author_domain = gethostbyaddr($comment->comment_author_IP);
 
 	$blogname = get_settings('blogname');
-	
+
 	if ( empty( $comment_type ) ) $comment_type = 'comment';
-	
+
 	if ('comment' == $comment_type) {
 		$notify_message  = sprintf( __('New comment on your post #%1$s "%2$s"'), $comment->comment_post_ID, $post->post_title ) . "\r\n";
 		$notify_message .= sprintf( __('Author : %1$s (IP: %2$s , %3$s)'), $comment->comment_author, $comment->comment_author_IP, $comment_author_domain ) . "\r\n";
@@ -225,7 +264,7 @@ function wp_notify_postauthor($comment_id, $comment_type='') {
 		. "Content-Type: text/plain; charset=\"" . get_settings('blog_charset') . "\"\n";
 
 	@wp_mail($user->user_email, $subject, $notify_message, $message_headers);
-   
+
 	return true;
 }
 endif;
@@ -240,8 +279,8 @@ function wp_notify_moderator($comment_id) {
 	global $wpdb;
 
 	if( get_settings( "moderation_notify" ) == 0 )
-		return true; 
-    
+		return true;
+
 	$comment = $wpdb->get_row("SELECT * FROM $wpdb->comments WHERE comment_ID='$comment_id' LIMIT 1");
 	$post = $wpdb->get_row("SELECT * FROM $wpdb->posts WHERE ID='$comment->comment_post_ID' LIMIT 1");
 
@@ -267,7 +306,7 @@ function wp_notify_moderator($comment_id) {
 	$subject = apply_filters('comment_moderation_subject', $subject);
 
 	@wp_mail($admin_email, $subject, $notify_message);
-    
+
 	return true;
 }
 endif;

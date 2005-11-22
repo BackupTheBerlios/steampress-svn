@@ -1,5 +1,44 @@
 <?php
 
+/*************************************************
+
+SteamPress - Blogging without the Dirt
+Author: SteamPress Development Team (developers@steampress.org)
+Copyright (c): 2005 ispi, all rights reserved
+
+    This file is part of SteamPress.
+
+    SteamPress is free software; you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation; either version 2 of the License, or
+    (at your option) any later version.
+
+    SteamPress is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with SteamPress; if not, write to the Free Software
+    Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+
+You may contact the authors of Snoopy by e-mail at:
+developers@steampress.org
+
+Or, write to:
+
+SteamPress Development Team
+c/o Samir M. Nassar
+2015 Central Ave. NE, #226
+Minneapolis, MN 55418
+USA
+
+The latest version of SteamPress can be obtained from:
+http://steampress.org/
+
+*************************************************/
+ 
+
 /**** DB Functions ****/
 
 /*
@@ -7,10 +46,10 @@
  */
 function wp_insert_post($postarr = array()) {
 	global $wpdb, $allowedtags;
-	
+
 	// export array as variables
 	extract($postarr);
-	
+
 	$post_name = sanitize_title($post_title);
 	$post_author = (int) $post_author;
 
@@ -20,11 +59,11 @@ function wp_insert_post($postarr = array()) {
 	}
 
 	$post_cat = $post_category[0];
-	
+
 	if (empty($post_date))
 		$post_date = current_time('mysql');
 	// Make sure we have a good gmt date:
-	if (empty($post_date_gmt)) 
+	if (empty($post_date_gmt))
 		$post_date_gmt = get_gmt_from_date($post_date);
 	if (empty($comment_status))
 		$comment_status = get_settings('default_comment_status');
@@ -46,18 +85,18 @@ function wp_insert_post($postarr = array()) {
 		}
 	}
 
-	$sql = "INSERT INTO $wpdb->posts 
-		(post_author, post_date, post_date_gmt, post_modified, post_modified_gmt, post_content, post_title, post_excerpt, post_category, post_status, post_name, comment_status, ping_status, post_parent) 
+	$sql = "INSERT INTO $wpdb->posts
+		(post_author, post_date, post_date_gmt, post_modified, post_modified_gmt, post_content, post_title, post_excerpt, post_category, post_status, post_name, comment_status, ping_status, post_parent)
 		VALUES ('$post_author', '$post_date', '$post_date_gmt', '$post_date', '$post_date_gmt', '$post_content', '$post_title', '$post_excerpt', '$post_cat', '$post_status', '$post_name', '$comment_status', '$ping_status', '$post_parent')";
-	
+
 	$result = $wpdb->query($sql);
 	$post_ID = $wpdb->insert_id;
 
 	// Set GUID
 	$wpdb->query("UPDATE $wpdb->posts SET guid = '" . get_permalink($post_ID) . "' WHERE ID = '$post_ID'");
-	
+
 	wp_set_post_cats('', $post_ID, $post_category);
-	
+
 	if ($post_status == 'publish') {
 		do_action('publish_post', $post_ID);
 	}
@@ -73,11 +112,11 @@ function wp_get_single_post($postid = 0, $mode = OBJECT) {
 
 	$sql = "SELECT * FROM $wpdb->posts WHERE ID=$postid";
 	$result = $wpdb->get_row($sql, $mode);
-	
+
 	// Set categories
 	if($mode == OBJECT) {
 		$result->post_category = wp_get_post_cats('',$postid);
-	} 
+	}
 	else {
 		$result['post_category'] = wp_get_post_cats('',$postid);
 	}
@@ -109,7 +148,7 @@ function wp_update_post($postarr = array()) {
 	$post = add_magic_quotes($post);
 	extract($post);
 
-	// Now overwrite any changed values being passed in. These are 
+	// Now overwrite any changed values being passed in. These are
 	// already escaped.
 	extract($postarr);
 
@@ -120,7 +159,7 @@ function wp_update_post($postarr = array()) {
 	$post_modified = current_time('mysql');
 	$post_modified_gmt = current_time('mysql', 1);
 
-	$sql = "UPDATE $wpdb->posts 
+	$sql = "UPDATE $wpdb->posts
 		SET post_content = '$post_content',
 		post_title = '$post_title',
 		post_category = $post_category[0],
@@ -133,7 +172,7 @@ function wp_update_post($postarr = array()) {
 		ping_status = '$ping_status',
 		comment_status = '$comment_status'
 		WHERE ID = $ID";
-		
+
 	$result = $wpdb->query($sql);
 	$rows_affected = $wpdb->rows_affected;
 
@@ -146,10 +185,10 @@ function wp_update_post($postarr = array()) {
 
 function wp_get_post_cats($blogid = '1', $post_ID = 0) {
 	global $wpdb;
-	
-	$sql = "SELECT category_id 
-		FROM $wpdb->post2cat 
-		WHERE post_id = $post_ID 
+
+	$sql = "SELECT category_id
+		FROM $wpdb->post2cat
+		WHERE post_id = $post_ID
 		ORDER BY category_id";
 
 	$result = $wpdb->get_col($sql);
@@ -170,10 +209,10 @@ function wp_set_post_cats($blogid = '1', $post_ID = 0, $post_categories = array(
 
 	// First the old categories
 	$old_categories = $wpdb->get_col("
-		SELECT category_id 
-		FROM $wpdb->post2cat 
+		SELECT category_id
+		FROM $wpdb->post2cat
 		WHERE post_id = $post_ID");
-	
+
 	if (!$old_categories) {
 		$old_categories = array();
 	} else {
@@ -190,9 +229,9 @@ function wp_set_post_cats($blogid = '1', $post_ID = 0, $post_categories = array(
 	if ($delete_cats) {
 		foreach ($delete_cats as $del) {
 			$wpdb->query("
-				DELETE FROM $wpdb->post2cat 
-				WHERE category_id = $del 
-					AND post_id = $post_ID 
+				DELETE FROM $wpdb->post2cat
+				WHERE category_id = $del
+					AND post_id = $post_ID
 				");
 		}
 	}
@@ -203,7 +242,7 @@ function wp_set_post_cats($blogid = '1', $post_ID = 0, $post_categories = array(
 	if ($add_cats) {
 		foreach ($add_cats as $new_cat) {
 			$wpdb->query("
-				INSERT INTO $wpdb->post2cat (post_id, category_id) 
+				INSERT INTO $wpdb->post2cat (post_id, category_id)
 				VALUES ($post_ID, $new_cat)");
 		}
 	}
@@ -220,13 +259,13 @@ function wp_delete_post($postid = 0) {
 		$wpdb->query("UPDATE $wpdb->posts SET post_parent = $post->post_parent WHERE post_parent = $postid AND post_status = 'static'");
 
 	$wpdb->query("DELETE FROM $wpdb->posts WHERE ID = $postid");
-	
+
 	$wpdb->query("DELETE FROM $wpdb->comments WHERE comment_post_ID = $postid");
 
 	$wpdb->query("DELETE FROM $wpdb->post2cat WHERE post_id = $postid");
 
 	$wpdb->query("DELETE FROM $wpdb->postmeta WHERE post_id = $postid");
-	
+
 	return $post;
 }
 
@@ -242,17 +281,17 @@ function post_permalink($post_id = 0, $mode = '') { // $mode legacy
 // Get the name of a category from its ID
 function get_cat_name($cat_id) {
 	global $wpdb;
-	
+
 	$cat_id -= 0; 	// force numeric
 	$name = $wpdb->get_var("SELECT cat_name FROM $wpdb->categories WHERE cat_ID=$cat_id");
-	
+
 	return $name;
 }
 
 // Get the ID of a category from its name
 function get_cat_ID($cat_name='General') {
 	global $wpdb;
-	
+
 	$cid = $wpdb->get_var("SELECT cat_ID FROM $wpdb->categories WHERE cat_name='$cat_name'");
 
 	return $cid?$cid:1;	// default to cat 1
@@ -310,14 +349,14 @@ function trackback_url_list($tb_list, $post_id) {
 
 		// import postdata as variables
 		extract($postdata);
-		
+
 		// form an excerpt
 		$excerpt = strip_tags($post_excerpt?$post_excerpt:$post_content);
-		
+
 		if (strlen($excerpt) > 255) {
 			$excerpt = substr($excerpt,0,252) . '...';
 		}
-		
+
 		$trackback_urls = explode(',', $tb_list);
 		foreach($trackback_urls as $tb_url) {
 		    $tb_url = trim($tb_url);
@@ -421,11 +460,11 @@ function wp_blacklist_check($author, $email, $url, $comment, $user_ip, $user_age
 		// Skip empty lines
 		if ( empty($word) ) { continue; }
 
-		// Do some escaping magic so that '#' chars in the 
+		// Do some escaping magic so that '#' chars in the
 		// spam words don't break things:
 		$word = preg_quote($word, '#');
-		
-		$pattern = "#$word#i"; 
+
+		$pattern = "#$word#i";
 		if ( preg_match($pattern, $author    ) ) return true;
 		if ( preg_match($pattern, $email     ) ) return true;
 		if ( preg_match($pattern, $url       ) ) return true;
@@ -433,7 +472,7 @@ function wp_blacklist_check($author, $email, $url, $comment, $user_ip, $user_age
 		if ( preg_match($pattern, $user_ip   ) ) return true;
 		if ( preg_match($pattern, $user_agent) ) return true;
 	}
-	
+
 	if ( isset($_SERVER['REMOTE_ADDR']) ) {
 		if ( wp_proxy_check($_SERVER['REMOTE_ADDR']) ) return true;
 	}
@@ -510,9 +549,9 @@ function wp_new_comment( $commentdata, $spam = false ) {
 
 	$approved = apply_filters('pre_comment_approved', $approved);
 
-	$result = $wpdb->query("INSERT INTO $wpdb->comments 
+	$result = $wpdb->query("INSERT INTO $wpdb->comments
 	(comment_post_ID, comment_author, comment_author_email, comment_author_url, comment_author_IP, comment_date, comment_date_gmt, comment_content, comment_approved, comment_agent, comment_type, user_id)
-	VALUES 
+	VALUES
 	('$comment_post_ID', '$author', '$email', '$url', '$user_ip', '$now', '$now_gmt', '$comment', '$approved', '$user_agent', '$comment_type', '$user_id')
 	");
 
@@ -522,7 +561,7 @@ function wp_new_comment( $commentdata, $spam = false ) {
 	if ( 'spam' !== $approved ) { // If it's spam save it silently for later crunching
 		if ( '0' == $approved )
 			wp_notify_moderator($comment_id);
-	
+
 		if ( get_settings('comments_notify') && $approved )
 			wp_notify_postauthor($comment_id, $comment_type);
 	}
@@ -569,7 +608,7 @@ function get_enclosed($post_id) { // Get enclosures already enclosed for a post
 	$custom_fields = get_post_custom( $post_id );
 	$pung = array();
 	if( is_array( $custom_fields ) ) {
-		while( list( $key, $val ) = each( $custom_fields ) ) { 
+		while( list( $key, $val ) = each( $custom_fields ) ) {
 			if( $key == 'enclosure' ) {
 				if (is_array($val)) {
 					foreach($val as $enc) {

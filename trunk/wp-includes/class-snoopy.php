@@ -722,13 +722,7 @@ if ( !in_array('Snoopy', get_declared_classes() ) )
 								chr(176),
 								chr(39),
 								chr(128),
-								"�,
-								"�,
-								"",
-								"�,
-								"�,
-								"�,
-								"�,
+								""
 							);
 
 			$text = preg_replace($search,$replace,$document);

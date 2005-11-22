@@ -1,5 +1,44 @@
 <?php
 
+/*************************************************
+
+SteamPress - Blogging without the Dirt
+Author: SteamPress Development Team (developers@steampress.org)
+Copyright (c): 2005 SteamPress, all rights reserved
+
+    This file is part of SteamPress.
+
+    SteamPress is free software; you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation; either version 2 of the License, or
+    (at your option) any later version.
+
+    SteamPress is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with SteamPress; if not, write to the Free Software
+    Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+
+You may contact the authors of Snoopy by e-mail at:
+developers@steampress.org
+
+Or, write to:
+
+SteamPress Development Team
+c/o Samir M. Nassar
+2015 Central Ave. NE, #226
+Minneapolis, MN 55418
+USA
+
+The latest version of SteamPress can be obtained from:
+http://steampress.org/
+
+*************************************************/
+ 
+
 function get_the_category($id = false) {
     global $post, $category_cache;
 
@@ -30,7 +69,7 @@ function get_category_link($category_id) {
 		$category = &get_category($category_id);
 		$category_nicename = $category->category_nicename;
 
-		if ($parent = $category->category_parent) 
+		if ($parent = $category->category_parent)
 			$category_nicename = get_category_parents($parent, false, '/', true) . $category_nicename . '/';
 
 		$catlink = str_replace('%category%', $category_nicename, $catlink);
@@ -128,7 +167,7 @@ function get_category_children($id, $before = '/', $after = '') {
 
 	if ( ! isset($cache_categories))
 		update_category_cache();
-		
+
 	$c_cache = $cache_categories; // Can't do recursive foreach on a global, have to make a copy
 	$chain = '';
 	foreach ($c_cache as $category){
@@ -145,7 +184,7 @@ function the_category_ID($echo = true) {
     // Grab the first cat in the list.
     $categories = get_the_category();
     $cat = $categories[0]->cat_ID;
-    
+
     if ($echo) echo $cat;
 
     return $cat;
@@ -279,7 +318,7 @@ function list_cats($optionall = 1, $all = 'All', $sort_column = 'ID', $sort_orde
 		$now = current_time('mysql', 1);
 		$cat_counts = $wpdb->get_results("	SELECT cat_ID,
 		COUNT($wpdb->post2cat.post_id) AS cat_count
-		FROM $wpdb->categories 
+		FROM $wpdb->categories
 		INNER JOIN $wpdb->post2cat ON (cat_ID = category_id)
 		INNER JOIN $wpdb->posts ON (ID = post_id)
 		WHERE post_status = 'publish'
@@ -293,7 +332,7 @@ function list_cats($optionall = 1, $all = 'All', $sort_column = 'ID', $sort_orde
             }
         }
 	}
-	
+
 	if ( $optiondates ) {
 		$cat_dates = $wpdb->get_results("	SELECT category_id,
 		UNIX_TIMESTAMP( MAX(post_date) ) AS ts
@@ -304,10 +343,10 @@ function list_cats($optionall = 1, $all = 'All', $sort_column = 'ID', $sort_orde
 			$category_timestamp["$cat_date->category_id"] = $cat_date->ts;
 		}
 	}
-	
+
 	$num_found=0;
 	$thelist = "";
-	
+
 	foreach ($categories as $category) {
 		if ((intval($hide_empty) == 0 || isset($category_posts["$category->cat_ID"])) && (!$hierarchical || $category->category_parent == $child_of) ) {
 			$num_found++;
@@ -321,7 +360,7 @@ function list_cats($optionall = 1, $all = 'All', $sort_column = 'ID', $sort_orde
 			$link .= apply_filters('list_cats', $category->cat_name, $category).'</a>';
 
 			if ( (! empty($feed_image)) || (! empty($feed)) ) {
-				
+
 				$link .= ' ';
 
 				if (empty($feed_image)) {
@@ -344,7 +383,7 @@ function list_cats($optionall = 1, $all = 'All', $sort_column = 'ID', $sort_orde
 				} else {
 					$link .= $name;
 				}
-				
+
 				$link .= '</a>';
 
 				if (empty($feed_image)) {

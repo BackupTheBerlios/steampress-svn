@@ -1,5 +1,44 @@
 <?php
 
+/*************************************************
+
+SteamPress - Blogging without the Dirt
+Author: SteamPress Development Team (developers@steampress.org)
+Copyright (c): 2005 SteamPress, all rights reserved
+
+    This file is part of SteamPress.
+
+    SteamPress is free software; you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation; either version 2 of the License, or
+    (at your option) any later version.
+
+    SteamPress is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with SteamPress; if not, write to the Free Software
+    Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+
+You may contact the authors of Snoopy by e-mail at:
+developers@steampress.org
+
+Or, write to:
+
+SteamPress Development Team
+c/o Samir M. Nassar
+2015 Central Ave. NE, #226
+Minneapolis, MN 55418
+USA
+
+The latest version of SteamPress can be obtained from:
+http://steampress.org/
+
+*************************************************/
+ 
+
 function the_permalink() {
 	echo apply_filters('the_permalink', get_permalink());
 }
@@ -56,7 +95,7 @@ function get_permalink($id = 0) {
 
 		$authordata = get_userdata($post->post_author);
 		$author = $authordata->user_nicename;
-		$rewritereplace = 
+		$rewritereplace =
 		array(
 			date('Y', $unixtime),
 			date('m', $unixtime),
@@ -203,9 +242,9 @@ function get_previous_post($in_same_cat = false, $excluded_categories = '') {
 	if(! is_single()) {
 		return null;
 	}
-    
+
 	$current_post_date = $post->post_date;
-    
+
 	$join = '';
 	if ($in_same_cat) {
 		$join = " INNER JOIN $wpdb->post2cat ON $wpdb->posts.ID= $wpdb->post2cat.post_id ";
@@ -214,7 +253,7 @@ function get_previous_post($in_same_cat = false, $excluded_categories = '') {
 		for ($i = 1; $i < (count($cat_array)); $i++) {
 			$join .= ' OR category_id = ' . intval($cat_array[$i]->cat_ID);
 		}
-		$join .= ')'; 
+		$join .= ')';
 	}
 
 	$sql_exclude_cats = '';
@@ -237,7 +276,7 @@ function get_next_post($in_same_cat = false, $excluded_categories = '') {
 	}
 
 	$current_post_date = $post->post_date;
-    
+
 	$join = '';
 	if ($in_same_cat) {
 		$join = " INNER JOIN $wpdb->post2cat ON $wpdb->posts.ID= $wpdb->post2cat.post_id ";
@@ -246,7 +285,7 @@ function get_next_post($in_same_cat = false, $excluded_categories = '') {
 		for ($i = 1; $i < (count($cat_array)); $i++) {
 			$join .= ' OR category_id = ' . intval($cat_array[$i]->cat_ID);
 		}
-		$join .= ')'; 
+		$join .= ')';
 	}
 
 	$sql_exclude_cats = '';
@@ -259,7 +298,7 @@ function get_next_post($in_same_cat = false, $excluded_categories = '') {
 	}
 
 	$now = current_time('mysql');
-    
+
 	return @$wpdb->get_row("SELECT ID,post_title FROM $wpdb->posts $join WHERE post_date > '$current_post_date' AND post_date < '$now' AND post_status = 'publish' $sqlcat $sql_exclude_cats AND ID != $post->ID ORDER BY post_date ASC LIMIT 1");
 }
 
@@ -280,7 +319,7 @@ function previous_post_link($format='&laquo; %link', $link='%title', $in_same_ca
 
   $format = str_replace('%link', $link, $format);
 
-  echo $format;	    
+  echo $format;
 }
 
 function next_post_link($format='%link &raquo;', $link='%title', $in_same_cat = false, $excluded_categories = '') {
@@ -300,7 +339,7 @@ function next_post_link($format='%link &raquo;', $link='%title', $in_same_cat = 
 
   $format = str_replace('%link', $link, $format);
 
-  echo $format;	    
+  echo $format;
 }
 
 // Deprecated.  Use previous_post_link().
@@ -328,7 +367,7 @@ function previous_post($format='%', $previous='previous post: ', $title='yes', $
 
 // Deprecated.  Use next_post_link().
 function next_post($format='%', $next='next post: ', $title='yes', $in_same_cat='no', $limitnext=1, $excluded_categories='') {
-	
+
 	if ( empty($in_same_cat) || 'no' == $in_same_cat )
 		$in_same_cat = false;
 	else
@@ -354,7 +393,7 @@ function get_pagenum_link($pagenum = 1) {
 
 	$qstr = $_SERVER['REQUEST_URI'];
 
-	$page_querystring = "paged"; 
+	$page_querystring = "paged";
 	$page_modstring = "page/";
 	$page_modregex = "page/?";
 	$permalink = 0;
@@ -420,7 +459,7 @@ function next_posts($max_page = 0) { // original by cfactor at cooltux.org
          $nextpage = intval($paged) + 1;
          if (!$max_page || $max_page >= $nextpage) {
              echo get_pagenum_link($nextpage);
-         }         
+         }
      }
 }
 

@@ -1,4 +1,43 @@
 <?php
+
+/*************************************************
+
+SteamPress - Blogging without the Dirt
+Author: SteamPress Development Team (developers@steampress.org)
+Copyright (c): 2005 SteamPress, all rights reserved
+
+    This file is part of SteamPress.
+
+    SteamPress is free software; you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation; either version 2 of the License, or
+    (at your option) any later version.
+
+    SteamPress is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with SteamPress; if not, write to the Free Software
+    Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+
+You may contact the authors of Snoopy by e-mail at:
+developers@steampress.org
+
+Or, write to:
+
+SteamPress Development Team
+c/o Samir M. Nassar
+2015 Central Ave. NE, #226
+Minneapolis, MN 55418
+USA
+
+The latest version of SteamPress can be obtained from:
+http://steampress.org/
+
+*************************************************/
+ 
 function get_the_author($idmode = '') {
     global $authordata;
     if (empty($idmode)) {
@@ -12,7 +51,7 @@ function get_the_author($idmode = '') {
     if ($idmode == 'namefl')    $id = $authordata->user_firstname.' '.$authordata->user_lastname;
     if ($idmode == 'namelf')    $id = $authordata->user_lastname.' '.$authordata->user_firstname;
     if (!$idmode) $id = $authordata->user_nickname;
-    
+
     return $id;
 }
 function the_author($idmode = '', $echo = true) {
@@ -126,7 +165,7 @@ function get_author_link($echo = false, $author_id, $author_nicename) {
 	global $wpdb, $wp_rewrite, $post, $cache_userdata;
     $auth_ID = $author_id;
     $link = $wp_rewrite->get_author_permastruct();
-    
+
     if (empty($link)) {
         $file = get_settings('home') . '/';
         $link = $file . '?author=' . $auth_ID;
@@ -166,7 +205,7 @@ function list_authors($optioncount = false, $exclude_admin = true, $show_fullnam
         if ($show_fullname && ($author->user_firstname != '' && $author->user_lastname != '')) {
             $name = "$author->user_firstname $author->user_lastname";
         }
-        
+
         if (! ($posts == 0 && $hide_empty)) echo "<li>";
         if ($posts == 0) {
             if ( !$hide_empty )
@@ -175,7 +214,7 @@ function list_authors($optioncount = false, $exclude_admin = true, $show_fullnam
             $link = '<a href="' . get_author_link(0, $author->ID, $author->user_nicename) . '" title="' . sprintf(__("Posts by %s"), wp_specialchars($author->user_nickname)) . '">' . $name . '</a>';
 
             if ( (! empty($feed_image)) || (! empty($feed)) ) {
-                
+
                 $link .= ' ';
 
                 if (empty($feed_image)) {
@@ -198,7 +237,7 @@ function list_authors($optioncount = false, $exclude_admin = true, $show_fullnam
                 } else {
                     $link .= $name;
                 }
-                
+
                 $link .= '</a>';
 
                 if (empty($feed_image)) {

@@ -1,5 +1,44 @@
 <?php
 
+/*************************************************
+
+SteamPress - Blogging without the Dirt
+Author: SteamPress Development Team (developers@steampress.org)
+Copyright (c): 2005 SteamPress, all rights reserved
+
+    This file is part of SteamPress.
+
+    SteamPress is free software; you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation; either version 2 of the License, or
+    (at your option) any later version.
+
+    SteamPress is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with SteamPress; if not, write to the Free Software
+    Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+
+You may contact the authors of Snoopy by e-mail at:
+developers@steampress.org
+
+Or, write to:
+
+SteamPress Development Team
+c/o Samir M. Nassar
+2015 Central Ave. NE, #226
+Minneapolis, MN 55418
+USA
+
+The latest version of SteamPress can be obtained from:
+http://steampress.org/
+
+*************************************************/
+ 
+
 /* Note: these tags go anywhere in the template */
 
 function get_header() {
@@ -44,7 +83,7 @@ function wp_register( $before = '<li>', $after = '</li>' ) {
 
 	if ('' == $user_ID && get_settings('users_can_register') ) :
 		$link = $before . '<a href="' . get_settings('siteurl') . '/wp-register.php">' . __('Register') . '</a>' . $after;
-	elseif ('' == $user_ID && !get_settings('users_can_register') ) : 
+	elseif ('' == $user_ID && !get_settings('users_can_register') ) :
 		$link = '';
 	else :
 		$link = $before . '<a href="' . get_settings('siteurl') . '/wp-admin/">' . __('Site Admin') . '</a>' . $after;
@@ -67,7 +106,7 @@ function get_bloginfo($show='') {
 
 	switch($show) {
 	case 'url' :
-	case 'home' : 
+	case 'home' :
 	case 'siteurl' :
 		$output = get_settings('home');
 		break;
@@ -88,7 +127,7 @@ function get_bloginfo($show='') {
 		break;
 	case 'atom_url':
 		$output = get_feed_link('atom');
-		break;        
+		break;
 	case 'comments_rss2_url':
 		$output = get_feed_link('comments_rss2');
 		break;
@@ -435,11 +474,11 @@ function get_calendar($daylength = 1) {
     }
 
     $myweek = array();
-	
+
     for ($wdcount=0; $wdcount<=6; $wdcount++) {
         $myweek[]=$weekday[($wdcount+$week_begins)%7];
     }
-	
+
     foreach ($myweek as $wd) {
         echo "\n\t\t<th abbr=\"$wd\" scope=\"col\" title=\"$wd\">" . $day_abbrev[$wd] . '</th>';
     }

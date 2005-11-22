@@ -1,5 +1,44 @@
 <?php
 
+/*************************************************
+
+SteamPress - Blogging without the Dirt
+Author: SteamPress Development Team (developers@steampress.org)
+Copyright (c): 2005 SteamPress, all rights reserved
+
+    This file is part of SteamPress.
+
+    SteamPress is free software; you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation; either version 2 of the License, or
+    (at your option) any later version.
+
+    SteamPress is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with SteamPress; if not, write to the Free Software
+    Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+
+You may contact the authors of Snoopy by e-mail at:
+developers@steampress.org
+
+Or, write to:
+
+SteamPress Development Team
+c/o Samir M. Nassar
+2015 Central Ave. NE, #226
+Minneapolis, MN 55418
+USA
+
+The latest version of SteamPress can be obtained from:
+http://steampress.org/
+
+*************************************************/
+ 
+
 function get_the_password_form() {
     $output = '<form action="' . get_settings('siteurl') . '/wp-pass.php" method="post">
     <p>' . __("This post is password protected. To view it please enter your password below:") . '</p>
@@ -37,7 +76,7 @@ function get_the_title($id = 0) {
 
 function get_the_guid( $id = 0 ) {
 	$post = &get_post($id);
-	
+
 	return apply_filters('get_the_guid', $post->guid);
 }
 
@@ -176,7 +215,7 @@ function link_pages($before='<br />', $after='<br />', $next_or_number='number',
 /*
  * Post-meta: Custom per-post fields.
  */
- 
+
 function get_post_custom( $post_id = 0 ) {
 	global $id, $post_meta_cache, $wpdb;
 	if ( $post_id )
@@ -185,20 +224,20 @@ function get_post_custom( $post_id = 0 ) {
 		return $post_meta_cache[$id];
 	} else {
 	if ( $meta_list = $wpdb->get_results("SELECT post_id, meta_key, meta_value FROM $wpdb->postmeta  WHERE post_id = '$id' ORDER BY post_id, meta_key", ARRAY_A) ) {
-		
+
 	// Change from flat structure to hierarchical:
 	$post_meta_cache = array();
 		foreach ($meta_list as $metarow) {
 			$mpid = $metarow['post_id'];
 			$mkey = $metarow['meta_key'];
 			$mval = $metarow['meta_value'];
-			
+
 			// Force subkeys to be array type:
 			if (!isset($post_meta_cache[$mpid]) || !is_array($post_meta_cache[$mpid]))
 			$post_meta_cache[$mpid] = array();
 			if (!isset($post_meta_cache[$mpid]["$mkey"]) || !is_array($post_meta_cache[$mpid]["$mkey"]))
 			$post_meta_cache[$mpid]["$mkey"] = array();
-			
+
 			// Add a value to the current pid/key:
 			$post_meta_cache[$mpid][$mkey][] = $mval;
 		}
@@ -209,7 +248,7 @@ function get_post_custom( $post_id = 0 ) {
 
 function get_post_custom_keys() {
 	global $id, $post_meta_cache;
-	
+
 	if (!is_array($post_meta_cache[$id]))
 		return;
 	if ($keys = array_keys($post_meta_cache[$id]))
@@ -224,7 +263,7 @@ function get_post_custom_values($key='') {
 
 function post_custom( $key = '' ) {
 	global $id, $post_meta_cache;
-	
+
 	if ( 1 == count($post_meta_cache[$id][$key]) ) return $post_meta_cache[$id][$key][0];
 	else return $post_meta_cache[$id][$key];
 }
@@ -232,13 +271,13 @@ function post_custom( $key = '' ) {
 // this will probably change at some point...
 function the_meta() {
 	global $id, $post_meta_cache;
-	
+
 	if ($keys = get_post_custom_keys()) {
 		echo "<ul class='post-meta'>\n";
 		foreach ($keys as $key) {
 			$values = array_map('trim',$post_meta_cache[$id][$key]);
 			$value = implode($values,', ');
-			
+
 			echo "<li><span class='post-meta-key'>$key:</span> $value</li>\n";
 		}
 		echo "</ul>\n";
@@ -313,7 +352,7 @@ function wp_list_pages($args = '') {
 	if ( !isset($r['child_of']) ) $r['child_of'] = 0;
 	if ( !isset($r['title_li']) ) $r['title_li'] = __('Pages');
 	if ( !isset($r['echo']) ) $r['echo'] = 1;
-	
+
 	$output = '';
 
 	// Query pages.
@@ -355,12 +394,12 @@ function wp_list_pages($args = '') {
 	if ( $r['title_li'] )
 		$output .= '</ul></li>';
 	endif;
-	
+
 	$output = apply_filters('wp_list_pages', $output);
-	
+
 	if ( $r['echo'] )
 		echo $output;
-	else 
+	else
 		return $output;
 }
 

@@ -1,5 +1,44 @@
 <?php
 
+/*************************************************
+
+SteamPress - Blogging without the Dirt
+Author: SteamPress Development Team (developers@steampress.org)
+Copyright (c): 2005 ispi, all rights reserved
+
+    This file is part of SteamPress.
+
+    SteamPress is free software; you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation; either version 2 of the License, or
+    (at your option) any later version.
+
+    SteamPress is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with SteamPress; if not, write to the Free Software
+    Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+
+You may contact the authors of Snoopy by e-mail at:
+developers@steampress.org
+
+Or, write to:
+
+SteamPress Development Team
+c/o Samir M. Nassar
+2015 Central Ave. NE, #226
+Minneapolis, MN 55418
+USA
+
+The latest version of SteamPress can be obtained from:
+http://steampress.org/
+
+*************************************************/
+ 
+
 // Template functions
 
 function comments_template( $file = '/comments.php' ) {
@@ -44,7 +83,7 @@ function get_comments_number( $comment_id ) {
 	$comment_id = (int) $comment_id;
 	if (!isset($comment_count_cache[$comment_id]))
 		$comment_count_cache[$comment_id] =  $wpdb->get_var("SELECT COUNT(*) FROM $wpdb->comments WHERE comment_post_ID = '$comment_id' AND comment_approved = '1'");
-	
+
 	return apply_filters('get_comments_number', $comment_count_cache[$comment_id]);
 }
 
@@ -156,7 +195,7 @@ function comment_author() {
 
 function get_comment_author_email() {
 	global $comment;
-	return apply_filters('get_comment_author_email', $comment->comment_author_email);	
+	return apply_filters('get_comment_author_email', $comment->comment_author_email);
 }
 
 function comment_author_email() {
@@ -321,7 +360,7 @@ function trackback_url( $display = true ) {
 function trackback_rdf($timezone = 0) {
 	global $id;
 	if (!stristr($_SERVER['HTTP_USER_AGENT'], 'W3C_Validator')) {
-	echo '<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" 
+	echo '<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
 	    xmlns:dc="http://purl.org/dc/elements/1.1/"
 	    xmlns:trackback="http://madskills.com/public/xml/rss/module/trackback/">
 		<rdf:Description rdf:about="';
@@ -346,7 +385,7 @@ function comments_open() {
 
 function pings_open() {
 	global $post;
-	if ( 'open' == $post->ping_status ) 
+	if ( 'open' == $post->ping_status )
 		return true;
 	else
 		return false;
@@ -428,7 +467,7 @@ function pingback($content, $post_ID) {
 	// Debug
 	debug_fwrite($log, 'Post contents:');
 	debug_fwrite($log, $content."\n");
-	
+
 	// Step 2.
 	// Walking thru the links array
 	// first we get rid of links pointing to sites, not to specific files
@@ -453,7 +492,7 @@ function pingback($content, $post_ID) {
 		$pingback_server_url = discover_pingback_server_uri($pagelinkedto, 2048);
 
 		if ($pingback_server_url) {
-                        set_time_limit( 60 ); 
+                        set_time_limit( 60 );
 			 // Now, the RPC call
 			debug_fwrite($log, "Page Linked To: $pagelinkedto \n");
 			debug_fwrite($log, 'Page Linked From: ');
@@ -467,7 +506,7 @@ function pingback($content, $post_ID) {
 
 			// when set to true, this outputs debug messages by itself
 			$client->debug = false;
-			
+
 			if ( $client->query('pingback.ping', array($pagelinkedfrom, $pagelinkedto) ) )
 				add_ping( $post_ID, $pagelinkedto );
 			else
@@ -589,7 +628,7 @@ function wp_set_comment_status($comment_id, $comment_status) {
 		default:
 			return false;
     }
-    
+
     if ($wpdb->query($query)) {
 		do_action('wp_set_comment_status', $comment_id, $comment_status);
 		return true;
@@ -601,7 +640,7 @@ function wp_set_comment_status($comment_id, $comment_status) {
 
 function wp_get_comment_status($comment_id) {
 	global $wpdb;
-	
+
 	$result = $wpdb->get_var("SELECT comment_approved FROM $wpdb->comments WHERE comment_ID='$comment_id' LIMIT 1");
 	if ($result == NULL) {
 		return 'deleted';
@@ -634,11 +673,11 @@ function check_comment($author, $email, $url, $comment, $user_ip, $user_agent, $
 			// Skip empty lines
 			if (empty($word)) { continue; }
 
-			// Do some escaping magic so that '#' chars in the 
+			// Do some escaping magic so that '#' chars in the
 			// spam words don't break things:
 			$word = preg_quote($word, '#');
-		
-			$pattern = "#$word#i"; 
+
+			$pattern = "#$word#i";
 			if ( preg_match($pattern, $author) ) return false;
 			if ( preg_match($pattern, $email) ) return false;
 			if ( preg_match($pattern, $url) ) return false;

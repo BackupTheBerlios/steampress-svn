@@ -1,5 +1,44 @@
 <?php
 
+/*************************************************
+
+SteamPress - Blogging without the Dirt
+Author: SteamPress Development Team (developers@steampress.org)
+Copyright (c): 2005 SteamPress, all rights reserved
+
+    This file is part of SteamPress.
+
+    SteamPress is free software; you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation; either version 2 of the License, or
+    (at your option) any later version.
+
+    SteamPress is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with SteamPress; if not, write to the Free Software
+    Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+
+You may contact the authors of Snoopy by e-mail at:
+developers@steampress.org
+
+Or, write to:
+
+SteamPress Development Team
+c/o Samir M. Nassar
+2015 Central Ave. NE, #226
+Minneapolis, MN 55418
+USA
+
+The latest version of SteamPress can be obtained from:
+http://steampress.org/
+
+*************************************************/
+ 
+
 /** function get_linksbyname()
  ** Gets the links associated with category 'cat_name'.
  ** Parameters:
@@ -198,27 +237,27 @@ function get_links($category = -1, $before = '', $after = '<br />',
     if (!$results) {
         return;
     }
-    
+
     $output = "";
-    
+
     foreach ($results as $row) {
 		if (!isset($row->recently_updated)) $row->recently_updated = false;
         $output .= ($before);
-        
+
         if ($show_updated && $row->recently_updated) {
             $output .= get_settings('links_recently_updated_prepend');
         }
-        
+
         $the_link = '#';
-        
+
         if ( !empty($row->link_url) )
             $the_link = wp_specialchars($row->link_url);
         $rel = $row->link_rel;
-        
+
         if ($rel != '') {
             $rel = " rel='$rel'";
         }
-        
+
         $desc = wp_specialchars($row->link_description, ENT_QUOTES);
         $name = wp_specialchars($row->link_name, ENT_QUOTES);
 
@@ -235,16 +274,16 @@ function get_links($category = -1, $before = '', $after = '<br />',
         }
 
         $alt = " alt='$name'";
-            
+
         $target = $row->link_target;
         if ('' != $target) {
             $target = " target='$target'";
         }
-        
+
         $output.= "<a href='$the_link'";
         $output.= $rel . $title . $target;
         $output.= '>';
-        
+
         if (($row->link_image != null) && $show_images) {
 			if (strstr($row->link_image, 'http'))
 				$output.= "<img src='$row->link_image' $alt $title />";
@@ -253,9 +292,9 @@ function get_links($category = -1, $before = '', $after = '<br />',
         } else {
             $output.= $name;
         }
-        
+
         $output.= '</a>';
-        
+
         if ($show_updated && $row->recently_updated) {
             $output.= get_settings('links_recently_updated_append');
         }
@@ -265,7 +304,7 @@ function get_links($category = -1, $before = '', $after = '<br />',
         }
         $output.= "$after\n";
     } // end while
-    
+
     if($echo) {
 	    echo $output;
 	} else {
@@ -530,10 +569,10 @@ function get_links_list($order = 'name', $hide_if_empty = 'obsolete') {
 	if (!isset($direction)) $direction = '';
 	// Fetch the link category data as an array of hashesa
 	$cats = $wpdb->get_results("
-		SELECT DISTINCT link_category, cat_name, show_images, 
-			show_description, show_rating, show_updated, sort_order, 
+		SELECT DISTINCT link_category, cat_name, show_images,
+			show_description, show_rating, show_updated, sort_order,
 			sort_desc, list_limit
-		FROM `$wpdb->links` 
+		FROM `$wpdb->links`
 		LEFT JOIN `$wpdb->linkcategories` ON (link_category = cat_id)
 		WHERE link_visible =  'Y'
 			AND list_limit <> 0

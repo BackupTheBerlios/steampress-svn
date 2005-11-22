@@ -1,5 +1,44 @@
 <?php
 
+/*************************************************
+
+SteamPress - Blogging without the Dirt
+Author: SteamPress Development Team (developers@steampress.org)
+Copyright (c): 2005 ispi, all rights reserved
+
+    This file is part of SteamPress.
+
+    SteamPress is free software; you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation; either version 2 of the License, or
+    (at your option) any later version.
+
+    SteamPress is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with SteamPress; if not, write to the Free Software
+    Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+
+You may contact the authors of Snoopy by e-mail at:
+developers@steampress.org
+
+Or, write to:
+
+SteamPress Development Team
+c/o Samir M. Nassar
+2015 Central Ave. NE, #226
+Minneapolis, MN 55418
+USA
+
+The latest version of SteamPress can be obtained from:
+http://steampress.org/
+
+*************************************************/
+ 
+
 function wptexturize($text) {
 	$output = '';
 	// Capture tags and everything inside them
@@ -32,7 +71,7 @@ function wptexturize($text) {
 			$curl = preg_replace("/'([\s.]|\Z)/", '&#8217;$1', $curl);
 			$curl = preg_replace("/ \(tm\)/i", ' &#8482;', $curl);
 			$curl = str_replace("''", '&#8221;', $curl);
-			
+
 			$curl = preg_replace('/(\d+)x(\d+)/', "$1&#215;$2", $curl);
 
 		} elseif (strstr($curl, '<code') || strstr($curl, '<pre') || strstr($curl, '<kbd' || strstr($curl, '<style') || strstr($curl, '<script'))) {
@@ -58,24 +97,24 @@ function wpautop($pee, $br = 1) {
 	$pee = $pee . "\n"; // just to make things a little easier, pad the end
 	$pee = preg_replace('|<br />\s*<br />|', "\n\n", $pee);
 	// Space things out a little
-	$pee = preg_replace('!(<(?:table|thead|tfoot|caption|colgroup|tbody|tr|td|th|div|dl|dd|dt|ul|ol|li|pre|select|form|blockquote|address|math|p|h[1-6])[^>]*>)!', "\n$1", $pee); 
+	$pee = preg_replace('!(<(?:table|thead|tfoot|caption|colgroup|tbody|tr|td|th|div|dl|dd|dt|ul|ol|li|pre|select|form|blockquote|address|math|p|h[1-6])[^>]*>)!', "\n$1", $pee);
 	$pee = preg_replace('!(</(?:table|thead|tfoot|caption|colgroup|tbody|tr|td|th|div|dl|dd|dt|ul|ol|li|pre|select|form|blockquote|address|math|p|h[1-6])>)!', "$1\n", $pee);
-	$pee = str_replace(array("\r\n", "\r"), "\n", $pee); // cross-platform newlines 
+	$pee = str_replace(array("\r\n", "\r"), "\n", $pee); // cross-platform newlines
 	$pee = preg_replace("/\n\n+/", "\n\n", $pee); // take care of duplicates
-	$pee = preg_replace('/\n?(.+?)(?:\n\s*\n|\z)/s', "\t<p>$1</p>\n", $pee); // make paragraphs, including one at the end 
-	$pee = preg_replace('|<p>\s*?</p>|', '', $pee); // under certain strange conditions it could create a P of entirely whitespace 
+	$pee = preg_replace('/\n?(.+?)(?:\n\s*\n|\z)/s', "\t<p>$1</p>\n", $pee); // make paragraphs, including one at the end
+	$pee = preg_replace('|<p>\s*?</p>|', '', $pee); // under certain strange conditions it could create a P of entirely whitespace
     $pee = preg_replace('!<p>\s*(</?(?:table|thead|tfoot|caption|colgroup|tbody|tr|td|th|div|dl|dd|dt|ul|ol|li|hr|pre|select|form|blockquote|address|math|p|h[1-6])[^>]*>)\s*</p>!', "$1", $pee); // don't pee all over a tag
 	$pee = preg_replace("|<p>(<li.+?)</p>|", "$1", $pee); // problem with nested lists
 	$pee = preg_replace('|<p><blockquote([^>]*)>|i', "<blockquote$1><p>", $pee);
 	$pee = str_replace('</blockquote></p>', '</p></blockquote>', $pee);
 	$pee = preg_replace('!<p>\s*(</?(?:table|thead|tfoot|caption|colgroup|tbody|tr|td|th|div|dl|dd|dt|ul|ol|li|hr|pre|select|form|blockquote|address|math|p|h[1-6])[^>]*>)!', "$1", $pee);
-	$pee = preg_replace('!(</?(?:table|thead|tfoot|caption|colgroup|tbody|tr|td|th|div|dl|dd|dt|ul|ol|li|pre|select|form|blockquote|address|math|p|h[1-6])[^>]*>)\s*</p>!', "$1", $pee); 
+	$pee = preg_replace('!(</?(?:table|thead|tfoot|caption|colgroup|tbody|tr|td|th|div|dl|dd|dt|ul|ol|li|pre|select|form|blockquote|address|math|p|h[1-6])[^>]*>)\s*</p>!', "$1", $pee);
 	if ($br) $pee = preg_replace('|(?<!<br />)\s*\n|', "<br />\n", $pee); // optionally make line breaks
 	$pee = preg_replace('!(</?(?:table|thead|tfoot|caption|tbody|tr|td|th|div|dl|dd|dt|ul|ol|li|pre|select|form|blockquote|address|math|p|h[1-6])[^>]*>)\s*<br />!', "$1", $pee);
 	$pee = preg_replace('!<br />(\s*</?(?:p|li|div|dl|dd|dt|th|pre|td|ul|ol)>)!', '$1', $pee);
 	$pee = preg_replace('!(<pre.*?>)(.*?)</pre>!ise', " stripslashes('$1') .  clean_pre('$2')  . '</pre>' ", $pee);
-	
-	return $pee; 
+
+	return $pee;
 }
 
 
@@ -109,21 +148,21 @@ function wp_specialchars( $text, $quotes = 0 ) {
 }
 
 function utf8_uri_encode( $utf8_string ) {
-  $unicode = '';        
+  $unicode = '';
   $values = array();
   $num_octets = 1;
-        
+
   for ($i = 0; $i < strlen( $utf8_string ); $i++ ) {
 
     $value = ord( $utf8_string[ $i ] );
-            
+
     if ( $value < 128 ) {
       $unicode .= chr($value);
     } else {
       if ( count( $values ) == 0 ) $num_octets = ( $value < 224 ) ? 2 : 3;
-                
+
       $values[] = $value;
-      
+
       if ( count( $values ) == $num_octets ) {
 	if ($num_octets == 3) {
 	  $unicode .= '%' . dechex($values[0]) . '%' . dechex($values[1]) . '%' . dechex($values[2]);
@@ -137,7 +176,7 @@ function utf8_uri_encode( $utf8_string ) {
     }
   }
 
-  return $unicode;    
+  return $unicode;
 }
 
 function remove_accents($string) {
@@ -239,7 +278,7 @@ function remove_accents($string) {
 		chr(197).chr(190) => 'z', chr(197).chr(191) => 's',
 		// Euro Sign
 		chr(226).chr(130).chr(172) => 'E');
-		
+
 		$string = strtr($string, $chars);
 	} else {
 		// Assume ISO-8859-1 if not UTF-8
@@ -303,7 +342,7 @@ function sanitize_title_with_dashes($title) {
 	return $title;
 }
 
-function convert_chars($content, $flag = 'obsolete') { 
+function convert_chars($content, $flag = 'obsolete') {
 	// Translation of invalid Unicode references range to valid range
 	$wp_htmltranswinuni = array(
 	'&#128;' => '&#8364;', // the Euro sign
@@ -360,26 +399,26 @@ function convert_chars($content, $flag = 'obsolete') {
 function funky_javascript_fix($text) {
 	// Fixes for browsers' javascript bugs
 	global $is_macIE, $is_winIE;
-	
+
 	if ( $is_winIE || $is_macIE )
 		$text =  preg_replace("/\%u([0-9A-F]{4,4})/e",  "'&#'.base_convert('\\1',16,10).';'", $text);
-	
+
 	return $text;
 }
 
 /*
  balanceTags
- 
+
  Balances Tags of string using a modified stack.
- 
+
  @param text      Text to be balanced
  @return          Returns balanced text
  @author          Leonard Lin (leonard@acm.org)
  @version         v1.1
  @date            November 4, 2001
  @license         GPL v2.0
- @notes           
- @changelog       
+ @notes
+ @changelog
  ---  Modified by Scott Reilly (coffee2code) 02 Aug 2004
              1.2  ***TODO*** Make better - change loop condition to $text
              1.1  Fixed handling of append/stack pop order of end text
@@ -387,7 +426,7 @@ function funky_javascript_fix($text) {
              1.0  First Version
 */
 function balanceTags($text, $is_comment = 0) {
-	
+
 	if (get_settings('use_balanceTags') == 0) {
 		return $text;
 	}
@@ -411,7 +450,7 @@ function balanceTags($text, $is_comment = 0) {
 		if ($regex[1][0] == "/") { // End Tag
 			$tag = strtolower(substr($regex[1],1));
 			// if too many closing tags
-			if($stacksize <= 0) { 
+			if($stacksize <= 0) {
 				$tag = '';
 				//or close to be safe $tag = '/' . $tag;
 			}
@@ -468,7 +507,7 @@ function balanceTags($text, $is_comment = 0) {
 		}
 		$newtext .= substr($text,0,$i) . $tag;
 		$text = substr($text,$i+$l);
-	}  
+	}
 
 	// Clear Tag Queue
 	$newtext .= $tagqueue;
@@ -679,7 +718,7 @@ function sanitize_email($email) {
 	return preg_replace('/[^a-z0-9+_.@-]/i', '', $email);
 }
 
-function human_time_diff( $from, $to = '' ) {     
+function human_time_diff( $from, $to = '' ) {
 	if ( empty($to) )
 		$to = time();
 	$diff = (int) abs($to - $from);
@@ -693,7 +732,7 @@ function human_time_diff( $from, $to = '' ) {
 		$hours = round($diff / 3600);
 		if ($hours <= 1)
 			$since = __('1 hour');
-		else 
+		else
 			$since = sprintf( __('%s hours'), $hours );
 	} elseif ($diff >= 86400) {
 		$days = round($diff / 86400);
