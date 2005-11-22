@@ -1,4 +1,43 @@
 <?php
+
+/*************************************************
+
+SteamPress - Blogging without the Dirt
+Author: SteamPress Development Team (developers@steampress.org)
+Copyright (c): 2005 ispi, all rights reserved
+
+    This file is part of SteamPress.
+
+    SteamPress is free software; you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation; either version 2 of the License, or
+    (at your option) any later version.
+
+    SteamPress is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with SteamPress; if not, write to the Free Software
+    Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+
+You may contact the authors of Snoopy by e-mail at:
+developers@steampress.org
+
+Or, write to:
+
+SteamPress Development Team
+c/o Samir M. Nassar
+2015 Central Ave. NE, #226
+Minneapolis, MN 55418
+USA
+
+The latest version of SteamPress can be obtained from:
+http://steampress.org/
+
+*************************************************/
+ 
 // This is an example of a very simple template
 require_once('./wp-blog-header.php');
 ?>
@@ -26,16 +65,12 @@ if (have_posts())
 <?php the_date('d.m.y', '<h2>','</h2>'); ?>
 	<h3 id="post-<?php the_ID(); ?>"><a href="<?php the_permalink() ?>" rel="bookmark" title="Permanent Link: <?php the_title(); ?>"><?php the_title(); ?></a></h3>
 
-<?php the_content(); ?>
-
-<?php link_pages('<br />Pages: ', '<br />', 'number') ?>
+<?php the_content();   link_pages('<br />Pages: ', '<br />', 'number') ?>
 
 	<p><em>Posted by <strong><?php the_author() ?></strong> @ <a href="<?php the_permalink() ?>"><?php the_time() ?></a></em></p>
 	<p>Filed under: <?php the_category(',') ?></p>
 
-<?php comments_popup_link('comments ?', '1 comment', '% comments') ?>
-
-<?php comments_template(); ?>
+<?php comments_popup_link('comments ?', '1 comment', '% comments')   comments_template(); ?>
 
 
 <!-- // this is just the end of the motor - don't touch that line either :) -->
